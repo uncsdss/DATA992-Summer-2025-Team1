@@ -21,7 +21,7 @@ Capstone project for Team 1 @ University of North Carolina's Master of Applied D
 
 ## Data Sources
 
-This project is based on the BlueXP-Automation GitHub repository, which can be found here: https://github.com/NetAppDocs/bluexp-automation 
+This project is based on NetApp's BlueXP-Automation GitHub repository, which can be found here: https://github.com/NetAppDocs/bluexp-automation 
 
 ## EDA 
 
