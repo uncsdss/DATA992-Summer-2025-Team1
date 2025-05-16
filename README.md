@@ -16,6 +16,10 @@ Stakeholders—including NetApp documentation teams, internal engineers, and ext
 
 ## Project Objectives:
 
+- Explore and analyze NetApp open-source documentation - beginning with the BlueXP-Automation API repository.
+- Employ NLP models to identify and extract key entities, concepts, and relationships within the textual content, enhancing the metadata with semantic tags and topic modeling results
+- Write a detailed report and an executive presentation discussing our findings, sharing our methodologies, and offering recommendations for further development.
+
 ## Contributors
 
 [Adam Green](https://www.linkedin.com/in/agreen01/) | [Hubert Hwang](https://www.linkedin.com/in/hubert-hwang-1280076a) | [Jimmy Kruse](https://www.linkedin.com/in/jimmy-kruse-a7a021122) | [Dorn Lee](https://www.linkedin.com/in/dorn-l-79b204a7/) | 
