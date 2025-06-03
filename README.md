@@ -84,69 +84,84 @@ Specific data of interest includes section titles, headers, code snippets, and d
 
 ## Literature Review
 
-Taxonomy and Its Role in Intelligent Search
+*Taxonomy and Its Role in Intelligent Search*
+<br>
 Deepika Bothra and Ayushi Gautam
 <br>
 https://www.searchunify.com/blog/taxonomy-and-its-role-in-intelligent-search/#:~:text=To%20save%20you%20from%20this,more%20relevant%20to%20the%20user
 
-BEIR: A Heterogeneous Benchmark for Zero-shot Evaluation of Information Retrieval Models
+*BEIR: A Heterogeneous Benchmark for Zero-shot Evaluation of Information Retrieval Models*
+<br>
 Nandan Thakur, Nils Reimers, Andreas Rücklé , Abhishek Srivastava, Iryna Gurevych
 <br>
 https://arxiv.org/pdf/2104.08663#:~:text=,12%5D%20have
 
-Hybrid Retrieval: Combining BERT and BM25 for Enhanced Performance
+*Hybrid Retrieval: Combining BERT and BM25 for Enhanced Performance*
+<br>
 Konstantin Bormotov
 <br>
 https://medium.com/@bormotovk/hybrid-retrieval-combining-bert-and-bm25-for-enhanced-performance-4f6f80881c13
 
-Unsupervised Document Expansion for Information Retrieval with Stochastic Text Generation
+*Unsupervised Document Expansion for Information Retrieval with Stochastic Text Generation*
+<br>
+Soyeong Jeong, Jinheon Baek, ChaeHun Park, Jong C. Park
 <br>
 https://aclanthology.org/2021.sdp-1.2/#:~:text=One%20of%20the%20challenges%20in,document%20pairs
-Soyeong Jeong, Jinheon Baek, ChaeHun Park, Jong C. Park
 
-Meta Knowledge for Retrieval Augmented Large Language Models
+
+
+*Meta Knowledge for Retrieval Augmented Large Language Models*
+<br>
 Laurent Mombaerts, Terry Ding, Florian Felice, Jonathan Taws, Adi Banerjee, Tarik Borogovac
 <br>
 https://arxiv.org/html/2408.09017v1#:~:text=and%20diverse%20set%20of%20documents,query%20augmentation
 
 
-Self-Supervised Query Reformulation for Code Search
+*Self-Supervised Query Reformulation for Code Search*
+<br>
 Yuetian Mao, Chengcheng Wan, Yuze Jiang, Xiaodong Gu
 <br>
 https://dl.acm.org/doi/10.1145/3611643.3616306
 
-Automatic query reformulation for code search using crowdsourced knowledge
+*Automatic query reformulation for code search using crowdsourced knowledge*
+<br>
 Mohammad Masudur Rahman, Chanchal Kumar Roy, David Lo
 <br>
 https://dl.acm.org/doi/abs/10.1007/s10664-018-9671-0#:~:text=,41%5D.%20Ponzanelli%20L
 
-Automated metadata annotation: What is and is not possible with machine learning. 
+*Automated metadata annotation: What is and is not possible with machine learning.*
+<br>
 Yi Gao, Jianxia Chen , Liang Xiao, Hongyang Wang, Liwei Pan, Xuan Wen, Zhiwei Ye, Xinyun Wu
 <br>
 http://direct.mit.edu/dint/article/5/3/786/114954/Adversarial-Neural-Collaborative-Filtering-with
 
-BERTopic: Neural topic modeling with a class-based TF-IDF procedure
+*BERTopic: Neural topic modeling with a class-based TF-IDF procedure*
+<br>
 Maarten Grootendorst
 <br>
 https://arxiv.org/abs/2203.05794
 
-Explore-Construct-Filter: An Automated Framework for Rich and Reliable API Knowledge Graphs
+*Explore-Construct-Filter: An Automated Framework for Rich and Reliable API Knowledge Graphs*
+<br>
 Yanbang Sun, Qing Huang, Xiaoxue Ren, Zhenchang Xing, Xiaohong Li, Junjie Wang
 <br>
 https://arxiv.org/abs/2502.13412
 
-Enhancing API Documentation through BERTopic Modeling and Summarization
+*Enhancing API Documentation through BERTopic Modeling and Summarization*
+<br>
 AmirHossein Naghshzan, Sylvie Ratt´
 <br>
 https://arxiv.org/abs/2308.09070
 
-Multimodal approach for metadata extraction from German scientific publications. 
+*Multimodal approach for metadata extraction from German scientific publications.*
+<br>
 Azeddine Bouabdallah, Jorge Gavilan, Jennifer Gerbl, Prayuth Patumcharoenpol
 <br>
 https://arxiv.org/abs/2111.05736
 
 
-OpenTag: Open attribute value extraction from product profiles.
+*OpenTag: Open attribute value extraction from product profiles.*
+<br>
 Guineng Zheng, Subhabrata Mukherjee, Xin Luna Dong, Feifei Li
 <br>
 https://dl.acm.org/doi/10.1145/3219819.3219839
