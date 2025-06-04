@@ -41,6 +41,7 @@ Specific data of interest includes section titles, headers, code snippets, and d
 ### Goal:
 - Create enriched or new metadata for improved search and classification.
 - Support semantic tag generation and topic modeling.
+- Incorporate novel methods and ideas
 
 
 ### Data Collection Methods
