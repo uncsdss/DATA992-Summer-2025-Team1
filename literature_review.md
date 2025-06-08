@@ -19,7 +19,7 @@ This literature review supports our project goal of enhancing document retrieval
   [Read more](https://neo4j.com/blog/developer/graph-metadata-filtering-vector-search-rag/)
 
 *→ For our project:*  
-These sources reinforce the need for structured tagging and taxonomy-based filters in our metadata schema. A controlled vocabulary for NetApp service names and document types can improve result relevance, while a graph-based system may help distinguish similar documents during retrieval.
+These sources reinforce the need for structured tagging and taxonomy-based filters in our metadata schema. A controlled vocabulary for NetApp service names and document types can improve result relevance, while a graph-based system may help distinguish similar documents during retrieval. Requires and understanding of documentation content to properly categorize and organize.
 
 ---
 
