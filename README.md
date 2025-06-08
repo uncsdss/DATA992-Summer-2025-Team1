@@ -85,7 +85,7 @@ Specific data of interest includes section titles, headers, code snippets, and d
 
 ## Literature Review
 
-Our literature review explores methods in intelligent search, metadata generation, hybrid retrieval, and topic modeling with a focus on GitHub-hosted API documentation. We examine techniques such as BERTopic, hybrid BERT/BM25 retrieval, knowledge graphs, and document expansion methods. These sources shape our strategy for improving search and classification within the NetApp documentation ecosystem.
+Our project explores NLP-based metadata generation to improve document retrieval from the NetApp BlueXP documentation set. The literature covers techniques in hybrid retrieval, taxonomy-driven metadata design, query reformulation, topic modeling, and automated tag evaluation. Together, these sources inform our approach of using BERT-based models (e.g., BERTopic, KeyBERT), LLM-driven summaries, and rule-based extraction to generate and validate metadata tags.
 
 See the [full literature review here](literature_review.md).
 
