@@ -1,6 +1,8 @@
-# Detailed Literature Review – NetApp BlueXP Automation Project
+# Detailed Literature Review – NetApp Documentation Metadata Project
 
 This literature review supports our project goal of enhancing document retrieval and classification within NetApp BlueXP documentation. We review key methods in taxonomy design, hybrid retrieval systems, metadata extraction, topic modeling, and code search enhancement.
+
+---
 
 ## 1. Taxonomy and Metadata Design
 
@@ -15,6 +17,11 @@ This literature review supports our project goal of enhancing document retrieval
 - **Graph Metadata Filtering for RAG** – Neo4j Blog  
   Discusses the value of knowledge graphs to constrain semantic search. Potentially useful to mitigate NetApp's overlapping documents.  
   [Read more](https://neo4j.com/blog/developer/graph-metadata-filtering-vector-search-rag/)
+
+*→ For our project:*  
+These sources reinforce the need for structured tagging and taxonomy-based filters in our metadata schema. A controlled vocabulary for NetApp service names and document types can improve result relevance, while a graph-based system may help distinguish similar documents during retrieval.
+
+---
 
 ## 2. Retrieval Models and Document Embeddings
 
@@ -34,6 +41,11 @@ This literature review supports our project goal of enhancing document retrieval
   Uses language models to generate synthetic content to reduce vocabulary mismatch. Potentially useful but risky for disambiguation.  
   [Read more](https://aclanthology.org/2021.sdp-1.2)
 
+*→ For our project:*  
+These papers support the use of hybrid retrieval strategies (BM25 + dense embeddings) in our pipeline. While dense models offer semantic strength, they may blur distinctions between highly similar NetApp documents. Query expansion or synthetic metadata could help, but must be applied cautiously to avoid making similar documents harder to differentiate.
+
+---
+
 ## 3. Topic Modeling and Semantic Tagging
 
 - **BERTopic** – Grootendorst  
@@ -47,6 +59,11 @@ This literature review supports our project goal of enhancing document retrieval
 - **Topic Modeling of Public Repos at Scale** – Markovtsev & Kant  
   Identifies duplicate GitHub repos using LSH. Relevant to NetApp’s issue of high overlap.  
   [Read more](https://arxiv.org/abs/1704.00135)
+
+*→ For our project:*  
+Topic modeling methods like BERTopic can help extract meaningful clusters and themes from NetApp documentation, especially for generating metadata tags. Additionally, duplicate detection methods like Locality Sensitive Hashing (LSH) may assist in filtering near-duplicate pages or files from affecting retrieval performance.
+
+---
 
 ## 4. Code Search and Developer Tools
 
@@ -67,6 +84,11 @@ This literature review supports our project goal of enhancing document retrieval
   Combines Stack Overflow insights with API docs to improve clarity and discoverability.  
   [Read more](https://dl.acm.org/doi/10.1145/2884781.2884800)
 
+*→ For our project:*  
+These tools and methods offer inspiration for improving developer documentation discoverability. Although they focus on code search, the principles of reformulating queries and integrating external discussion sources (e.g., Stack Overflow) could enhance BlueXP documentation by supporting context-aware tagging or QA generation.
+
+---
+
 ## 5. Metadata Extraction and Knowledge Graphs
 
 - **Explore-Construct-Filter: API Knowledge Graphs** – Sun et al.  
@@ -84,3 +106,8 @@ This literature review supports our project goal of enhancing document retrieval
 - **Rule-Based Extraction from PDFs**  
   Uses regex and Apache PDFBox to extract metadata from raw documents. Shows value of rule-based + ML hybrids.  
   [Read more](https://doi.org/10.24507/icicelb.12.02.121)
+
+*→ For our project:*  
+These studies inform how we might extract structured metadata from .adoc and related files. We may combine rule-based systems (e.g., regex or YAML parsing) with ML models to generate robust metadata fields such as service name, doc type, and topic.
+
+---
