@@ -24,10 +24,6 @@ This literature review supports our project goal of enhancing document retrieval
 
 ## 2. Retrieval Models and Document Expansion
 
-- **BEIR Benchmark** – Thakur et al.  
-  Provides a diverse benchmark for evaluating dense, sparse, and hybrid retrieval in zero-shot settings.  
-  [Link](https://arxiv.org/pdf/2104.08663)
-
 - **Hybrid Retrieval: Combining BM25 and BERT** – Bormotov  
   Smple score mixing can improve performance across retrieval tasks. Some optimized linear combination of the two methods produces better results than one or the other. 
   [Link](https://medium.com/@bormotovk/hybrid-retrieval...)
