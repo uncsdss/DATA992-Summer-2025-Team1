@@ -1,0 +1,159 @@
+query,expected_url
+legal notices,https://docs.netapp.com/us-en/bluexp-automation/legal-notices.html
+blogs,https://docs.netapp.com/us-en/bluexp-automation/automate/blogs.html
+overview,https://docs.netapp.com/us-en/bluexp-automation/automate/overview.html
+api reference,https://docs.netapp.com/us-en/bluexp-automation/cm/api_reference.html
+api ref definitions,https://docs.netapp.com/us-en/bluexp-automation/cm/api_ref_definitions.html
+api ref resources,https://docs.netapp.com/us-en/bluexp-automation/cm/api_ref_resources.html
+cvo deployment,https://docs.netapp.com/us-en/bluexp-automation/cm/cvo_deployment.html
+overview,https://docs.netapp.com/us-en/bluexp-automation/cm/overview.html
+prepare,https://docs.netapp.com/us-en/bluexp-automation/cm/prepare.html
+security,https://docs.netapp.com/us-en/bluexp-automation/cm/security.html
+wf aws cloud add capacity,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_aws_cloud_add_capacity.html
+wf aws cloud create we byol,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_aws_cloud_create_we_byol.html
+wf aws cloud create we capacity,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_aws_cloud_create_we_capacity.html
+wf aws cloud create we paygo,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_aws_cloud_create_we_paygo.html
+wf aws cloud delete we,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_aws_cloud_delete_we.html
+wf aws cloud get wes,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_aws_cloud_get_wes.html
+wf aws cloud md create account,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_aws_cloud_md_create_account.html
+wf aws cloud md get ebs vol types,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_aws_cloud_md_get_ebs_vol_types.html
+wf aws cloud md get key pairs,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_aws_cloud_md_get_key_pairs.html
+wf aws cloud md get packages,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_aws_cloud_md_get_packages.html
+wf aws cloud md get permutations,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_aws_cloud_md_get_permutations.html
+wf aws cloud md get regions,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_aws_cloud_md_get_regions.html
+wf aws cloud md get route tables,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_aws_cloud_md_get_route_tables.html
+wf aws cloud md get vpcs,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_aws_cloud_md_get_vpcs.html
+wf aws ontap add disks aggr,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_aws_ontap_add_disks_aggr.html
+wf aws ontap create aggr,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_aws_ontap_create_aggr.html
+wf aws ontap create cifs,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_aws_ontap_create_cifs.html
+wf aws ontap create quote,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_aws_ontap_create_quote.html
+wf aws ontap create vol cifs,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_aws_ontap_create_vol_cifs.html
+wf aws ontap create vol iscsi,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_aws_ontap_create_vol_iscsi.html
+wf aws ontap create vol nfs,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_aws_ontap_create_vol_nfs.html
+wf aws ontap delete aggr,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_aws_ontap_delete_aggr.html
+wf aws ontap delete cifs,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_aws_ontap_delete_cifs.html
+wf aws ontap delete volume,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_aws_ontap_delete_volume.html
+wf aws ontap get aggrs,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_aws_ontap_get_aggrs.html
+wf aws ontap get cifs,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_aws_ontap_get_cifs.html
+wf aws ontap get igroups,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_aws_ontap_get_igroups.html
+wf aws ontap get volumes,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_aws_ontap_get_volumes.html
+wf aws ontap modify volume,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_aws_ontap_modify_volume.html
+wf azuregcp ontap create aggr,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_azure_ontap_create_aggr.html
+wf azure cloud create we byol,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_azure_cloud_create_we_byol.html
+wf azure cloud create we capacity,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_azure_cloud_create_we_capacity.html
+wf azure cloud create we paygo,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_azure_cloud_create_we_paygo.html
+wf azure cloud delete we,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_azure_cloud_delete_we.html
+wf azure cloud get wes,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_azure_cloud_get_wes.html
+wf azure cloud md create account,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_azure_cloud_md_create_account.html
+wf azure cloud md get availability zones,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_azure_cloud_md_get_availability_zones.html
+wf azure cloud md get packages,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_azure_cloud_md_get_packages.html
+wf azure cloud md get permutations,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_azure_cloud_md_get_permutations.html
+wf azure cloud md get regions,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_azure_cloud_md_get_regions.html
+wf azure cloud md get storage account types,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_azure_cloud_md_get_storage_account_types.html
+wf azure cloud md get vnets,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_azure_cloud_md_get_vnets.html
+wf azure ontap add disks aggr,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_azure_ontap_add_disks_aggr.html
+wf azure ontap create aggr,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_azure_ontap_create_aggr.html
+wf azure ontap create cifs,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_azure_ontap_create_cifs.html
+wf azure ontap create quote,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_azure_ontap_create_quote.html
+wf azure ontap create vol cifs,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_azure_ontap_create_vol_cifs.html
+wf azure ontap create vol iscsi,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_azure_ontap_create_vol_iscsi.html
+wf azure ontap create vol nfs,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_azure_ontap_create_vol_nfs.html
+wf azure ontap delete aggr,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_azure_ontap_delete_aggr.html
+wf azure ontap delete cifs,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_azure_ontap_delete_cifs.html
+wf azure ontap delete volume,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_azure_ontap_delete_volume.html
+wf azure ontap get aggrs,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_azure_ontap_get_aggrs.html
+wf azure ontap get cifs,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_azure_ontap_get_cifs.html
+wf azure ontap get igroups,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_azure_ontap_get_igroups.html
+wf azure ontap get volumes,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_azure_ontap_get_volumes.html
+wf azure ontap modify volume,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_azure_ontap_modify_volume.html
+wf common before,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_common_before.html
+wf common identity create nss key,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_common_identity_create_nss_key.html
+wf common identity delete nss key,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_common_identity_delete_nss_key.html
+wf common identity get accounts,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_common_identity_get_accounts.html
+wf common identity get nss key,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_common_identity_get_nss_key.html
+wf common identity get nss keys,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_common_identity_get_nss_keys.html
+wf common identity get provider accounts,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_common_identity_get_provider_accounts.html
+wf common identity get saas mp,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_common_identity_get_saas_mp.html
+wf common identity get supported srv,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_common_identity_get_supported_srv.html
+wf common identity get tenants,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_common_identity_get_tenants.html
+wf common occm attach subscription,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_common_occm_attach_subscription.html
+wf common occm get task,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_common_occm_get_task.html
+wf common ontap md get snapmirror policies,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_common_ontap_md_get_snapmirror_policies.html
+wf common ontap md get snapmirror svm policies,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_common_ontap_md_get_snapmirror_svm_policies.html
+wf common ontap repl create repl,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_common_ontap_repl_create_repl.html
+wf common ontap repl delete repl,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_common_ontap_repl_delete_repl.html
+wf common ontap repl get ic lifs,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_common_ontap_repl_get_ic_lifs.html
+wf common ontap repl get rel status,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_common_ontap_repl_get_rel_status.html
+wf common ontap repl get rel we status,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_common_ontap_repl_get_rel_we_status.html
+wf common ontap repl get sm rels,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_common_ontap_repl_get_sm_rels.html
+wf common ontap repl get we schedules,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_common_ontap_repl_get_we_schedules.html
+wf common ontap repl update repl,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_common_ontap_repl_update_repl.html
+wf cvo before,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_cvo_before.html
+wf gcp cloud create we byol,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_gcp_cloud_create_we_byol.html
+wf gcp cloud create we capacity,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_gcp_cloud_create_we_capacity.html
+wf gcp cloud create we paygo,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_gcp_cloud_create_we_paygo.html
+wf gcp cloud delete we,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_gcp_cloud_delete_we.html
+wf gcp cloud get wes,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_gcp_cloud_get_wes.html
+wf gcp cloud md create buckets,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_gcp_cloud_md_create_buckets.html
+wf gcp cloud md get buckets,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_gcp_cloud_md_get_buckets.html
+wf gcp cloud md get disk types,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_gcp_cloud_md_get_disk_types.html
+wf gcp cloud md get encryption keys,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_gcp_cloud_md_get_encryption_keys.html
+wf gcp cloud md get instance type nosupport,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_gcp_cloud_md_get_instance_type_nosupport.html
+wf gcp cloud md get network requirements,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_azure_cloud_md_get_network_requirements.html
+wf gcp cloud md get packages,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_gcp_cloud_md_get_packages.html
+wf gcp cloud md get permutations,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_gcp_cloud_md_get_permutations.html
+wf gcp cloud md get projects,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_gcp_cloud_md_get_projects.html
+wf gcp cloud md get regions,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_gcp_cloud_md_get_regions.html
+wf gcp cloud md get service accounts,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_gcp_cloud_md_get_service_accounts.html
+wf gcp cloud md get supported features,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_gcp_cloud_md_get_supported_features.html
+wf gcp cloud md get supported tiers,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_gcp_cloud_md_get_supported_tiers.html
+wf gcp cloud md get tag keys,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_gcp_cloud_md_get_tag_keys.html
+wf gcp cloud md get vpcs,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_gcp_cloud_md_get_vpcs.html
+wf gcp cloud md get zones,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_gcp_cloud_md_get_zones.html
+wf gcp cloud md snapshot policies,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_gcp_cloud_md_snapshot_policies.html
+wf gcp ontap add disks aggr,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_gcp_ontap_add_disks_aggr.html
+wf gcp ontap create aggr,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_gcp_ontap_create_aggr.html
+wf gcp ontap create cifs,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_gcp_ontap_create_cifs.html
+wf gcp ontap create quote,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_gcp_ontap_create_quote.html
+wf gcp ontap create vol cifs,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_gcp_ontap_create_vol_cifs.html
+wf gcp ontap create vol iscsi,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_gcp_ontap_create_vol_iscsi.html
+wf gcp ontap create vol nfs,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_gcp_ontap_create_vol_nfs.html
+wf gcp ontap delete aggr,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_gcp_ontap_delete_aggr.html
+wf gcp ontap delete cifs,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_gcp_ontap_delete_cifs.html
+wf gcp ontap delete volume,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_gcp_ontap_delete_volume.html
+wf gcp ontap get aggrs,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_gcp_ontap_get_aggrs.html
+wf gcp ontap get cifs,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_gcp_ontap_get_cifs.html
+wf gcp ontap get igroups,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_gcp_ontap_get_igroups.html
+wf gcp ontap get volumes,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_gcp_ontap_get_volumes.html
+wf gcp ontap modify volume,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_gcp_ontap_modify_volume.html
+wf onprem before,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_onprem_before.html
+wf onprem discover wes,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_onprem_discover_wes.html
+wf onprem flexgroup ontap create vol,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_onprem_flexgroup_ontap_create_vol.html
+wf onprem get wes,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_onprem_get_wes.html
+wf onprem ontap create vol cifs,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_onprem_ontap_create_vol_cifs.html
+wf onprem ontap create vol iscsi,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_onprem_ontap_create_vol_iscsi.html
+wf onprem ontap create vol nfs,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_onprem_ontap_create_vol_nfs.html
+wf onprem ontap delete volume,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_onprem_ontap_delete_volume.html
+wf onprem ontap get aggrs,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_onprem_ontap_get_aggrs.html
+wf onprem ontap get cifs,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_onprem_ontap_get_cifs.html
+wf onprem ontap get volumes,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_onprem_ontap_get_volumes.html
+wf onprem ontap modify volume,https://docs.netapp.com/us-en/bluexp-automation/cm/wf_onprem_ontap_modify_volume.html
+workflow processes,https://docs.netapp.com/us-en/bluexp-automation/cm/workflow_processes.html
+your api call,https://docs.netapp.com/us-en/bluexp-automation/cm/your_api_call.html
+aa concepts,https://docs.netapp.com/us-en/bluexp-automation/platform/aa_concepts.html
+additional considerations,https://docs.netapp.com/us-en/bluexp-automation/platform/additional_considerations.html
+api explorer,https://docs.netapp.com/us-en/bluexp-automation/platform/api_explorer.html
+concepts,https://docs.netapp.com/us-en/bluexp-automation/platform/concepts.html
+connectors clients,https://docs.netapp.com/us-en/bluexp-automation/platform/connectors_clients.html
+create service token,https://docs.netapp.com/us-en/bluexp-automation/platform/create_service_token.html
+create user token,https://docs.netapp.com/us-en/bluexp-automation/platform/create_user_token.html
+get identifiers,https://docs.netapp.com/us-en/bluexp-automation/platform/get_identifiers.html
+get nss key,https://docs.netapp.com/us-en/bluexp-automation/platform/get_nss_key.html
+grant types,https://docs.netapp.com/us-en/bluexp-automation/platform/grant_types.html
+http details,https://docs.netapp.com/us-en/bluexp-automation/platform/http_details.html
+overview,https://docs.netapp.com/us-en/bluexp-automation/platform/overview.html
+register service,https://docs.netapp.com/us-en/bluexp-automation/platform/register_service.html
+user access tokens,https://docs.netapp.com/us-en/bluexp-automation/platform/user_access_tokens.html
+use rest apis,https://docs.netapp.com/us-en/bluexp-automation/platform/use_rest_apis.html
+workflows tasks,https://docs.netapp.com/us-en/bluexp-automation/platform/workflows_tasks.html
+additional resources,https://docs.netapp.com/us-en/bluexp-automation/support/additional_resources.html
