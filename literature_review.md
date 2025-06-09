@@ -58,7 +58,7 @@ This literature review supports our project goal of enhancing document retrieval
   Applies large-scale topic modeling across GitHub and addresses duplicate detection using LSH.  
   [Link](https://arxiv.org/abs/1704.00135)
 
-→ *For our project:* BERTopic is central to our metadata generation pipeline. We may also explore duplicate mitigation strategies like Locality Sensitive Hashing to help distinguish highly similar documentation in BlueXP.
+→ *For our project:* BERTopic is central to our metadata generation pipeline. We may also explore duplicate mitigation strategies like LSH to help distinguish highly similar documentation in BlueXP.
 
 ---
 
