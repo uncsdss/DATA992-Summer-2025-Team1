@@ -1,13 +1,13 @@
-# Detailed Literature Review – NetApp Documentation Metadata Project
+# Detailed Literature Review – NetApp Documentation Metadata Augmentation
 
-This literature review supports our project goal of enhancing document retrieval and classification within NetApp BlueXP documentation. We review methods in taxonomy design, metadata extraction, query reformulation, topic modeling, and retrieval evaluation to inform our metadata generation and search improvement strategies.
+This literature review supports our project goal of enhancing document retrieval and classification within the NetAp documentation. We review methods in taxonomy design, metadata extraction, query reformulation, topic modeling, and retrieval evaluation to inform our metadata generation and search improvement strategies.
 
 ---
 
 ## 1. Taxonomy and Metadata Design
 
 - **Taxonomy and Its Role in Intelligent Search** – Bothra & Gautam  
-  Advocates the use of taxonomies and controlled vocabularies for improved content filtering and discoverability.  
+  Advocates the use of taxonomies and controlled vocabularies for improved content filtering and discoverability. Requires understanding the content of the documents well and probably human input. 
   [Link](https://www.searchunify.com/blog/taxonomy-and-its-role-in-intelligent-search)
 
 - **Automated Metadata Annotation** – Gao et al.  
@@ -15,10 +15,10 @@ This literature review supports our project goal of enhancing document retrieval
   [Link](http://direct.mit.edu/dint/article/5/3/786/114954)
 
 - **Graph Metadata Filtering for RAG** – Neo4j Developer Blog  
-  Introduces metadata filtering using structured graph representations to support guided, disambiguated search.  
+  Introduces metadata filtering using structured graph representations to support guided, disambiguatemd search.  
   [Link](https://neo4j.com/blog/developer/graph-metadata-filtering-vector-search-rag/)
 
-→ *For our project:* These sources emphasize building a structured metadata layer for BlueXP docs. Incorporating taxonomies (e.g., service name, feature type) and graph metadata will help mitigate confusion from similar document titles or overlapping content.
+→ *For our project:* These sources emphasize building a structured metadata layer for NetApp docs. Incorporating taxonomies (ervice name, feature type) and graph metadata will help mitigate confusion from similar document titles or overlapping content. Right now there is not structure like this in the existing documentation metadata. Would only become applicable moving beyond just the Bluexp documents.
 
 ---
 
@@ -29,25 +29,25 @@ This literature review supports our project goal of enhancing document retrieval
   [Link](https://arxiv.org/pdf/2104.08663)
 
 - **Hybrid Retrieval: Combining BM25 and BERT** – Bormotov  
-  Shows that simple score mixing can improve performance across retrieval tasks.  
+  Smple score mixing can improve performance across retrieval tasks. Some optimized linear combination of the two methods produces better results than one or the other. 
   [Link](https://medium.com/@bormotovk/hybrid-retrieval...)
 
 - **Meta Knowledge for RAG** – Mombaerts et al.  
-  Describes using LLMs to build summaries and Q&A clusters for improved retrieval and user intent understanding.  
+  Describes using LLMs to build summaries and Q&A clusters for improved retrieval and user intent understanding. Adding 'query space' to each document.
   [Link](https://arxiv.org/html/2408.09017v1)
 
 - **UDEG: Unsupervised Document Expansion** – Jeong et al.  
-  Explores supplementing documents with LLM-generated sentences to improve coverage of relevant terms.  
+  Explores supplementing documents with LLM-generated sentences to improve coverage of relevant terms. 
   [Link](https://aclanthology.org/2021.sdp-1.2)
 
-→ *For our project:* These inform our consideration of hybrid retrieval models and potential use of LLM-generated summaries or Q&A as enriched metadata to improve document ranking and recall in the face of vague user queries.
+→ *For our project:* These can help us explore the use of hybrid retrieval models and potential use of LLM-generated summaries or Q&A as enriched metadata to improve document ranking and recall in vague or variable user queries.
 
 ---
 
 ## 3. Topic Modeling and Semantic Tagging
 
 - **BERTopic** – Grootendorst  
-  A BERT-based topic model using class-based TF-IDF for clean, interpretable topics.  
+  A BERT-based topic model using class-based TF-IDF for clean interpretable topics.  
   [Link](https://arxiv.org/abs/2203.05794)
 
 - **BERTopic for API Docs** – Naghshzan & Ratté  
