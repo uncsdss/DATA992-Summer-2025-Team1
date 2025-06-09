@@ -26,7 +26,7 @@ This literature review supports our project goal of enhancing document retrieval
 
 - **Hybrid Retrieval: Combining BM25 and BERT** – Bormotov  
   Smple score mixing can improve performance across retrieval tasks. Some optimized linear combination of the two methods produces better results than one or the other. 
-  [Link](https://medium.com/@bormotovk/hybrid-retrieval...)
+  [Link](https://medium.com/@bormotovk/hybrid-retrieval-combining-bert-and-bm25-for-enhanced-performance-4f6f80881c13)
 
 - **Meta Knowledge for RAG** – Mombaerts et al.  
   Describes using LLMs to build summaries and Q&A clusters for improved retrieval and user intent understanding. Adding 'query space' to each document.
