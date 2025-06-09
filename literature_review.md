@@ -76,10 +76,6 @@ This literature review supports our project goal of enhancing document retrieval
   Improves on DeepCS using self-attention for more efficient and accurate code search.  
   [Link](https://www.sciencedirect.com/science/article/abs/pii/S0950584921000288)
 
-- **Augmenting API Docs with Stack Overflow** – Treude & Robillard  
-  Demonstrates augmenting documentation with external Q&A to improve discoverability.  
-  [Link](https://dl.acm.org/doi/10.1145/2884781.2884800)
-
 → *For our project:* These methods support ideas for query evaluation and rewriting, which we may simulate via synthetic user queries. They also highlight the role of combining internal docs with external discussions or reformulated phrasing to improve access to relevant documentation.
 
 ---
