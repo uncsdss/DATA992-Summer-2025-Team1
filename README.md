@@ -32,8 +32,119 @@ Stakeholders—including NetApp documentation teams, internal engineers, and ext
 
 This project is based on NetApp's BlueXP-Automation GitHub repository, which can be found here: https://github.com/NetAppDocs/bluexp-automation 
 
+##   Project Plan
+
+
+---
+
+###  Scope
+
+Utilizing NLP techniques, generate enriched metadata tags to augment existing search retrieval processes and improve returned results, including both the total number of relevant documents and the highest quality (highest relevance) documentation.
+
+---
+
+###  Methodology
+
+- Extract repository(ies) text to be analyzed utilizing Python methods.
+- Conduct data preprocessing to ensure a clean training/evaluation dataset. The dataset preprocessing includes:
+  - Parsing the YAML front-matter to use as higher priority
+  - Removing empty lines (whitespace)
+  - Removing Ascii markup and comments
+  - Removing stop-words
+  - Converting all text to lower-case
+  - Tokenizing the cleaned text for model training
+- Generate metadata tags utilizing NLP techniques, such as BERT-based models, including KeyBERT and LLM-generated tags.
+  - Metadata tag generation approaches being explored include:
+    - BERTopic Modeling with RAKE & TF-IDF
+    - Fine-tuned T5 model with KeyBERT and a secondary grading model for tag quality evaluation
+    - LLM-augmented generation
+- Build and integrate a secondary **grading model** to evaluate the relevance of generated tags to document content.
+  - Grading model assigns a score to the relevancy of the generated tag (from the first model) and classifies it as relevant (1) or not (0).
+- Test project methodology via user-defined querying and comparing returned NetApp documentation.
+
+---
+
+###  Roles
+
+| Member        | Role             | Duties                                                                 |
+|---------------|------------------|------------------------------------------------------------------------|
+| Adam Green    | Data Engineer    | Ensure GitHub repo is updated, consolidate models, refactor code       |
+| Dorn Lee      | Project Manager  | Communicate with stakeholders, organize meetings, manage team tasks    |
+| Jimmy Kruse   | ML Developer     | Build and evaluate models (BERT, LLM, Grading)                         |
+| Hubert Hwang  | Lead Researcher  | Provide a list of candidate models/techniques for the group            |
+
+---
+
+###  Schedule & Milestones
+
+####  Sprint 3 Release (June 22)
+- Access zipped GitHub repo for `.adoc` files
+- Review literature for modeling techniques
+- Explore BERT, LLM, and grading models
+- Begin testing to establish a baseline
+- Generate metadata tags using NLP
+- Perform EDA analysis
+- Formulate Project Plan
+
+####  Group Status Report (June 27)
+- Report team progress to stakeholders
+- Share model testing results
+- Present short- and long-term goals
+- Discuss issues and blockers
+
+####  Sprint 4 Release (July 6)
+- Evaluate techniques:
+  - KeyBERT + cosine similarity
+  - KeyBERT + nearest neighbor
+  - KeyBERT + T5
+  - BERTopic with RAKE & TF-IDF
+  - LLM augmentation
+- Compare and optimize models
+
+####  Data Visualization (July 14)
+- Visualize data summary and stats
+- Present the metadata tag pipeline
+- Show model performance
+- Analyze terminology in tags
+
+####  Sprint 5 Release (July 20)
+- Final testing and evaluation
+- Identify best-performing models
+- Finalize visualizations and insights
+- Summarize key findings
+- Prepare final presentation
+
+####  Data Analysis (July 21)
+- Techniques: BERT, LLM, Grading, KeyBERT, etc.
+- Evaluate tag relevance
+- Score the tags with the grading model
+
+####  Final Presentation (July 23)
+- Dynamic visuals
+- Summary of findings
+- Key achievements and insights
+- Recommendations
+- Dashboard demo
+
+---
+
+###  Challenges
+
+- Queries may lack context or be overly brief (e.g., one-word queries)
+- Similar content across `.adoc` files causes retrieval conflicts
+- No stakeholder-defined test plan or benchmark exists for comparison
+- Lack of performance baseline from NetApp’s current metadata system
+
+---
+
+
+
+
+
+
+
+
 ## Data Plan
-Data Needed and Purpose
 
 We intend to focus on the .adoc (AsciiDoc) files from the NetAppDocs/bluexp-automation GitHub repository. Additional files json, yml, and yaml will be explored. 
 Specific data of interest includes section titles, headers, code snippets, and descriptive text from documentation; Explore raw and cleaned text content for model training.
