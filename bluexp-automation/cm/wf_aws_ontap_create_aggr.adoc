@@ -1,0 +1,194 @@
+---
+sidebar: sidebar
+permalink: cm/wf_aws_ontap_create_aggr.html
+keywords: cloud, manager, rest, api, aggregate, publicid, working, environment, aws
+summary: 'You can create a new aggregate within a working environment.'
+---
+
+= Create an aggregate
+:hardbreaks:
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+:tabs:
+
+[.lead]
+You can create a new aggregate within a working environment using this workflow. Choose the workflow to use based on the type of Cloud Volumes ONTAP deployment:
+
+* <<Create aggregate for a single node, Single Node>>
+* <<Create aggregate for high availability pair, HA pair>>
+
+== Create aggregate for single node
+You can use this workflow to create an aggregate for a single node working environment.
+
+=== Step 1. Select the working environment to use
+
+Perform the workflow link:wf_aws_cloud_get_wes.html#get-working-environments-for-single-node[Get working environments] and choose the `publicId` value for the `workingEnvironmentId` parameter.
+
+=== Step 2. Create the aggregate
+
+You can issue the REST API call to create an aggregate.
+
+.HTTP method and endpoint
+
+This REST API call uses the following method and endpoint.
+
+[cols="25,75"*,options="header"]
+|===
+|HTTP method
+|Path
+|POST
+|occm/api/vsa/aggregates
+|===
+
+.Curl example
+[source,curl]
+curl --request POST \ 
+--location "https://api.bluexp.netapp.com/occm/api/vsa/aggregates" \
+--header "Content-Type: application/json"  \
+--header "x-agent-id: <AGENT_ID>" \
+--header "Authorization: Bearer <ACCESS_TOKEN>" \
+--d @JSONinput
+
+.Additional input parameters
+
+The JSON input example includes the minimum list of input parameters. You can choose to create an aggregate with Elastic Volumes enabled. 
+
+[role="tabbed-block"]
+====
+.Enable Elastic Volumes aggregates
+--
+[source,json]
+{
+  "name": "ziv01agg04",
+  "workingEnvironmentId": "VsaWorkingEnvironment-9e6p8LuF",
+  "initialEvAggregateSize": {
+    "size": 0,
+    "unit": "GB"
+  },
+  "numberOfDisks": null,
+  "diskSize": {
+    "size": 0,
+    "unit": "GB"
+  },
+  "providerVolumeType": "gp2"
+}
+
+Required parameter::
+
+`initialEvAggregateSize` This field must be provided to create a new aggregate with Elastic Volumes enabled.
+
+Optional parameters::
+`numberOfDisks` This field must be kept empty when creating an aggregate with Elastic Volumes enabled.
+`diskSize` This field must be kept empty when creating an aggregate with Elastic Volumes enabled.
+--
+.Disable Elastic Volumes aggregates
+--
+[source,json]
+{
+  "name": "ziv01agg04",
+  "workingEnvironmentId": "VsaWorkingEnvironment-9e6p8LuF",
+  "numberOfDisks": null,
+  "diskSize": {
+    "size": 0,
+    "unit": "GB"
+  },
+  "providerVolumeType": "gp2"
+}
+
+--
+====
+
+.Output
+
+None
+
+== Create aggregate for high availability pair
+You can use this workflow to create an aggregate for an HA working environment.
+
+=== Step 1. Select the working environment to use
+
+Perform the workflow link:wf_aws_cloud_get_wes.html#get-working-environment-for-high-availability-pair[Get working environments] and choose the `publicId` value for the `workingEnvironmentId` parameter.
+
+=== Step 2. Create the aggregate
+
+You can issue the REST API call to create an aggregate.
+
+.HTTP method and endpoint
+
+This REST API call uses the following method and endpoint.
+
+[cols="25,75"*,options="header"]
+|===
+|HTTP method
+|Path
+|POST
+|occm/api/aws/ha/aggregates
+|===
+
+.Curl example
+[source,curl]
+curl --request POST \
+--location "https://api.bluexp.netapp.com/occm/api/aws/ha/aggregates" \
+--header "Content-Type: application/json" \
+--header "x-agent-id: <AGENT_ID>" \
+--header "Authorization: Bearer <ACCESS_TOKEN>" \
+--d @JSONinput
+
+
+.Additional input parameters
+
+The JSON input example includes the minimum list of input parameters. You can choose to create an aggregate with Elastic Volumes enabled. 
+
+.JSON input example
+[role="tabbed-block"]
+====
+.Enable Elastic Volume aggregates
+--
+[source,json]
+{
+  "name": "ziv01agg04",
+  "workingEnvironmentId": "VsaWorkingEnvironment-9e6p8LuF",
+  "initialEvAggregateSize": {
+    "size": 0,
+    "unit": "GB"
+  },
+  "numberOfDisks": null,
+  "diskSize": {
+    "size": 0,
+    "unit": "GB"
+  },
+  "providerVolumeType": "gp2"
+}
+
+Required parameter::
+
+`initialEvAggregateSize` This field must be provided to create a new aggregate with Elastic Volumes enabled.
+
+Optional parameters::
+`numberOfDisks` This field must be kept empty when creating an aggregate with Elastic Volumes enabled.
+`diskSize` This field must be kept empty when creating an aggregate with Elastic Volumes enabled.
+
+--
+
+.Disable Elastic Volume aggregates
+--
+[source,json]
+{
+  "name": "ziv01agg04",
+  "workingEnvironmentId": "VsaWorkingEnvironment-9e6p8LuF",
+  "numberOfDisks": null,
+  "diskSize": {
+    "size": 0,
+    "unit": "GB"
+  },
+  "providerVolumeType": "gp2"
+}
+
+--
+====
+
+.Output
+
+None

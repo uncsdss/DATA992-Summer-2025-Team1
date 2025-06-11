@@ -1,0 +1,140 @@
+---
+sidebar: sidebar
+permalink: cm/wf_common_ontap_md_get_snapmirror_svm_policies.html
+keywords: snapmirror, policies, bluexp, rest, api
+summary: "You can use this workflow to retrieve the SnapMirror policies based on the source and destination Cloud Volume ONTAP instances."
+---
+
+= Get the SnapMirror SVM policies
+:hardbreaks:
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+You can use this workflow to retrieve the SnapMirror policies (owned by cluster admin SVM) based on the source and destination Cloud Volume ONTAP instances.
+
+== Step 1. Select the working environment to use
+
+
+Perform the workflow link:wf_aws_cloud_get_wes.html[Get working environments] and choose the `publicId` values of the required source and destination path parameters. Choose the `svmName` of the destination working environment for the  `destinationSvmName` path parameter.
+
+== Step 2. Get the SnapMirror policies
+
+[cols="25,75"*,options="header"]
+|===
+|HTTP method
+|Path
+|GET
+|/occm/api/replication/metadata/snapmirror-svm-policies/{workingEnvironmentId}/{destinationSvmName}/{destinationworkingEnvironmentId}
+|===
+
+.Curl example
+[source,curl]
+curl --request GET \
+--location "https://api.bluexp.netapp.com/occm/api/replication/metadata/snapmirror-svm-policies/<WORKING_ENV_ID>/<DEST_SVM_NAME>/<DEST_WORKING_ENV_ID>" \
+--header "x-agent-id: <AGENT_ID>" \
+--header "Authorization: Bearer <ACCESS_TOKEN>" \
+--header "Content-Type: application/json"
+
+.Additional input parameters
+
+The JSON input example includes the minimum list of parameters.
+
+[cols="25,25, 25, 45"*,options="header"]
+|===
+|Parameter
+|Type
+|Required
+|Description
+|<DEST_SVM_NAME> `destinationSvmName` |Path |Yes |Identifies the destination SVM name
+|`workingEnvironmentId` <WORKING_ENV_ID> |Path |Yes |Identifies the working environment ID
+|<DEST_WORKING_ENV_ID> `destinationworkingEnvironmentId` |Path |Yes |Identifies the destination working environment
+|===
+
+
+.JSON Output example
+
+The JSON output example includes the list of SnapMirror policies.
+
+.Example output
+----
+[
+    {
+        "name": "MirrorAnd7YearsBackup",
+        "comment": "A unified Asynchronous SnapMirror and SnapVault policy for mirroring the latest active file system and daily and weekly and monthly Snapshot copies.",
+        "policyType": "mirror_vault",
+        "rules": [
+            {
+                "snapMirrorLabel": "sm_created",
+                "retention": 1
+            },
+            {
+                "snapMirrorLabel": "daily",
+                "retention": 7
+            },
+            {
+                "snapMirrorLabel": "weekly",
+                "retention": 5
+            },
+            {
+                "snapMirrorLabel": "monthly",
+                "retention": 84
+            }
+        ],
+        "isDefault": false,
+        "isSupported": true,
+        "reason": null
+    },
+    {
+        "name": "MirrorAndMonthlyBackup",
+        "comment": "A unified Asynchronous SnapMirror and SnapVault policy for mirroring the latest active file system and daily and weekly Snapshot copies.",
+        "policyType": "mirror_vault",
+        "rules": [
+            {
+                "snapMirrorLabel": "sm_created",
+                "retention": 1
+            },
+            {
+                "snapMirrorLabel": "daily",
+                "retention": 7
+            },
+            {
+                "snapMirrorLabel": "weekly",
+                "retention": 5
+            }
+        ],
+        "isDefault": true,
+        "isSupported": true,
+        "reason": null
+    },
+    {
+        "name": "MirrorAndYearlyBackup",
+        "comment": "A unified Asynchronous SnapMirror and SnapVault policy for mirroring the latest active file system and daily and weekly and monthly Snapshot copies.",
+        "policyType": "mirror_vault",
+        "rules": [
+            {
+                "snapMirrorLabel": "sm_created",
+                "retention": 1
+            },
+            {
+                "snapMirrorLabel": "daily",
+                "retention": 7
+            },
+            {
+                "snapMirrorLabel": "weekly",
+                "retention": 5
+            },
+            {
+                "snapMirrorLabel": "monthly",
+                "retention": 12
+            }
+        ],
+        "isDefault": false,
+        "isSupported": true,
+        "reason": null
+    }
+]
+
+----

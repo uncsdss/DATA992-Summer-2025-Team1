@@ -1,0 +1,112 @@
+---
+sidebar: sidebar
+permalink: cm/wf_onprem_ontap_get_aggrs.html
+keywords: cloud, manager, rest, api, get aggregates
+summary: 'You can retrieve a list of available disk aggregates.'
+---
+
+= Get aggregates
+:hardbreaks:
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+You can retrieve a list of available disk aggregates.
+
+== Step 1. Select the working environment to use
+
+Perform the workflow link:wf_onprem_get_wes.html[Get working environments] and choose the `publicId` value of the working environment for the `workingEnvironmentId` path parameter.
+
+== Step 2. Get a list of aggregates
+
+You can issue a REST API call to retrieve a list of aggregates.
+
+.HTTP method and endpoint
+
+This REST API call uses the following method and endpoint.
+
+[cols="25,75"*,options="header"]
+|===
+|HTTP method
+|Path
+|GET
+|/occm/api/onprem/aggregates/{workingEnvironmentId}
+|===
+
+.Curl example
+[source,curl]
+curl --request GET \
+--location "https://api.bluexp.netapp.com/occm/api/onprem/aggregates?workingEnvironmentId=<ONPREM_WORKING_ENV_ID>" \
+--header "Content-Type: application/json" \
+--header "x-agent-id: <AGENT_ID>" \
+--header "Authorization: Bearer <ACCESS_TOKEN>"
+
+.Additional input parameters
+
+The JSON input example includes the minimum list of parameters.
+
+[cols="25,25, 25, 45"*,options="header"]
+|===
+|Parameter
+|Type
+|Required
+|Description
+|`workingEnvironmentId` <WORKING_ENV_ID> |Path |Yes |Identifies the working environment ID
+|===
+
+
+.JSON output example
+
+An array of aggregates for the indicated working environment is returned as shown in the JSON output example.
+
+.Example output
+----
+[
+  {
+    "name": "aggr2",
+    "totalCapacity": {
+      "size": 47xxxxxx,
+      "unit": "Byte"
+    },
+    "availableCapacity": {
+      "size": 4754xxxxxxxxx,
+      "unit": "Byte"
+    },
+    "state": "online",
+    "isInactiveDataReportingEnabled": false,
+    "isObjectStoreAttachEligible": true,
+    "objectStoreName": null,
+    "usedCapacity": {
+      "size": 1166xxxx,
+      "unit": "Byte"
+    },
+    "tieringRestriction": null,
+    "availabilityState": null
+  },
+  {
+    "name": "aggr1",
+    "totalCapacity": {
+      "size": 47560xxxxx,
+      "unit": "Byte"
+    },
+    "availableCapacity": {
+      "size": 474521083904,
+      "unit": "Byte"
+    },
+    "state": "online",
+    "isInactiveDataReportingEnabled": false,
+    "isObjectStoreAttachEligible": false,
+    "objectStoreName": "StorageAccount",
+    "usedCapacity": {
+      "size": 1086xxxxxx,
+      "unit": "Byte"
+    },
+    "tieringRestriction": null,
+    "availabilityState": "available"
+  }
+]
+----
+
+

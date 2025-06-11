@@ -1,0 +1,105 @@
+---
+sidebar: sidebar
+permalink: cm/wf_common_ontap_repl_get_ic_lifs.html
+keywords: bluexp, rest, api
+summary: "You can use this workflow to retrieve the intercluster LIFs used in a cluster peering relationship."
+---
+
+= Get the intercluster LIFs
+:hardbreaks:
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+You can use this workflow to retrieve the intercluster LIFs used in a cluster peering relationship.
+
+[NOTE]
+This workflow varies slightly depending on the cloud provider you are using.
+
+== Step 1. Select the working environment
+
+Based on the cloud provider, you need to perform the corresponding workflow to retrieve the identifier of the working environment.
+
+[role="tabbed-block"]
+====
+.AWS
+--
+Perform the workflow link:wf_aws_cloud_get_wes.html[Get AWS working environments] and choose the `publicId` values for the working environment query parameters.
+--
+.Azure
+--
+Perform the workflow link:wf_azure_cloud_get_wes.html[Get Azure working environments] and choose the `publicId` values for the working environment query parameters.
+--
+.Google cloud
+--
+Perform the workflow link:wf_gcp_cloud_get_wes.html[Get Google Cloud working environments] and choose the `publicId` values for the working environment query parameters.
+--
+====
+
+== Step 2. Get the intercluster LIFs
+
+You can issue the REST API call to get the intercluster LIFs.
+
+.HTTP method and endpoint
+
+This REST API call uses the following method and endpoint.
+
+
+[cols="25,75"*,options="header"]
+|===
+|HTTP method
+|Path
+|GET
+|/occm/api/replication/intercluster-lifs
+|===
+
+.Curl example
+[source,curl]
+curl --request GET \
+--location "https://api.bluexp.netapp.com/occm/api/replication/interclusterlifs?workingEnvironmentId=<WORKING_ENV_ID>&peerWorkingEnvironmentId=<WORKING_ENV_ID>" \
+--header "Content-Type: application/json" \
+--header "x-agent-id: <AGENT_ID>" \
+--header "Authorization: Bearer <ACCESS_TOKEN>"
+
+.Additional input parameters
+
+The JSON input example includes the minimum list of parameters.
+
+Query parameters:
+
+* <WORKING_ENV_ID> `(workingEnvironmentId)`
+* <WORKING_ENV_ID> `(peerWorkingEnvironmentId)`
+
+.JSON Output example
+
+The JSON output example includes the list of LIFs.
+
+.Example output
+----
+{
+    "interClusterLifs": [
+        {
+            "name": "intercluster",
+            "address": "10.138.0.154",
+            "netmaskLength": 32,
+            "port": "e0a",
+            "node": "zivgcp01we03-01",
+            "status": "up",
+            "isPeered": true
+        }
+    ],
+    "peerInterClusterLifs": [
+        {
+            "name": "intercluster",
+            "address": "10.138.0.147",
+            "netmaskLength": 32,
+            "port": "e0a",
+            "node": "zivgcp01we02-01",
+            "status": "up",
+            "isPeered": true
+        }
+    ]
+}
+----

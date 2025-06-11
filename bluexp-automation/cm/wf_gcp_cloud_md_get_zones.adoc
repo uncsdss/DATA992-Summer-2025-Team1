@@ -1,0 +1,96 @@
+---
+sidebar: sidebar
+permalink: cm/wf_gcp_cloud_md_get_zones.html
+keywords: permutations, cloud, volumes, ontap, working, environment, occm
+summary: You can perform this workflow to retrieve the Google Cloud regions and zones
+---
+
+= Get zones
+:hardbreaks:
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+You can perform this workflow to retrieve the Google Cloud regions and zones over which a Cloud Volumes ONTAP working environment might be created.
+[NOTE]
+This workflow is applicable only for an HA working environment.
+
+== Step 1. Select the project
+Perform the workflow link:wf_gcp_cloud_md_get_projects.html[Get projects] and choose `projectId` value of the required project for `projectId` query parameter.
+
+== Step 2. Get the zones
+
+.HTTP method and endpoint
+
+This REST API call uses the following method and endpoint.
+
+
+[cols="25,75"*,options="header"]
+|===
+|HTTP method
+|Path
+|GET
+|/occm/api/gcp/ha/metadata/zones
+|===
+
+.Curl example
+[source,curl]
+curl --request GET \
+--location "https://api.bluexp.netapp.com/occm/api/gcp/ha/metadata/zones?project=<PROJECT_ID>" \
+--header "x-agent-id: <AGENT_ID>" \
+--header "Authorization: Bearer <ACCESS_TOKEN>" \
+--header "Content-Type: application/json"
+
+.Additional input parameters
+
+The JSON input example includes the minimum list of parameters.
+
+
+Query parameter:
+
+* <PROJECT_ID> `projectId` string
+
+
+.Output
+
+The JSON output example includes the list of Google Cloud regions and zones.
+
+.JSON output example
+----
+[
+    {
+        "displayName": "asia-east1",
+        "name": "asia-east1",
+        "location": "Changhua County, Taiwan",
+        "zones": [
+            {
+                "name": "asia-east1-a"
+            },
+            {
+                "name": "asia-east1-b"
+            },
+            {
+                "name": "asia-east1-c"
+            }
+        ]
+    },
+    {
+        "displayName": "asia-east2",
+        "name": "asia-east2",
+        "location": "Hong Kong",
+        "zones": [
+            {
+                "name": "asia-east2-c"
+            },
+            {
+                "name": "asia-east2-b"
+            },
+            {
+                "name": "asia-east2-a"
+            }
+        ]
+    }
+]
+----

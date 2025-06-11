@@ -1,0 +1,46 @@
+---
+sidebar: sidebar
+permalink: platform/get_nss_key.html
+keywords: nss, credentials, key, bluexp, rest, api, nss, credential
+summary: 'You can sign in to the BlueXP web user interface to retrieve the NetApp Support Site credentials key.'
+---
+
+= Generate an NSS user ID
+:hardbreaks:
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+You can create a NetApp Support Site user ID through the BlueXP web web UI. This ID is included when creating a BlueXP working environment.
+
+.About this task
+
+Registering support site credentials with BlueXP and creating an NSS ID enables several features, including subscription to the Cloud Volumes ONTAP system, upgrade of the Cloud Volumes ONTAP software to the latest release, and predictive analytics. For information about related NSS administrative tasks, see link:https://docs.netapp.com/us-en/occm/task_adding_nss_accounts.html[Manage NSS credentials^].
+
+.Before you begin
+
+You must have a BlueXP account. You normally create this account when first signing in to BlueXP website and it's displayed at the top of the web user interface. 
+
+.Steps
+
+. Navigate to the BlueXP website using a browser:
++
+https://console.bluexp.netapp.com
+
+. Sign in using your BlueXP account credentials.
+
+. Select the *?* icon at the top right of the page and select *Support*.
+
+. Navigate to the *NSS Management* tab and click *Add NSS Account*.
+
+. When prompted, click *Continue* which redirects you to a Microsoft login page.
++
+NetApp uses Microsoft Azure Active Directory as the identity provider for authentication services specific to support and licensing.
+
+. Provide the NSS email address and password. After successful authentication, you will be redirected to the BlueXP page and an NSS user ID will be automatically generated.
+
+.After you finish
+
+You can use the generated NSS user ID when creating a working environment with your preferred licensing model and cloud provider. The NSS user ID is *required* with BYOL licensing and *optional* for the PAYGO subscription.

@@ -1,0 +1,67 @@
+---
+sidebar: sidebar
+permalink: cm/wf_common_occm_attach_subscription.html
+keywords: saas, subscription, cloud, manager, rest, api
+summary: "You can use this workflow to attach a BlueXP SaaS subscription to a cloud provider account."
+---
+
+= Attach SaaS subscription
+:hardbreaks:
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+You can use this workflow to attach a BlueXP SaaS subscription to a cloud provider account.
+
+== Step 1. Select the cloud provider path parameter
+
+Select the cloud provider from the list of allowed values below. You will use this value as the _provider_ path parameter in the curl example in step 4.
+
+* aws
+* azure
+* gcp
+
+== Step 2. Determine the account identifier path parameter
+
+Perform the workflow link:wf_common_identity_get_provider_accounts.html[Get cloud provider accounts] and choose the `accountId` value for the account.
+
+== Step 3. Get the SaaS marketplace account
+
+Perform the workflow link:wf_common_identity_get_saas_mp.html[Get SaaS marketplace account] and choose the `id` value for the `subscriptionId` parameter.
+
+== Step 4. Attach the subscription
+
+You can issue the REST API call to attach the subscription.
+
+[cols="25,75"*,options="header"]
+|===
+|HTTP method
+|Resource path
+|POST
+|/occm/api/occm/saas-mp-service/attach-subscription/{provider}/{cloudAccountId}
+|===
+
+.Curl example
+[source,curl]
+curl --request PUT
+--location "https://api.bluexp.netapp.com/occm/api/occm/saas-mp-service/attach-subscription/<PROVIDER>/<CLOUD_ACC_ID>" 
+--header "x-agent-id: <AGENT_ID>" 
+--header "Authorization: Bearer <ACCESS_TOKEN>" 
+--header "Content-Type: application/json" 
+--d @JSONinput
+
+.Input parameters
+
+The JSON input example includes the input parameter.
+
+.JSON input example
+[source,json]
+{
+  "subscriptionId": "gcp-saasMpIntegrationProductId-saasMpCustomerIdentifier0"
+}
+
+.Output
+
+None

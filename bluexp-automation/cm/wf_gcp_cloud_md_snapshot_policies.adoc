@@ -1,0 +1,143 @@
+---
+sidebar: sidebar
+permalink: cm/wf_gcp_cloud_md_snapshot_policies.html
+keywords: buckets, cloud, volumes, ontap, working, environment, occm
+summary: You can perform this workflow to retrieve the default snapshot policies available on the cluster.
+---
+
+= Get Snapshot policies
+:hardbreaks:
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+You can perform this workflow to retrieve the default snapshot policies available on the cluster.
+
+Choose the workflow to use based on the type of Cloud Volumes ONTAP deployment:
+
+* <<Get Snapshot policies for single node, Single Node>>
+* <<Get Snapshot policies for high availability pair, HA pair>>
+
+== Get Snapshot policies for single node
+You can use this workflow to retrieve the Snapshot policies in a single node working environment.
+
+.HTTP method and endpoint
+
+This REST API call uses the following method and endpoint.
+
+
+[cols="25,75"*,options="header"]
+|===
+|HTTP method
+|Path
+|GET
+|/occm/api/gcp/vsa/metadata/default-snapshot-policies
+|===
+
+.Curl example
+[source,curl]
+curl --request GET \
+--location "https://api.bluexp.netapp.com/occm/api/gcp/vsa/metadata/default-snapshot-policies" \
+--header "x-agent-id: <AGENT_ID>" \
+--header "Authorization: Bearer <ACCESS_TOKEN>" \
+--header "Content-Type: application/json"
+
+.Additional input parameters
+
+None
+
+.Output
+
+The JSON output example includes the list of default snapshot policies available on the cluster.
+
+.JSON output example
+----
+[
+    {
+        "name": "default",
+        "schedules": [
+            {
+                "frequency": "hourly",
+                "retention": 6
+            },
+            {
+                "frequency": "daily",
+                "retention": 2
+            },
+            {
+                "frequency": "weekly",
+                "retention": 2
+            }
+        ],
+        "description": "Default policy with hourly, daily & weekly schedules."
+    },
+    {
+        "name": "none",
+        "schedules": [],
+        "description": "Policy for no automatic snapshots."
+    }
+]
+----
+
+== Get Snapshot policies for high availability pair
+You can use this workflow to retrieve the Snapshot policies in an HA working environment.
+
+.HTTP method and endpoint
+
+This REST API call uses the following method and endpoint.
+
+
+[cols="25,75"*,options="header"]
+|===
+|HTTP method
+|Path
+|GET
+|/occm/api/gcp/ha/metadata/default-snapshot-policies
+|===
+
+.Curl example
+[source,curl]
+curl --request GET \
+--location  "https://api.bluexp.netapp.com/occm/api/gcp/ha/metadata/default-snapshot-policies" \
+--header "x-agent-id: <AGENT_ID>" \
+--header "Authorization: Bearer <ACCESS_TOKEN>" \
+--header "Content-Type: application/json"
+
+.Additional input parameters
+
+None
+
+.Output
+
+The JSON output example includes the list of default snapshot policies available on the cluster.
+
+.JSON output example
+----
+[
+    {
+        "name": "default",
+        "schedules": [
+            {
+                "frequency": "hourly",
+                "retention": 6
+            },
+            {
+                "frequency": "daily",
+                "retention": 2
+            },
+            {
+                "frequency": "weekly",
+                "retention": 2
+            }
+        ],
+        "description": "Default policy with hourly, daily & weekly schedules."
+    },
+    {
+        "name": "none",
+        "schedules": [],
+        "description": "Policy for no automatic snapshots."
+    }
+]
+----

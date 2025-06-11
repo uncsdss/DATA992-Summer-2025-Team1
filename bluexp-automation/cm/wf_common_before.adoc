@@ -1,0 +1,45 @@
+---
+sidebar: sidebar
+permalink: cm/wf_common_before.html
+keywords: public, cloud, common, workflow, rest, api, BlueXP
+summary: 'There are several common workflows you can use with any of the public cloud providers.'
+---
+
+= Before you begin
+:hardbreaks:
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+There are several common workflows you can use with any of the public cloud providers or ONTAP on-premises clusters.
+
+[NOTE]
+Review the link:overview.html[Get started] section before using any of the REST API workflows.
+
+== Workflow categories
+The common workflows are organized into the following functional categories:
+
+Identity and access::
+These workflows are typically used to obtain an access token to identify the API caller and manage authorized access to the resources.
+
+SaaS marketplace::
+These workflows allow you to manage the subscription of a cloud provider account. You can attach a BlueXP SaaS subscription to the cloud provider account or retrieve a list of subscriptions.
+
+NetApp Support site::
+You can perform specific workflows to manage the NSS keys as part of registering a BlueXP REST resource for support. Specific NSS keys or all of the available keys can be retrieved. You can also create or delete an NSS key if needed.
+
+Internal task::
+You can use these workflows to retrieve the information and status of a background task.
+
+SnapMirror Replication::
+These workflows allow you to manage and monitor SnapMirror relationships to replicate data between source and destination working environments. This supports disaster recovery and backup which optimizes data availability.
+
+== Connector setup
+
+You must have a Connector for the cloud provider or on-premises environment before creating a working environment and performing other activities using the workflows. You can create a Connector using the BlueXP web UI. When you create a Connector, BlueXP adds the cloud provider account that you deployed the Connector in to your list of available accounts. Your cloud provider account needs to have the right permissions in order to create a Connector.
+
+Review https://docs.netapp.com/us-en/occm/concept_connectors.html[Learn about Connectors^] to know how to create and deploy a Connector.
+
+

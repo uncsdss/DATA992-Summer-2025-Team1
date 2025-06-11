@@ -1,0 +1,258 @@
+---
+sidebar: sidebar
+permalink: cm/wf_azure_cloud_md_get_packages.html
+keywords: permutations, cloud, volumes, ontap, working, environment, occm
+summary: You can perform this workflow to retrieve the pre-defined packages configuration.
+---
+
+= Get Azure packages
+:hardbreaks:
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+You can perform this workflow to retrieve the pre-defined packages configuration.
+
+Choose the workflow to use based on the type of Cloud Volumes ONTAP deployment:
+
+* <<Get packages for single node, Single Node>>
+* <<Get packages for high availability pair, HA pair>>
+
+== Get packages for single node
+You can use this workflow to retrieve the packages information for a single node working environment.
+
+.HTTP method and endpoint
+
+This REST API call uses the following method and endpoint.
+
+[cols="25,75"*,options="header"]
+|===
+|HTTP method
+|Path
+|GET
+|/occm/api/azure/vsa/metadata/packages
+|===
+
+.Curl example
+[source,curl]
+curl --request GET \
+--location "https://api.bluexp.netapp.com/occm/api/azure/vsa/metadata/packages" \
+--header "x-agent-id: <AGENT_ID>" \
+--header "Authorization: Bearer <ACCESS_TOKEN>" \
+--header "Content-Type: application/json"
+
+.Additional input parameters
+
+None
+
+.Output
+
+The JSON output example includes the packages information.
+
+.JSON output example
+----
+[
+    {
+        "name": "azure_poc",
+        "displayName": "POC and small workloads",
+        "description": "No description yet",
+        "licenseType": "azure-cot-explore-paygo",
+        "instanceTypeMapping": [
+            {
+                "region": "default",
+                "instanceType": "Standard_DS3_v2"
+            }
+        ],
+        "diskType": "Premium_LRS",
+        "diskSize": {
+            "size": 100.0,
+            "unit": "GB"
+        },
+        "capacityTier": null,
+        "instanceTenancy": null,
+        "writingSpeedState": "NORMAL"
+    },
+    {
+        "name": "azure_standard",
+        "displayName": "Database and application data production workloads",
+        "description": "No description yet",
+        "licenseType": "azure-cot-standard-paygo",
+        "instanceTypeMapping": [
+            {
+                "region": "default",
+                "instanceType": "Standard_DS4_v2"
+            }
+        ],
+        "diskType": "Premium_LRS",
+        "diskSize": {
+            "size": 100.0,
+            "unit": "GB"
+        },
+        "capacityTier": null,
+        "instanceTenancy": null,
+        "writingSpeedState": "NORMAL"
+    },
+    {
+        "name": "azure_dr",
+        "displayName": "Cost effective DR",
+        "description": "No description yet",
+        "licenseType": "azure-cot-standard-paygo",
+        "instanceTypeMapping": [
+            {
+                "region": "default",
+                "instanceType": "Standard_DS4_v2"
+            }
+        ],
+        "diskType": "Standard_LRS",
+        "diskSize": {
+            "size": 100.0,
+            "unit": "GB"
+        },
+        "capacityTier": null,
+        "instanceTenancy": null,
+        "writingSpeedState": "NORMAL"
+    },
+    {
+        "name": "azure_fastest",
+        "displayName": "Highest performance production workloads",
+        "description": "No description yet",
+        "licenseType": "azure-cot-premium-paygo",
+        "instanceTypeMapping": [
+            {
+                "region": "default",
+                "instanceType": "Standard_DS5_v2"
+            }
+        ],
+        "diskType": "Premium_LRS",
+        "diskSize": {
+            "size": 100.0,
+            "unit": "GB"
+        },
+        "capacityTier": null,
+        "instanceTenancy": null,
+        "writingSpeedState": "NORMAL"
+    }
+]
+----
+
+== Get packages for high availability pair
+
+You can use this workflow to retrieve the packages information for an HA working environment.
+
+.HTTP method and endpoint
+
+This REST API call uses the following method and endpoint.
+
+[cols="25,75"*,options="header"]
+|===
+|HTTP method
+|Path
+|GET
+|/occm/api/azure/ha/metadata/packages
+|===
+
+.Curl example
+[source,curl]
+curl --request GET
+--location "https://api.bluexp.netapp.com/occm/api/azure/ha/metadata/packages" 
+--header "x-agent-id: <AGENT_ID>" 
+--header "Authorization: Bearer <ACCESS_TOKEN>" 
+--header "Content-Type: application/json"
+
+.Additional input parameters
+
+None
+
+.Output
+
+The JSON output example includes the packages information.
+
+.JSON output example
+----
+[
+    {
+        "name": "azure_poc",
+        "displayName": "POC and small workloads",
+        "description": "No description yet",
+        "licenseType": "azure-cot-explore-paygo",
+        "instanceTypeMapping": [
+            {
+                "region": "default",
+                "instanceType": "Standard_DS3_v2"
+            }
+        ],
+        "diskType": "Premium_LRS",
+        "diskSize": {
+            "size": 100.0,
+            "unit": "GB"
+        },
+        "capacityTier": null,
+        "instanceTenancy": null,
+        "writingSpeedState": "NORMAL"
+    },
+    {
+        "name": "azure_standard",
+        "displayName": "Database and application data production workloads",
+        "description": "No description yet",
+        "licenseType": "azure-cot-standard-paygo",
+        "instanceTypeMapping": [
+            {
+                "region": "default",
+                "instanceType": "Standard_DS4_v2"
+            }
+        ],
+        "diskType": "Premium_LRS",
+        "diskSize": {
+            "size": 100.0,
+            "unit": "GB"
+        },
+        "capacityTier": null,
+        "instanceTenancy": null,
+        "writingSpeedState": "NORMAL"
+    },
+    {
+        "name": "azure_dr",
+        "displayName": "Cost effective DR",
+        "description": "No description yet",
+        "licenseType": "azure-cot-standard-paygo",
+        "instanceTypeMapping": [
+            {
+                "region": "default",
+                "instanceType": "Standard_DS4_v2"
+            }
+        ],
+        "diskType": "Standard_LRS",
+        "diskSize": {
+            "size": 100.0,
+            "unit": "GB"
+        },
+        "capacityTier": null,
+        "instanceTenancy": null,
+        "writingSpeedState": "NORMAL"
+    },
+    {
+        "name": "azure_fastest",
+        "displayName": "Highest performance production workloads",
+        "description": "No description yet",
+        "licenseType": "azure-cot-premium-paygo",
+        "instanceTypeMapping": [
+            {
+                "region": "default",
+                "instanceType": "Standard_DS5_v2"
+            }
+        ],
+        "diskType": "Premium_LRS",
+        "diskSize": {
+            "size": 100.0,
+            "unit": "GB"
+        },
+        "capacityTier": null,
+        "instanceTenancy": null,
+        "writingSpeedState": "NORMAL"
+    }
+]
+----
+
+

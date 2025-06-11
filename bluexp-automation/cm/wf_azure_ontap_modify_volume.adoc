@@ -1,0 +1,218 @@
+---
+sidebar: sidebar
+permalink: cm/wf_azure_ontap_modify_volume.html
+keywords: cloud, manager, rest, api, modify, volume,
+summary: "You can modify the configuration of an existing volume."
+---
+
+= Modify a volume
+:hardbreaks:
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+You can modify the configuration of an existing volume.
+
+Choose the workflow to use based on the type of Cloud Volumes ONTAP deployment:
+
+* <<Modify volume for single node, Single Node>>
+* <<Modify volume for high availability pair, HA pair>>
+
+== Modify volume for single node
+You can use this workflow to modify the volume configuration for a single node working environment.
+
+=== Step 1. Create the working environment
+
+Perform the workflow link:wf_azure_cloud_create_we_paygo.html#create-working-environment-for-single-node[Create Azure single node working environment] and choose the `publicId` value of the working environment to be used as the `workingEnvironmentId` path parameter.
+
+=== Step 2. Select the volume
+
+Perform the workflow link:wf_azure_ontap_get_volumes.html#get-volume-for-single-node[Get volumes] and choose the `name` and the `svmName` values of the volume to modify and use them for the `volumeName` and `svmName` path parameters.
+
+
+=== Step 3. Modify the volume
+
+
+You can issue the REST API call modify the volume.
+
+.HTTP method and endpoint
+
+This REST API call uses the following method and endpoint.
+
+
+[cols="25,75"*,options="header"]
+|===
+|HTTP method
+|Path
+|PUT
+|/occm/api/azure/vsa/volumes/{workingEnvironmentId}/{svmName}/{volumeName}
+|===
+
+.Curl example
+[source,curl]
+curl --request PUT \
+--location "https://api.bluexp.netapp.com/occm/api/azure/vsa/volumes/<WORKING_ENV_ID>/<SVM_NAME>/<VOLUME_NAME>" \
+--header "Content-Type: application/json" \
+--header "x-agent-id: <AGENT_ID>" \
+--header "Authorization: Bearer <ACCESS_TOKEN>" \
+--d @JSONinput
+
+.Additional input parameters
+
+The JSON input example includes the minimum list of parameters.
+
+[cols="25,25, 25, 45"*,options="header"]
+|===
+|Parameter
+|Type
+|Required
+|Description
+|<SVM_NAME> `(svmName)` |Path |Yes |Identifies the SVM
+|`workingEnvironmentId` <WORKING_ENV_ID> |Path |Yes |Identifies the working environment ID
+|<VOLUME_NAME> `(volumeName)` |Path |Yes |Identifies the volume
+|===
+
+
+[NOTE]
+====
+The `exportpolicyInfo -> policyType` parameter can have two values `none` and `custom`.
+
+** When `policyType:none`, the rules parameter must be empty.
+** When `policyType:custom`, the rules parameter must have at least one rule.
+====
+
+.JSON input example
+[source,json]
+{
+  "volumeName": "vol5",
+  "svmName": "svm_ShirleyAzureVsa2601",
+  "originalVolumeInfo": {
+    "exportPolicyInfo": {
+      "ips": [
+        "10.0.0.0/16"
+      ],
+      "name": "export-svm_ShirleyAzureVsa2601-vol5",
+      "nfsVersion": [
+        "nfs3",
+        "nfs4"
+      ],
+      "policyType": "custom"
+    },
+    "shareInfo": [],
+    "snapshotPolicyName": "default"
+  },
+  "workingEnvironmentName": "ShirleyAzureVsa2601",
+  "snapshotPolicyName": "default",
+  "exportPolicyInfo": {
+    "ips": [],
+    "policyType": "none"
+  },
+  "workingEnvironmentId": "VsaWorkingEnvironment-IsDYFJf8"
+}
+
+.Output
+
+None
+
+== Modify volume for high availability pair
+You can use this workflow to modify the volume configuration for an HA working environment.
+
+=== Step 1. Create the working environment
+
+Perform the workflow link:wf_azure_cloud_create_we_paygo.html#create-working-environment-for-high-availability-pair[Create Azure HA working environment] and choose the `publicId` value of the working environment to be used as the `workingEnvironmentId` path parameter.
+
+=== Step 2. Select the volume
+
+Perform the workflow link:wf_azure_ontap_get_volumes.html#get-volume-for-high-availability-pair[Get volumes] and choose the `name` and the `svmName` values of the volume to modify and use them for the `volumeName` and `svmName` path parameters.
+
+
+=== Step 3. Modify the volume
+
+You can issue the REST API call modify the volume.
+
+.HTTP method and endpoint
+
+This REST API call uses the following method and endpoint.
+
+
+[cols="25,75"*,options="header"]
+|===
+|HTTP method
+|Path
+|PUT
+|/occm/api/azure/ha/volumes/{workingEnvironmentId}/{svmName}/{volumeName}
+|===
+
+.Curl example
+[source,curl]
+curl --request PUT \
+--location "https://api.bluexp.netapp.com/occm/api/azure/ha/volumes/<WORKING_ENV_ID>/<SVM_NAME>/<VOLUME_NAME>" \
+--header "Content-Type: application/json" \
+--header "x-agent-id: <AGENT_ID>" \
+--header "Authorization: Bearer <ACCESS_TOKEN>" \
+--d @JSONinput
+
+.Additional input parameters
+
+The JSON input example includes the minimum list of parameters.
+
+[cols="25,25, 25, 45"*,options="header"]
+|===
+|Parameter
+|Type
+|Required
+|Description
+|<SVM_NAME> `(svmName)` |Path |Yes |Identifies the SVM
+|`workingEnvironmentId` <WORKING_ENV_ID> |Path |Yes |Identifies the working environment ID
+|<VOLUME_NAME> `(volumeName)` |Path |Yes |Identifies the volume
+|===
+
+
+[NOTE]
+====
+The `exportpolicyInfo -> policyType` parameter can have two values `none` and `custom`.
+
+** When `policyType:none`, the rules parameter must be empty.
+** When `policyType:custom`, the rules parameter must have at least one rule.
+====
+
+.JSON input example
+[source,json]
+{
+  "volumeName": "vol2",
+  "svmName": "svm_ShirleyHa2901",
+  "originalVolumeInfo": {
+    "exportPolicyInfo": {
+      "ips": [
+        "10.0.0.0/16"
+      ],
+      "name": "export-svm_ShirleyHa2901-vol2",
+      "nfsVersion": [
+        "nfs3",
+        "nfs4"
+      ],
+      "policyType": "custom"
+    },
+    "shareInfo": [],
+    "snapshotPolicyName": "default"
+  },
+  "workingEnvironmentName": "ShirleyHa2901",
+  "snapshotPolicyName": "default",
+  "exportPolicyInfo": {
+    "ips": [
+      "20.0.0.0/16"
+    ],
+    "nfsVersion": [
+      "nfs4"
+    ],
+    "policyType": "custom"
+  },
+  "workingEnvironmentId": "VsaWorkingEnvironment-LUeyohBV"
+}
+
+
+.Output
+
+None

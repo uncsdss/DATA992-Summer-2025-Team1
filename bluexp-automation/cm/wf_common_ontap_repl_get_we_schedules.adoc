@@ -1,0 +1,117 @@
+---
+sidebar: sidebar
+permalink: cm/wf_common_ontap_repl_get_we_schedules.html
+keywords: bluexp, rest, api
+summary: "You can use this workflow to retrieve the replication schedules used for a specific working environment."
+---
+
+= Get the replication schedules
+:hardbreaks:
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+You can use this workflow to retrieve the replication schedules used for a specific working environment.
+
+[NOTE]
+This workflow varies slightly depending on the cloud provider you are using.
+
+== Step 1. Select the working environment
+
+Based on the cloud provider, you need to perform the corresponding workflow to retrieve the identifier of the working environment.
+
+[role="tabbed-block"]
+====
+.AWS
+--
+Perform the workflow link:wf_aws_cloud_get_wes.html[Get AWS working environments] and choose the `publicId` value for the working environment path parameter.
+--
+.Azure
+--
+Perform the workflow link:wf_azure_cloud_get_wes.html[Get Azure working environments] and choose the `publicId` value for the working environment path parameter.
+--
+.Google cloud
+--
+Perform the workflow link:wf_gcp_cloud_get_wes.html[Get Google Cloud working environments] and choose the `publicId` value for the working environment path parameter.
+--
+====
+
+== Step 2. Get the schedules
+
+.HTTP method and endpoint
+
+This REST API call uses the following method and endpoint.
+
+[cols="25,75"*,options="header"]
+|===
+|HTTP method
+|Path
+|GET
+|/occm/api/replication/schedules/{workingEnvironmentId}
+|===
+
+.Curl example
+[source,curl]
+curl --request GET
+--location "https://api.bluexp.netapp.com/occm/api/replication/schedules/<WORKING_ENV_ID>" 
+--header "Content-Type: application/json" 
+--header "x-agent-id:<AGENT_ID>" 
+--header "Authorization: Bearer <ACCESS_TOKEN>"
+
+.Input
+
+Path parameter <WORKING_ENV_ID> `(workingEnvironment)`
+
+.Output
+
+The JSON output example includes the list of replication schedules.
+
+.JSON output example
+----
+[
+    {
+        "name": "10min",
+        "description": "@:00,:10,:20,:30,:40,:50",
+        "cronJobSchedule": {
+            "months": [],
+            "days": [],
+            "weekDays": [],
+            "hours": [],
+            "minutes": [
+                0,
+                10,
+                20,
+                30,
+                40,
+                50
+            ]
+        }
+    },
+    {
+        "name": "5min",
+        "description": "@:00,:05,:10,:15,:20,:25,:30,:35,:40,:45,:50,:55",
+        "cronJobSchedule": {
+            "months": [],
+            "days": [],
+            "weekDays": [],
+            "hours": [],
+            "minutes": [
+                0,
+                5,
+                10,
+                15,
+                20,
+                25,
+                30,
+                35,
+                40,
+                45,
+                50,
+                55
+            ]
+        }
+    }
+]
+----

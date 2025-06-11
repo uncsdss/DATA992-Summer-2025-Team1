@@ -1,0 +1,126 @@
+---
+sidebar: sidebar
+permalink: cm/wf_onprem_ontap_create_vol_nfs.html
+keywords: cloud, manager, rest, api, aggregate, svm, virtual, private, cloud
+summary: 'You can use this workflow to create a volume accessed through NFS.'
+---
+
+= Create a volume using NFS
+:hardbreaks:
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+You can use this workflow to create a volume accessed through the NFS protocol.
+
+[NOTE]
+If the properties `aggregateName` and `maxNumOfDisksApprovedToAdd` are not provided on the REST API call, the response will fail with a suggested name for the aggregate and the number of disks needed to fulfill the request.
+
+
+== Step 1. Select the working environment
+
+Perform the workflow link:wf_onprem_get_wes.html[Get working environments] and choose the `publicId` and the `svmName` values for the `workingEnvironmentId` and the `svmName` parameters.
+
+== Step 2. Select the aggregate
+
+Perform the workflow link:wf_onprem_ontap_get_aggrs.html[Get aggregates] and choose the `name` value of the aggregate for the `aggregateName` parameter.
+
+[NOTE]
+If aggregate name does not exist and the `createAggregateIfNotFound` query parameter is set `true`, the create volume request is allowed if the named aggregate is not found.
+
+== Step 3. Select the network 
+
+Choose the desired value for the `exportPolicyInfo` parameter. You need to specify your internal network IP for the `ips` parameter that can access a volume.
+
+== Step 4. Choose the size for the disk
+
+Choose the size value for the `size:size` parameter. The `size:unit` must be one of the following: `TB`, `GB`, `MB`, `KB`, or `Byte`.
+
+
+== Step 5. Create the volume
+
+You can issue a REST API call to create a volume.
+
+.HTTP method and endpoint
+
+This REST API call uses the following method and endpoint.
+
+
+[cols="25,75"*,options="header"]
+|===
+|HTTP method
+|Path
+|POST
+|/occm/api/onprem/volumes
+|===
+
+.Curl example
+[source,curl]
+curl --request POST \
+--location "https://api.bluexp.netapp.com/occm/api/onprem/volumes" \
+--header "Content-Type: application/json" \
+--header "x-agent-id: <AGENT_ID>" \
+--header "Authorization: Bearer <ACCESS_TOKEN>" \
+--d @JSONinput
+
+
+.Additional input parameters
+
+The JSON input example includes the minimum list of parameters.
+
+[cols="25,25, 25, 45"*,options="header"]
+|===
+|Parameter
+|Type
+|Required
+|Description
+|<SVM_NAME> `(svmName)` |Query |Yes |Identifies the SVM name
+|`workingEnvironmentId` <WORKING_ENV_ID> |Query |Yes |Identifies the working environment ID
+| <AGGR_NAME> `(aggregateName)` |Query |Yes |Identifies the aggregate 
+|===
+
+If aggregate name does not exist, you can set the `createAggregateIfNotFound` query parameter to `true` which allows the aggregate not-found condition.
+
+.JSON input example
+[source,json]
+{
+    "workingEnvironmentId": "OnPremWorkingEnvironment-xxx",
+    "aggregateName": "aggr2",
+    "name": "vol3",
+    "size": {
+        "size": "100",
+        "unit": "GB"
+    },
+    "snapshotPolicyName": "default",
+    "svmName": "svm_dfr",
+    "enableCompression": true,
+    "enableDeduplication": true,
+    "enableThinProvisioning": true,
+    "verifyNameUniqueness": true,
+    "volumeTags": [],
+    "exportPolicyInfo": {
+        "policyType": "custom",
+        "rules": [
+            {
+                "index": 1,
+                "ruleAccessControl": "readwrite",
+                "ips": [
+                    "0.0.0.0/0"
+                ],
+                "nfsVersion": [
+                    "nfs3",
+                    "nfs4"
+                ],
+                "superUser": true
+            }
+        ]
+    }
+}
+
+
+.Output
+
+None
+

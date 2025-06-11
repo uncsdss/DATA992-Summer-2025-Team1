@@ -1,0 +1,149 @@
+---
+sidebar: sidebar
+permalink: cm/wf_azure_ontap_delete_aggr.html
+keywords: aggregate, delete, working, environment, aws, workflows
+summary: 'You can delete an existing disk aggregate.'
+---
+
+= Delete aggregate
+:hardbreaks:
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+You can delete an existing disk aggregate in an Azure working environment.
+
+Choose the workflow to use based on the type of Cloud Volumes ONTAP deployment:
+
+* <<Delete aggregate for single node, Single Node>>
+* <<Delete aggregate for high availability pair, HA pair>>
+
+== Delete aggregate for single node
+You can use this workflow to delete an aggregate for a single node working environment.
+
+
+=== Step 1. Create the working environment
+
+Perform the workflow link:wf_azure_cloud_create_we_paygo.html#create-working-environment-for-single-node[Create Azure single node working environment] and choose the `publicId` value of the working environment for the `workingEnvironmentId` path parameter.
+
+=== Step 2. Create an aggregate to delete
+
+Perform the workflow link:wf_azure_ontap_create_aggr.html#create-aggregate-for-single-node[Create aggregate] to create an aggregate with the name `aggr2`. Use `aggr2` value for the `aggregateName` path parameter.
+
+=== Step 3. Delete the aggregate
+
+[cols="25,75"*,options="header"]
+|===
+|HTTP method
+|Path
+|DELETE
+|/occm/api/azure/vsa/aggregates/{workingEnvironmentId}/{aggregateName}
+|===
+
+.Curl example
+[source,curl]
+curl --location --request DELETE 'https://api.bluexp.netapp.com/occm/api/azure/vsa/aggregates/<WORKING_ENV_ID>/<AGGR_NAME>' --header 'Content-Type: application/json' --header 'x-agent-id: <AGENT_ID>' --header 'Authorization: Bearer <ACCESS_TOKEN>'
+
+.Additional input parameters
+
+The JSON input example includes the minimum list of parameters.
+
+
+Path parameters:
+* <WORKING_ENV_ID> (`workingEnvironmentId`) string
+* <AGGR_NAME> (`aggregateName`) string
+
+.Output
+
+None
+
+== Delete aggregate for high availability pair
+You can use this workflow to delete an aggregate for an HA working environment.
+
+=== Step 1. Create the working environment
+
+Perform the workflow link:wf_azure_cloud_create_we_paygo.html#create-working-environment-for-high-availability-pair[Create Azure HA working environment] and choose the `publicId` value of the working environment for the `workingEnvironmentId` path parameter.
+
+=== Step 2. Create an aggregate to delete
+
+Perform the workflow link:wf_azure_ontap_create_aggr.html#create-aggregate-for-high-availability-pair[Create aggregate] to create an aggregate with the name `aggr2`. Use `aggr2` value for the `aggregateName` path parameter.
+
+=== Step 3. Delete the aggregate
+
+.HTTP method and endpoint
+
+This REST API call uses the following method and endpoint.
+
+[cols="25,75"*,options="header"]
+|===
+|HTTP method
+|Path
+|DELETE
+|/occm/api/azure/ha/aggregates/{workingEnvironmentId}/{aggregateName}
+|===
+
+.Curl example
+[source,curl]
+curl --location 
+--request DELETE 'https://api.bluexp.netapp.com/occm/api/azure/ha/aggregates/<WORKING_ENV_ID>/<AGGR_NAME>' 
+--header 'Content-Type: application/json' 
+--header 'x-agent-id: <AGENT_ID>' 
+--header 'Authorization: Bearer <ACCESS_TOKEN>'
+
+.Additional input parameters
+
+The JSON input example includes the minimum list of parameters.
+
+
+Path parameters:
+* <WORKING_ENV_ID> (`workingEnvironmentId`) string
+* <AGGR_NAME> (`aggregateName`) string
+
+.Output
+
+None
+
+== Delete aggregate for high availability pair
+You can use this workflow to delete an aggregate for an HA working environment.
+
+=== Step 1. Create the working environment
+
+Perform the workflow link:wf_azure_cloud_create_we_paygo.html#create-working-environment-for-high-availability-pair[Create Azure HA working environment] and choose the `publicId` value of the working environment for the `workingEnvironmentId` path parameter.
+
+=== Step 2. Create an aggregate to delete
+
+Perform the workflow link:wf_azure_ontap_create_aggr.html#create-aggregate-for-high-availability-pair[Create aggregate] to create an aggregate with the name `aggr2`. Use `aggr2` value for the `aggregateName` path parameter.
+
+=== Step 3. Delete the aggregate
+
+.HTTP method and endpoint
+
+This REST API call uses the following method and endpoint.
+
+[cols="25,75"*,options="header"]
+|===
+|HTTP method
+|Path
+|DELETE
+|/occm/api/azure/ha/aggregates/{workingEnvironmentId}/{aggregateName}
+|===
+
+.Curl example
+[source,curl]
+curl --request DELETE \
+--location "https://api.bluexp.netapp.com/occm/api/azure/ha/aggregates/<WORKING_ENV_ID>/aggr2" \
+--header "Content-Type: application/json" \
+--header "x-agent-id: <AGENT_ID>" \
+--header "Authorization: Bearer <ACCESS_TOKEN>"
+
+.Input
+
+Path parameters:
+* <WORKING_ENV_ID> (`workingEnvironmentId`) string
+* <AGGR_NAME> (`aggregateName`) string
+
+.Output
+
+None

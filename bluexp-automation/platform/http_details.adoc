@@ -1,0 +1,118 @@
+---
+sidebar: sidebar
+permalink: platform/http_details.html
+keywords: http, details, bluexp, rest, api, request headers, status, codes
+summary: 'The BlueXP REST API is based on the HTTP protocol as well as JSON for content exchange.'
+---
+
+= HTTP details
+:hardbreaks:
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+BlueXP REST APIs are based on the HTTP protocol as well as JSON for content exchange. 
+
+== Request
+
+A REST API request contains the standard HTTP methods and request headers. 
+
+=== HTTP methods
+
+The HTTP methods supported by the BlueXP REST APIs are shown in the following table. Not all HTTP methods are available at each of the REST endpoints. For more information, see the reference documentation for the specific API you are using.
+
+[cols="20,80",options="header"]
+|===
+|HTTP method
+|Description
+|GET
+|Retrieves object properties for a resource instance or collection of resources.
+|POST
+|Creates a new resource instance based on the supplied input values.
+|PUT
+|Updates an existing resource instance based on the supplied input values.
+|PATCH
+|Updates specific fields of an existing resource instance based on the supplied input values.
+|DELETE
+|Deletes an existing resource instance.
+|===
+
+=== Request headers
+
+The common HTTP request headers are described as follows.
+
+[cols="20,80",options="header"]
+|===
+|Request header
+|Description
+|`Authorization`
+|This header contains a bearer token used to access the BlueXP server.
+|`x-agent-id`
+|The agent identifier is used to identify the user agent.
+|`Content-Type`
+|This representation header is used to indicate the original media type of the resource.
+|`Accept`
+|The server automatically returns content in JSON format if `Accept` header is not specified.
+|===
+
+== Response
+
+A REST API response contains the standard HTTP status codes and response headers.
+
+=== HTTP status codes
+
+The common HTTP status codes are described as follows.
+
+[cols="15,20,65",options="header"]
+|===
+|Status code
+|Reason Phrase
+|Description
+|`200`
+|OK
+|The request was completed successfully.
+|`202`
+|Accepted
+|The request was accepted and is currently in process. BlueXP returns this code when the API call operates asynchronously. For example, the `/vsa/working-environments` call returns with 202 but the Cloud Volumes ONTAP instance launches up to 25 minutes later.
+|`204`
+|No Content
+|The operation was completed successfully and the server did not send a response message.
+|`400`
+|Bad Request
+|The request input is not recognized or is inappropriate. An error response explains the reason.
+|`401`
+|Unauthorized
+|The user has not authenticated.
+|`403`
+|Forbidden
+|This operation is not allowed for the current authenticated user.
+|`409`
+|Conflict
+|The operation failed because another operation is already in progress.
+|`420`
+|Method Failure
+|BlueXP has not been set up. You must set up BlueXP using the API call `/occm/setup/init`
+|`5xx`
+|---
+|An unexpected error occurred within the BlueXP server which has prevented it from fulfilling the request.
+|===
+
+=== Response headers
+
+The common HTTP response headers are described as follows.
+
+[cols="20,80",options="header"]
+|===
+|Response header
+|Description
+|`access-control-allow-origin`
+|The Cross Origin Resource Sharing (CORS) header indicates whether the response can be shared with requesting code from the specified origin.
+|`content-encoding`
+|The type of data encoding used is indicated with this header. 
+|`content-type`
+|The data representation is carried in the header and is used to indicate the original media type of the content.
+|`date`
+|This header contains the date and time the message was sent.
+|===

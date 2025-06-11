@@ -1,0 +1,67 @@
+---
+sidebar: sidebar
+permalink: cm/wf_common_identity_delete_nss_key.html
+keywords: nss, bluexp, api
+summary: "You can delete an NetApp Support Site key."
+---
+
+= Delete an NSS key
+:hardbreaks:
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+You can delete an NetApp Support Site (NSS) key.
+
+== Step 1. Select the account to use
+
+Perform the workflow link:wf_common_identity_get_supported_srv.html[Get supported services] and choose the `accountId` value for the path parameter.
+
+== Step 2. Select the NSS key to delete
+
+Perform the workflow link:wf_common_identity_get_nss_keys.html[Get NSS keys] and choose the `id` value for the `nssKeyID` parameter.
+
+== Step 3. Delete the NSS keys
+
+You can issue a REST API call to delete the NSS keys.
+
+.HTTP method and endpoint
+
+This REST API call uses the following method and endpoint.
+
+[cols="25,75"*,options="header"]
+|===
+|HTTP method
+|Resource path
+|DELETE
+|/ipa/account/{accountId}/nss-keys/{nssKeyId}
+|===
+
+.Curl example
+[source,curl]
+curl --request DELETE \
+--location "https://api.bluexp.netapp.com/ipa/account/<ACCOUNT_ID>/nss-key/<NSS_KEY_ID>" \
+--header "Content-Type: application/json" \
+--header "x-agent-id: <AGENT_ID>" \
+--header "Authorization: Bearer <ACCESS_TOKEN>"
+
+.Additional input parameters
+
+The JSON input example includes the minimum list of parameters.
+
+[cols="25,25, 25, 45"*,options="header"]
+|===
+|Parameter
+|Type
+|Required
+|Description
+|<ACCOUNT_ID> `(accountId)` |Path |Yes |Identifies the account
+|<NSS_KEY_ID> `(nssKeyId)` |Path |Yes |Identifies the NSS key
+|===
+
+
+.Output
+
+None

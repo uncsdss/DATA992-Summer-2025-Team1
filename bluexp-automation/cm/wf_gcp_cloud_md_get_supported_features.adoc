@@ -1,0 +1,123 @@
+---
+sidebar: sidebar
+permalink: cm/wf_gcp_cloud_md_get_supported_features.html
+keywords: supported, features, cloud, volumes, ontap, working, environment, occm
+summary: You can perform this workflow to retrieve and check the supported features while provisioning a Cloud Volumes ONTAP instance.
+---
+
+= Get supported features
+:hardbreaks:
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+You can perform this workflow to retrieve and check the supported features while provisioning a Cloud Volumes ONTAP instance.
+
+Choose the workflow to use based on the type of Cloud Volumes ONTAP deployment:
+
+* <<Get supported features for single node, Single Node>>
+* <<Get supported features for high availability pair, HA pair>>
+
+== Get supported features for single node
+You can use this workflow to retrieve the supported features in a single node working environment.
+
+=== Step 1. Select the permutations
+
+Perform the workflow link:wf_gcp_cloud_md_get_permutations.html#get-gcp-permutations-for-single-node[Get permutations] and choose the `ontapVersion`, `license: type`, `instanceType`, and `region: code` values of the required permutations for the query parameters of `supported features` request.
+
+=== Step 2. Get the supported features
+
+.HTTP method and endpoint
+
+This REST API call uses the following method and endpoint.
+
+[cols="25,75"*,options="header"]
+|===
+|HTTP method
+|Path
+|GET
+|/occm/api/gcp/vsa/metadata/supported-features
+|===
+
+.Curl example
+[source,curl]
+curl --request GET \
+--location "https://api.bluexp.netapp.com/occm/api/gcp/vsa/metadata/supported-features?region=<REGION>&ontapVersion=<ONTAP_VERSION>&dataEncryptionType=<ENCRP_TYPE>&licenseType=<LICENSE_TYPE>&instanceType=<INST_TYPE>" \
+--header "x-agent-id: <AGENT_ID>" \
+--header "Authorization: Bearer <ACCESS_TOKEN>" \
+--header "Content-Type: application/json"
+
+.Additional input parameters
+
+The JSON input example includes the minimum list of parameters.
+
+Query parameters:
+
+* <REGION> `region` string
+* <ONTAP_VERSION> `ontapVersion` string
+* <LICENSE_TYPE> `licenseType` string
+* <INST_TYPE> `instanceType` string
+* <ENCRP_TYPE> `dataEncryptionType` string
+
+.JSON output example
+----
+{
+    "wormSupportedVersion": true,
+    "cbsSupportedVersion": true,
+    "httpsStorageAccountSupportedVersion": false,
+    "tieringWithServiceAccount": true
+}
+----
+
+== Get supported features for high availability pair
+You can use this workflow to retrieve the supported features in an HA working environment.
+
+=== Step 1. Select the permutations
+
+Perform the workflow link:wf_gcp_cloud_md_get_permutations.html#get-gcp-permutations-for-high-availability-pair[Get permutations] and choose the `ontapVersion`, `license: type`, `instanceType`, and `region: code` values of the required permutations for the query parameters of `supported features` request.
+
+=== Step 2. Get the supported features
+
+.HTTP method and endpoint
+
+This REST API call uses the following method and endpoint.
+
+[cols="25,75"*,options="header"]
+|===
+|HTTP method
+|Path
+|GET
+|/occm/api/gcp/ha/metadata/supported-features
+|===
+
+.Curl example
+[source,curl]
+curl --request GET \
+--location  "https://api.bluexp.netapp.com/occm/api/gcp/ha/metadata/supported-features?region=<REGION>&ontapVersion=<ONTAP_VERSION>&dataEncryptionType=<ENCRP_TYPE>&licenseType=<LICENSE_TYPE>&instanceType=<INST_TYPE>" \
+--header "x-agent-id: <AGENT_ID>" \
+--header "Authorization: Bearer <ACCESS_TOKEN>" \
+--header "Content-Type: application/json"
+
+.Additional input parameters
+
+The JSON input example includes the minimum list of parameters.
+
+Query parameters:
+
+* <REGION> `region` string
+* <ONTAP_VERSION> `ontapVersion` string
+* <LICENSE_TYPE> `licenseType` string
+* <INST_TYPE> `instanceType` string
+* <ENCRP_TYPE> `dataEncryptionType` string
+
+.JSON output example
+----
+{
+    "wormSupportedVersion": true,
+    "cbsSupportedVersion": true,
+    "httpsStorageAccountSupportedVersion": false,
+    "tieringWithServiceAccount": true
+}
+----

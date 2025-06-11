@@ -1,0 +1,81 @@
+---
+sidebar: sidebar
+permalink: cm/wf_common_identity_get_nss_keys.html
+keywords: bluexp, rest, api
+summary: "You can retrieve all of the available NetApp Support Site credential keys."
+---
+
+= Get NSS keys
+:hardbreaks:
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+You can retrieve all of the available NetApp Support Site credential keys.
+
+== Step 1. Select the account to use
+
+Perform the workflow link:wf_common_identity_get_provider_accounts.html[Get cloud provider accounts] and choose the `accountId` value for the path parameter.
+
+== Step 2. Retrieve the NSS keys
+
+You can issue the REST API call to retrieve the NSS keys.
+
+.HTTP method and endpoint
+
+This REST API call uses the following method and endpoint.
+
+[cols="25,75"*,options="header"]
+|===
+|HTTP method
+|Resource path
+|GET
+|/ipa/account/{accountId}/nss-keys
+|===
+
+.Curl example
+[source,curl]
+curl --request GET \
+--location "https://api.bluexp.netapp.com/ipa/account/<ACCOUNT_ID>/nss-keys?includeResources=true" \
+--header "Content-Type: application/json" \ 
+--header "x-agent-id: <AGENT_ID>" \
+--header "Authorization: Bearer <ACCESS_TOKEN>"
+
+.Additional input parameters
+
+The JSON input example includes the minimum list of parameters.
+
+[cols="25,25, 25, 45"*,options="header"]
+|===
+|Parameter
+|Type
+|Required
+|Description
+|<ACCOUNT_ID> `(accountId)` |Path |Yes |Identifies the account
+|`includeResources` |Query |No |Identifies whether to include the resources required
+|===
+
+
+.JSON output example
+
+The JSON output example includes a list of the NSS keys.
+
+.Example output
+----
+[
+    {
+        "id": "d69a5214-7d61-486e-8750-8e1f68601c43",
+        "username": "zivtest03",
+        "resources": [VsaWorkingEnvironment-4UHd0x6l],
+        "credentialType": "password"
+    },
+    {
+        "id": "98f2c5db-af76-428f-ae81-08fdfa1e04ae",
+        "username": "zivtest23",
+        "resources": [],
+        "credentialType": "password"
+    }
+]
+----

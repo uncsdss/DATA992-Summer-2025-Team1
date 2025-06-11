@@ -1,0 +1,225 @@
+---
+sidebar: sidebar
+permalink: cm/wf_aws_cloud_md_get_permutations.html
+keywords: permutations, cloud, volumes, ontap, working, environment, occm
+summary: You can use the permutations endpoint to retrieve the Cloud Volumes ONTAP configuration information.
+---
+
+= Get permutations
+:hardbreaks:
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+You can use the permutations endpoint to retrieve the Cloud Volumes ONTAP configuration information.
+
+Choose the workflow to use based on the type of Cloud Volumes ONTAP deployment:
+
+* <<Get permutations for single node, Single Node>>
+* <<Get permutations for high availability pair, HA pair>>
+
+== Get permutations for single node
+You can use this workflow to retrieve the configuration information for a single node working environment.
+
+.HTTP method and endpoint
+
+This REST API call uses the following method and endpoint.
+
+[cols="25,75"*,options="header"]
+|===
+|HTTP method
+|Path
+|GET
+|/occm/api/vsa/metadata/permutations
+|===
+
+.Curl example
+[source,curl]
+curl --request GET \
+--location "https://api.bluexp.netapp.com/occm/api/vsa/metadata/permutations" \
+--header "x-agent-id: <AGENT_ID>" \ 
+--header "Authorization: Bearer <ACCESS_TOKEN>" \
+--header "Content-Type: application/json"
+
+.Additional input parameters
+
+In addition to the parameters common with all REST API calls, the following parameters are also used in the curl examples for this step.
+
+[cols="25,25, 25, 45"*,options="header"]
+|===
+|Parameter
+|Type
+|Required
+|Description
+| `region` |Query |No |Identifies the region of the working environment.
+| `version` |Query |No |Identifies the AMazon resource name for the connection's role.
+| `license` |Query |No |Identifies the license associated with your working environment.
+| `instance_type` |Query |No |Identifies the Cloud Volumes ONTAP instance type.
+| `default_instance_type` |Query |No |Identifies the default Cloud Volumes ONTAP instance type.
+| `feature` |Query |No |Identifies the feature.
+| `latest_only` |Query |No |Identifies whether the latest instance is associated.
+| `ami` |Query |No |Identifies the Amazon machine image.
+|===
+
+.JSON output example
+The JSON output example includes the list of Cloud Volumes ONTAP configurations.
+
+.Example output
+[%collapsible]
+====
+----
+[
+   {
+       "ontapVersion": "ONTAP-9.9.0X4.T1",
+       "license": {
+           "type": "cot-explore-paygo",
+           "name": "Cloud Volumes ONTAP Explore",
+           "description": "Suitable for smaller capacity applications. Supports up to 2 TB of underlying AWS storage.",
+           "subName": "",
+           "subDescription":"Support of tiering to object storage is not included.",
+           "capacity_limit": "2TB",
+           "platformLicenseRequired": false,
+           "default":false,
+           "capacityLimit": {"size":2.0, "unit": "TB"}
+       },
+      "instanceType": "m5.xlarge",
+      "region": {
+         "name": "EU",
+         "code": "eu-central-1",
+         "location": "Frankfurt",
+         "s3Region": "eu-central-1"
+      },
+      "defaultInstance":true,
+      "features": ["ena","kvm","network-utilization"],
+      "upgradeableFrom": ["9.8","9.9.0"]
+   }
+]
+----
+====
+
+== Get permutations for high availability pair
+You can use this workflow to retrieve the configuration information for an HA working environment.
+
+.HTTP method and endpoint
+
+This REST API call uses the following method and endpoint.
+
+[cols="25,75"*,options="header"]
+|===
+|HTTP method
+|Path
+|GET
+|/occm/api/aws/ha/metadata/permutations
+|===
+
+.Curl example
+[source,curl]
+curl --request GET \
+--location "https://api.bluexp.netapp.com/occm/api/aws/ha/metadata/permutations?latest_only=true" \
+--header "x-agent-id: <AGENT_ID>" \ 
+--header "Authorization: Bearer <ACCESS_TOKEN>" \
+--header "Content-Type: application/json"
+
+.Additional input parameters
+
+In addition to the parameters common with all REST API calls, the following parameters are also used in the curl examples for this step.
+
+[cols="25,25, 25, 45"*,options="header"]
+|===
+|Parameter
+|Type
+|Required
+|Description
+| `region` |Query |No |Identifies the region of the working environment.
+| `version` |Query |No |Identifies the AMazon resource name for the connection's role.
+| `license` |Query |No |Identifies the license associated with your working environment.
+| `instance_type` |Query |No |Identifies the Cloud Volumes ONTAP instance type.
+| `default_instance_type` |Query |No |Identifies the default Cloud Volumes ONTAP instance type.
+| `feature` |Query |No |Identifies the feature.
+| `latest_only` |Query |No |Identifies whether the latest instance is associated.
+| `ami` |Query |No |Identifies the Amazon machine image.
+|===
+
+
+.JSON output example
+
+The JSON output example includes the list of Cloud Volumes ONTAP configurations.
+
+.Example output
+[%collapsible]
+====
+----
+[
+    {
+        "ontapVersion": "ONTAP-9.9.0X6.T1.ha",
+        "license": {
+            "type": "ha-cot-explore-paygo",
+            "name": "Cloud Volumes ONTAP Explore",
+            "description": "Suitable for smaller capacity applications. Supports up to 2 TB of underlying AWS storage.",
+            "subName": "",
+            "subDescription": "Support of tiering to object storage is not included.",
+            "capacity_limit": "2TB",
+            "platformLicenseRequired": false,
+            "default": false,
+            "capacityLimit": {
+                "size": 2.0,
+                "unit": "TB"
+            }
+        },
+        "instanceType": "m5.xlarge",
+        "region": {
+            "name": "EU",
+            "code": "eu-central-1",
+            "location": "Frankfurt",
+            "s3Region": "eu-central-1"
+        },
+        "defaultInstance": true,
+        "features": [
+            "ena",
+            "kvm",
+            "network-utilization"
+        ],
+        "upgradeableFrom": [
+            "9.8",
+            "9.9.0"
+        ]
+    },
+    {
+        "ontapVersion": "ONTAP-9.9.0X6.T1.ha",
+        "license": {
+            "type": "ha-cot-explore-paygo",
+            "name": "Cloud Volumes ONTAP Explore",
+            "description": "Suitable for smaller capacity applications. Supports up to 2 TB of underlying AWS storage.",
+            "subName": "",
+            "subDescription": "Support of tiering to object storage is not included.",
+            "capacity_limit": "2TB",
+            "platformLicenseRequired": false,
+            "default": false,
+            "capacityLimit": {
+                "size": 2.0,
+                "unit": "TB"
+            }
+        },
+        "instanceType": "m5.xlarge",
+        "region": {
+            "name": "EU",
+            "code": "eu-west-1",
+            "location": "Ireland",
+            "s3Region": "eu-west-1"
+        },
+        "defaultInstance": true,
+        "features": [
+            "ena",
+            "kvm",
+            "network-utilization"
+        ],
+        "upgradeableFrom": [
+            "9.8",
+            "9.9.0"
+        ]
+    }
+]
+----
+====

@@ -1,0 +1,163 @@
+---
+sidebar: sidebar
+permalink: cm/wf_gcp_cloud_md_get_projects.html
+keywords: cloud, volumes, ontap, cvo, regions, aws, workflows
+summary: This workflow retrieves the AWS regions in which an Cloud Volumes ONTAP working environment may be created.
+---
+
+= Get projects
+:hardbreaks:
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+This workflow retrieves the list of projects that the caller has permission on.
+
+Choose the workflow to use based on the type of Cloud Volumes ONTAP deployment:
+
+* <<Get projects for single node, Single Node>>
+* <<Get projects for high availability pair, HA pair>>
+
+== Get projects for single node
+You can use this workflow to retrieve projects in a single node working environment.
+
+=== 1. Get the list of projects
+
+[cols="25,75"*,options="header"]
+|===
+|HTTP method
+|Path
+|GET
+|/occm/api/gcp/vsa/metadata/projects
+|===
+
+curl example::
+[source,curl]
+curl --location --request GET 'https://api.bluexp.netapp.com/occm/api/gcp/vsa/metadata/projects' --header 'Content-Type: application/json' --header 'x-agent-id: <AGENT_ID>' --header 'Authorization: Bearer <ACCESS_TOKEN>'
+
+Input::
+
+None
+
+Output::
+
+The JSON output provides an example of a list of authorized projects.
+
+JSON output example::
+[source,json]
+{
+    "projects": [
+        {
+            "isDefault": false,
+            "projectNumber": "958377592xxx",
+            "projectId": "occm-host",
+            "lifecycleState": "ACTIVE",
+            "name": "OCCM-host",
+            "createTime": "2019-07-24T14:36:32.472Z",
+            "parent": {
+                "type": "folder",
+                "id": "339830134733"
+            },
+            "subscriptionId": null
+        },
+        {
+            "isDefault": false,
+            "projectNumber": "844924364732xxx",
+            "projectId": "occm-slave",
+            "lifecycleState": "ACTIVE",
+            "name": "OCCM-slave",
+            "createTime": "2019-07-24T14:36:32.405Z",
+            "parent": {
+                "type": "folder",
+                "id": "339830134733"
+            },
+            "subscriptionId": null
+        },
+        {
+            "isDefault": true,
+            "projectNumber": "92083494xxx",
+            "projectId": "occm-dev",
+            "lifecycleState": "ACTIVE",
+            "name": "OCCM-Dev",
+            "createTime": "2018-05-24T17:23:50.505Z",
+            "parent": {
+                "type": "folder",
+                "id": "339830134733"
+            },
+            "subscriptionId": "gcp-saasMpIntegrationProductId-saasMpCustomerIdentifierx"
+        }
+    ]
+}
+
+== Get projects for high availability pair
+You can use this workflow to retrieve projects in an HA working environment.
+
+=== 1. Get the list of projects
+
+[cols="25,75"*,options="header"]
+|===
+|HTTP method
+|Path
+|GET
+|/occm/api/gcp/ha/metadata/projects
+|===
+
+curl example::
+[source,curl]
+curl --location --request GET 'https://api.bluexp.netapp.com/occm/api/gcp/ha/metadata/projects' --header 'Content-Type: application/json' --header 'x-agent-id: <AGENT_ID>' --header 'Authorization: Bearer <ACCESS_TOKEN>'
+
+Input::
+
+None
+
+Output::
+
+The JSON output provides an example of a list of authorized projects.
+
+JSON output example::
+[source,json]
+{
+    "projects": [
+        {
+            "isDefault": false,
+            "projectNumber": "9583775xxxx8",
+            "projectId": "occm-host",
+            "lifecycleState": "ACTIVE",
+            "name": "OCCM-host",
+            "createTime": "2019-07-24T14:36:32.472Z",
+            "parent": {
+                "type": "folder",
+                "id": "339830134733"
+            },
+            "subscriptionId": null
+        },
+        {
+            "isDefault": false,
+            "projectNumber": "844924364732",
+            "projectId": "occm-slave",
+            "lifecycleState": "ACTIVE",
+            "name": "OCCM-slave",
+            "createTime": "2019-07-24T14:36:32.405Z",
+            "parent": {
+                "type": "folder",
+                "id": "339830xx33"
+            },
+            "subscriptionId": null
+        },
+        {
+            "isDefault": true,
+            "projectNumber": "920834xx653",
+            "projectId": "occm-dev",
+            "lifecycleState": "ACTIVE",
+            "name": "OCCM-Dev",
+            "createTime": "2018-05-24T17:23:50.505Z",
+            "parent": {
+                "type": "folder",
+                "id": "33983xx733"
+            },
+            "subscriptionId": "gcp-saasMpIntegrationProductId-saasMpCustomerIdentifierx"
+        }
+    ]
+}

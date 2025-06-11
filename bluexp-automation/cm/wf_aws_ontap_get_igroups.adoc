@@ -1,0 +1,170 @@
+---
+sidebar: sidebar
+permalink: cm/wf_aws_ontap_get_igroups.html
+keywords: cloud, manager, rest, api, igroups, cifs, server, configuration
+summary: "You can use this workflow to retrieve all the iGroups."
+---
+
+= Get iGroups
+:hardbreaks:
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+You can use this workflow to retrieve all the initiator groups (iGroups). iGroups is a collection of initiators (iSCSI clients). The iGroups information is required when creating a volume with the iSCSI protocol using an existing iGroup.
+
+Choose the workflow to use based on the type of Cloud Volumes ONTAP deployment:
+
+* <<Get iGroups for single node, Single Node>>
+* <<Get iGroups for high availability pair, HA pair>>
+
+
+== Get iGroups for single node
+You can use this workflow to retrieve the iGroups for a single node system.
+
+=== 1. Select the working environment
+
+Perform the workflow link:wf_aws_cloud_get_wes.html[Get working environments] and choose the `publicId` and `svmName` values of the working environment for the `workingEnvironmentId` and `svmName` path parameters.
+
+=== 2. Get the iGroups configuration
+
+You can issue the REST API call to retrieve the iGroups configuration.
+
+.HTTP method and endpoint
+
+This REST API call uses the following method and endpoint.
+
+[cols="25,75"*,options="header"]
+|===
+|HTTP method
+|Path
+|GET
+|/occm/api/vsa/volumes/igroups/{workingEnvironmentId}/{svmName}
+|===
+
+.Curl example
+[source,curl]
+curl --request GET \
+--location "https://api.bluexp.netapp.com/occm/api/vsa/volumes/igroups/<WORKING_ENV_ID>/<SVM_NAME>" \ 
+--header "x-agent-id: <AGENT_ID>" \ 
+--header "Authorization: Bearer <ACCESS_TOKEN>" \
+--header "Content-Type: application/json"
+
+.Additional input parameters
+
+The JSON input example includes the minimum list of parameters.
+
+[cols="25,25, 25, 45"*,options="header"]
+|===
+|Parameter
+|Type
+|Required
+|Description
+|<SVM_NAME> |Path |Yes |Identifies the SVM
+|`workingEnvironmentId` <WORKING_ENV_ID> |Path |Yes |Identifies the working environment ID
+|===
+
+
+.Output
+
+The JSON output example includes a list of iGroups.
+
+.JSON output example
+----
+[
+    {
+        "igroupName": "zivIgroup1",
+        "osType": "linux",
+        "portsetName": "",
+        "igroupType": "iscsi",
+        "initiators": [
+            "iqn.1994-05.com.redhat:1d9ac633937c"
+        ]
+    },
+    {
+        "igroupName": "zivIgroup2",
+        "osType": "linux",
+        "portsetName": "",
+        "igroupType": "iscsi",
+        "initiators": [
+            "iqn.1994-05.com.redhat:96de86825216"
+        ]
+    }
+]
+----
+
+== Get iGroups for high availability pair
+You can use this workflow to retrieve the iGroups for an HA working environment.
+
+=== Step 1. Select the working environment
+
+Perform the workflow link:wf_aws_cloud_get_wes.html[Get working environments] and choose the `publicId` and `svmName` values of the working environment for the `workingEnvironmentId` and `svmName` path parameters.
+
+=== Step 2. Get the CIFS configurations
+
+You can issue the REST API call to retrieve the CIFS configurations.
+
+.HTTP method and endpoint
+
+This REST API call uses the following method and endpoint.
+
+[cols="25,75"*,options="header"]
+|===
+|HTTP method
+|Path
+|GET
+|/occm/api/aws/ha/volumes/igroups/{workingEnvironmentId}/{svmName}
+|===
+
+.Curl example
+[source,curl]
+curl --request GET \
+--location  "https://api.bluexp.netapp.com/occm/api/aws/ha/volumes/igroups/<WORKING_ENV_ID>/<SVM_NAME>" \
+--header "x-agent-id: <AGENT_ID>" \
+--header "Authorization: Bearer <ACCESS_TOKEN>" \
+--header "Content-Type: application/json"
+
+.Additional input parameters
+
+The JSON input example includes the minimum list of parameters.
+
+[cols="25,25, 25, 45"*,options="header"]
+|===
+|Parameter
+|Type
+|Required
+|Description
+|<SVM_NAME> |Path |Yes |Identifies the SVM
+|`workingEnvironmentId` <WORKING_ENV_ID> |Path |Yes |Identifies the working environment ID
+|===
+
+
+.Output
+
+The JSON output example includes a list of iGroups.
+
+.JSON output example
+----
+[
+    {
+        "igroupName": "zivIgroup1",
+        "osType": "linux",
+        "portsetName": "",
+        "igroupType": "iscsi",
+        "initiators": [
+            "iqn.1994-05.com.redhat:1d9ac633937c"
+        ]
+    },
+    {
+        "igroupName": "zivIgroup2",
+        "osType": "linux",
+        "portsetName": "",
+        "igroupType": "iscsi",
+        "initiators": [
+            "iqn.1994-05.com.redhat:96de86825216"
+        ]
+    }
+]
+----

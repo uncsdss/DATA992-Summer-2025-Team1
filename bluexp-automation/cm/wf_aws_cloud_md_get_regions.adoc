@@ -1,0 +1,129 @@
+---
+sidebar: sidebar
+permalink: cm/wf_aws_cloud_md_get_regions.html
+keywords: cloud, volumes, ontap, cvo, regions, aws, workflows
+summary: This workflow retrieves the AWS regions in which an Cloud Volumes ONTAP working environment may be created.
+---
+
+= Get regions
+:hardbreaks:
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+This workflow retrieves the AWS regions in which an Cloud Volumes ONTAP working environment may be created.
+
+Choose the workflow to use based on the type of Cloud Volumes ONTAP deployment:
+
+* <<Get regions for single node, Single Node>>
+* <<Get regions for high availability pair, HA pair>>
+
+== Get regions for single node
+You can use this workflow to retrieve the regions for a single node system.
+
+.HTTP method and endpoint
+
+This REST API call uses the following method and endpoint.
+
+[cols="25,75"*,options="header"]
+|===
+|HTTP method
+|Path
+|GET
+|/occm/api/vsa/metadata/regions
+|===
+
+
+.Curl example
+[source,curl]
+curl --request GET \
+--location "https://api.bluexp.netapp.com/occm/api/vsa/metadata/regions' \
+--header 'Content-Type: application/json" \
+--header "x-agent-id: <AGENT_ID>" \ 
+--header "Authorization: Bearer <ACCESS_TOKEN>" 
+
+
+.JSON output example
+
+The JSON output provides an example of a list of AWS regions.
+
+----
+[
+    {
+        "name": "US East",
+        "code": "us-east-1",
+        "location": "N. Virginia",
+        "s3Region": "US"
+    },
+    {
+        "name": "US West",
+        "code": "us-west-1",
+        "location": "N. California",
+        "s3Region": "us-west-1"
+    },
+    {
+        "name": "EU",
+        "code": "eu-central-1",
+        "location": "Frankfurt",
+        "s3Region": "eu-central-1"
+    },
+    {
+        "name": "Asia Pacific",
+        "code": "ap-south-1",
+        "location": "Mumbai",
+        "s3Region": "ap-south-1"
+    },
+]
+----
+
+== Get regions for high availability pair
+You can use this workflow to retrieve the regions for an HA pair.
+
+.HTTP method and endpoint
+
+This REST API call uses the following method and endpoint.
+
+[cols="25,75"*,options="header"]
+|===
+|HTTP method
+|Path
+|GET
+|/occm/api/aws/ha/metadata/regions
+|===
+
+.Curl example::
+[source,curl]
+curl --request GET \
+--location "https://api.bluexp.netapp.com/occm/api/aws/ha/metadata/regions' \
+--header 'Content-Type: application/json" \
+--header "x-agent-id: <AGENT_ID>" \ 
+--header "Authorization: Bearer <ACCESS_TOKEN>" \
+
+
+.JSON output example
+The JSON output provides an example of a list of AWS regions.
+
+----
+[
+    {
+        "name": "US East",
+        "code": "us-east-1",
+        "location": "N. Virginia",
+        "s3Region": "US"
+    },
+    {
+        "name": "US East",
+        "code": "us-east-2",
+        "location": "Ohio",
+        "s3Region": "us-east-2"
+    },
+    {
+        "name": "US West",
+        "code": "us-west-1",
+        "location": "N. California",
+        "s3Region": "us-west-1"
+    }
+]
+----

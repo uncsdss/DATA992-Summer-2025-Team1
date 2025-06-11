@@ -1,0 +1,140 @@
+---
+sidebar: sidebar
+permalink: cm/wf_aws_cloud_md_get_key_pairs.html
+keywords: permutations, cloud, volumes, ontap, working, environment, occm
+summary: You can use the key pairs endpoint to retrieve the AWS key pairs for specific regions.
+---
+
+= Get key pairs
+:hardbreaks:
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+You can use the key pairs endpoint to retrieve the AWS key pairs for specific regions.
+
+Choose the workflow to use based on the type of Cloud Volumes ONTAP deployment:
+
+* <<Get key pairs for single node, Single Node>>
+* <<Get key pairs for high availability pair, HA pair>>
+
+== Get key pairs for single node
+You can use this workflow to retrieve the key pairs for a single node working environment.
+
+=== Step 1. Get the region
+Perform the workflow link:wf_aws_cloud_md_get_regions.html#get-regions-for-single-node[Get regions] and choose the `code` value of the required region for the `region` query parameter.
+
+=== Step 2. Get the key pairs
+You can issue the REST API call to retrieve the key pairs.
+
+.HTTP method and endpoint
+
+This REST API call uses the following method and endpoint.
+
+[cols="25,75"*,options="header"]
+|===
+|HTTP method
+|Path
+|GET
+|/occm/api/vsa/metadata/key-pairs
+|===
+
+.Curl example
+[source,curl]
+curl --request GET \
+--location "https://api.bluexp.netapp.com/occm/api/vsa/metadata/key-pairs?region=<REGION>" \
+--header "x-agent-id: <AGENT_ID>" \ 
+--header "Authorization: Bearer <ACCESS_TOKEN>" \
+--header "Content-Type: application/json"
+
+.Additional input parameters
+
+In addition to the parameters common with all REST API calls, the following parameters are also used in the curl examples for this step.
+
+[cols="25,25, 25, 45"*,options="header"]
+|===
+|Parameter
+|Type
+|Required
+|Description
+| <REGION> `region` |Query |Yes |Identifies the region of the working environment
+| `roleArn` |Query |No |Identifies the AMazon resource name for the connection's role.
+| `cloudProviderAccountId` |Query |No |Identifies the cloud provider account ID.
+|===
+
+
+.JSON output example
+
+The output shows the AWS user key pairs for a specific region.
+
+----
+[
+    "Developers_Virginia",
+    "gfcqa",
+    "kubernetes-net6vbp8sd",
+    "kubernetes-netpn77b32",
+    "occm_qa"
+]
+----
+
+== Get key pairs for high availability pair
+You can use this workflow to retrieve the key pairs for an HA working environment.
+
+=== Step 1. Get the region
+Perform the workflow link:wf_aws_cloud_md_get_regions.html#get-regions-for-high-availability-pair[Get regions] and choose the `code` value of the required region for the `region` query parameter.
+
+NOTE: Ensure that you choose the path value for the HA pair while performing the Get Regions workflow.
+
+=== Step 2. Get the key pairs
+You can issue the REST API call to retrieve the key pairs.
+
+.HTTP method and endpoint
+
+This REST API call uses the following method and endpoint.
+
+[cols="25,75"*,options="header"]
+|===
+|HTTP method
+|Path
+|GET
+|/occm/api/aws/ha/metadata/key-pairs
+|===
+
+.Curl example
+[source,curl]
+curl --request GET \
+--location "https://api.bluexp.netapp.com/occm/api/aws/ha/metadata/key-pairs?region=<REGION>" \
+--header "x-agent-id: <AGENT_ID>" \ 
+--header "Authorization: Bearer <ACCESS_TOKEN>" \
+--header "Content-Type: application/json"
+
+.Additional input parameters
+
+In addition to the parameters common with all REST API calls, the following parameters are also used in the curl examples for this step.
+
+[cols="25,25, 25, 45"*,options="header"]
+|===
+|Parameter
+|Type
+|Required
+|Description
+| <REGION> `region` |Query |Yes |Identifies the region of the working environment
+| `roleArn` |Query |No |Identifies the AMazon resource name for the connection's role.
+| `cloudProviderAccountId` |Query |No |Identifies the cloud provider account ID.
+|===
+
+.JSON output example
+
+The output shows the AWS user key pairs for a specific region.
+
+----
+[
+    "Developers_Virginia",
+    "gfcqa",
+    "kubernetes-net6vbp8sd",
+    "kubernetes-netpn77b32",
+    "occm_qa"
+]
+----

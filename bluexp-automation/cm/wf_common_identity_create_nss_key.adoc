@@ -1,0 +1,77 @@
+---
+sidebar: sidebar
+permalink: cm/wf_common_identity_create_nss_key.html
+keywords: bluexp, rest
+summary: "You can retrieve the key for a specific NetApp Support Site account."
+---
+
+= Create an NSS key
+:hardbreaks:
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+You can create the key for a specific NetApp Support Site account.
+
+== Step 1. Select the account
+
+Perform the workflow link:wf_common_identity_get_supported_srv.html[Get supported services] and choose the `accountId` value for the path parameter.
+
+
+== Step 2. Create the NSS key
+
+You can issue a REST API call to create an NSS key.
+
+.HTTP method and endpoint
+
+This REST API call uses the following method and endpoint.
+
+[cols="25,75"*,options="header"]
+|===
+|HTTP method
+|Resource path
+|POST
+|/ipa/account/{accountId}/nss-keys
+|===
+
+.Curl example
+[source,curl]
+curl --request GET \
+--location "https://api.bluexp.netapp.com/ipa/account/<ACCOUNT_ID>/nss-key" \
+--header "Content-Type: application/json" \
+--header "x-agent-id: <AGENT_ID>" \
+--header "Authorization: Bearer <ACCESS_TOKEN>"
+
+.Additional input parameters
+
+The JSON input example includes the minimum list of parameters.
+
+[cols="25,25, 25, 45"*,options="header"]
+|===
+|Parameter
+|Type
+|Required
+|Description
+|<ACCOUNT_ID> `(accountId)` |Path |Yes |Identifies the account ID
+|===
+
+
+.JSON input example
+[source,json]
+{
+  "username": "zivtest03",
+  "password": "password"
+}
+
+
+.JSON output example
+
+An NSS key is returned as shown in the JSON output example.
+
+----
+{
+    "id": "d69a5214-7d61-486e-8750-8e1f6xxxxx00"
+}
+----

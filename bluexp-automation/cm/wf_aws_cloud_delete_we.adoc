@@ -1,0 +1,123 @@
+---
+sidebar: sidebar
+permalink: cm/wf_aws_cloud_delete_we.html
+keywords: cloud, manager, rest, api, working, environment, cloud, volumes, ontap, occm
+summary: 'You can delete an existing Cloud Volumes ONTAP working environment.'
+---
+
+= Delete a working environment
+:hardbreaks:
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+You can delete an existing Cloud Volumes ONTAP working environment.
+
+Choose the workflow to use based on the type of the Cloud Volumes ONTAP deployment:
+
+* <<Delete working environment for single node, Single Node>>
+* <<Delete working environment for high availability pair, HA pair>>
+
+
+== Delete a working environment for single node
+
+You can use this workflow to delete a working environment for a single node system.
+
+=== Step 1. Select the working environment to use
+
+Perform the workflow link:wf_aws_cloud_get_wes.html#get-working-environment-for-single-node[Get working environments] and choose the `publicId` value of the working environment for the `workingEnvironmentId` path parameter.
+
+=== Step 2. Delete the working environment
+
+You can issue a REST API call to delete a working environment for single node.
+
+.HTTP method and endpoint
+
+This REST API call uses the following method and endpoint.
+
+[cols="25,75"*,options="header"]
+|===
+|HTTP method
+|Path
+|DELETE
+|/occm/api/vsa/working-environments/{workingEnvironmentId}
+|===
+
+.Curl example
+[source,curl]
+curl --request DELETE \
+--location "https://api.bluexp.netapp.com/occm/api/vsa/working-environments/<WORKING_ENV_ID>" \
+--header "x-agent-id: <AGENT_ID>" \ 
+--header "Authorization: Bearer <ACCESS_TOKEN>" \
+--header "Content-Type: application/json" \
+
+
+.Additional input parameters
+
+In addition to the parameters common with all REST API calls, the following parameters are also used in the curl examples for this step.
+
+[cols="25,25, 25, 45"*,options="header"]
+|===
+|Parameter
+|Type
+|Required
+|Description
+| `workingEnvironmentId` <WORKING_ENV_ID> |Path |Yes |Identifies the working environment ID
+| `localDelete` |Query |No |If `true` the Cloud Volumes ONTAP instance in the cloud is not terminated, but Cloud Manager no longer manages it (default is `false`).
+| `forceDelete` |Query |No |If `true` the working environment is deleted even if it is part of one or more SnapMirror relationships (default is `false`).
+|===
+
+
+.JSON output example
+
+None
+
+== Delete working environment for high availability pair
+
+You can use this workflow to delete a working environment for an HA pair.
+
+=== Step 1. Select the working environment to use
+
+Perform the workflow link:wf_aws_cloud_get_wes.html#get-working-environment-for-high-availability-pair[Get working environments] and choose the `publicId` value of the working environment for the `workingEnvironmentId` path parameter.
+
+=== Step 2. Delete the working environment
+
+You can issue a REST API call to delete a working environment for single node.
+
+[cols="25,75"*,options="header"]
+|===
+|HTTP method
+|Path
+|DELETE
+|/occm/api/aws/ha/working-environments/{workingEnvironmentId}
+|===
+
+.Curl example
+[source,curl]
+curl --request DELETE \
+--location "https://api.bluexp.netapp.com/occm/api/aws/ha/working-environments/<WORKING_ENV_ID>" \
+--header "x-agent-id: <AGENT_ID>" \ 
+--header "Authorization: Bearer <ACCESS_TOKEN>" \
+--header "Content-Type: application/json"
+
+.Additional input parameters
+
+In addition to the parameters common with all REST API calls, the following parameters are also used in the curl examples for this step.
+
+[cols="25,25, 25, 45"*,options="header"]
+|===
+|Parameter
+|Type
+|Required
+|Description
+| `workingEnvironmentId` <WORKING_ENV_ID> |Path |Yes |Identifies the working environment ID
+| `localDelete` |Query |No |If `true` the Cloud Volumes ONTAP instance in the cloud is not terminated, but Cloud Manager no longer manages it (default is `false`).
+| `forceDelete` |Query |No |If `true` the working environment is deleted even if it is part of one or more SnapMirror relationships (default is `false`).
+|===
+
+
+.JSON output example
+
+None

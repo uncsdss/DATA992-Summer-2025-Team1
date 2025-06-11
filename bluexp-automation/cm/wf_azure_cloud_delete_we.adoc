@@ -1,0 +1,121 @@
+---
+sidebar: sidebar
+permalink: cm/wf_azure_cloud_delete_we.html
+keywords: cloud, manager, rest, api, working, environment, cloud, volumes, ontap, occm
+summary: 'You can delete an existing Cloud Volumes ONTAP working environment.'
+---
+
+= Delete a working environment
+:hardbreaks:
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+You can delete an existing Azure Cloud Volumes ONTAP working environment.
+
+Choose the workflow to use based on the type of Cloud Volumes ONTAP deployment:
+
+* <<Delete working environment for single node, Single Node>>
+* <<Delete working environment for high availability pair, HA pair>>
+
+== Delete working environment for single node
+You can use this workflow to delete a single node working environment.
+
+=== Step 1. Create the working environment to use
+
+Perform the workflow link:wf_azure_cloud_create_we_paygo.html#create-working-environment-for-single-node[Create Azure single node working environment] and choose the `publicId` value of the working environment for the `workingEnvironmentId` path parameter.
+
+=== Step 2. Delete the working environment
+
+.HTTP method and endpoint
+
+This REST API call uses the following method and endpoint.
+
+
+[cols="25,75"*,options="header"]
+|===
+|HTTP method
+|Path
+|DELETE
+|/occm/api/azure/vsa/working-environments/{workingEnvironmentId}
+|===
+
+.Curl example
+[source,curl]
+curl --request DELETE \
+--location DELETE "https://api.bluexp.netapp.com/occm/api/azure/vsa/working-environments/<WORKING_ENV_ID>" \
+--header "Content-Type: application/json" \
+--header "x-agent-id: <AGENT_ID>" \
+--header "Authorization: Bearer <ACCESS_TOKEN>"
+
+.Additional input parameters
+
+The JSON input example includes the minimum list of parameters.
+
+* Path parameter <WORKING_ENV_ID> `(workingEnvironmentId)` string
+
+* (Optional) Query parameters:
+
+** `localDelete` boolean
++
+If `true` the Cloud Volumes ONTAP instance in the cloud is not terminated, but Cloud Manager no longer manages it (default is `false`).
+
+** `forceDelete` boolean
++
+If `true` the working environment is deleted even if it is part of one or more SnapMirror relationships (default is `false`).
+
+.Output
+
+None
+
+== Delete working environment for high availability pair
+You can use this workflow to delete an HA working environment.
+
+=== Step 1. Create the working environment to use
+
+Perform the workflow link:wf_azure_cloud_create_we_paygo.html#create-working-environment-for-high-availability-pair[Create Azure HA working environment] and choose the `publicId` value of the working environment for the `workingEnvironmentId` path parameter.
+
+=== Step 2. Delete the working environment
+
+.HTTP method and endpoint
+
+This REST API call uses the following method and endpoint.
+
+
+[cols="25,75"*,options="header"]
+|===
+|HTTP method
+|Path
+|DELETE
+|/occm/api/azure/ha/working-environments/{workingEnvironmentId}
+|===
+
+.Curl example
+[source,curl]
+curl --request DELETE \
+--location "https://api.bluexp.netapp.com/occm/api/azure/ha/working-environments/<WORKING_ENV_ID>" \
+--header "Content-Type: application/json" \
+--header "x-agent-id: <AGENT_ID>" \
+--header "Authorization: Bearer <ACCESS_TOKEN>"
+
+.Additional input parameters
+
+The JSON input example includes the minimum list of parameters.
+
+Path parameter <WORKING_ENV_ID> `(workingEnvironmentId)` string
+
+(Optional) Query parameters:
+
+* `localDelete` boolean
++
+If `true` the Cloud Volumes ONTAP instance in the cloud is not terminated, but Cloud Manager no longer manages it (default is `false`).
+
+* `forceDelete` boolean
++
+If `true` the working environment is deleted even if it is part of one or more SnapMirror relationships (default is `false`).
+
+.Output
+
+None
