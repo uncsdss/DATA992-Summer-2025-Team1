@@ -1,3 +1,4 @@
+// uuid: f722cfca-773f-569d-8bb0-b6f7e676888b
 ---
 sidebar: sidebar
 permalink: platform/register_service.html

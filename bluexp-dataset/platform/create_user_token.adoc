@@ -1,3 +1,4 @@
+// uuid: 67c9e35f-3480-5c88-95c2-c4097057a21f
 ---
 sidebar: sidebar
 permalink: platform/create_user_token.html

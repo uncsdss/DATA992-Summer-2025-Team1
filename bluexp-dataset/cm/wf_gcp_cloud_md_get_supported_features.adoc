@@ -1,3 +1,4 @@
+// uuid: 8abbbd25-028f-5067-9468-2e6817eecc84
 ---
 sidebar: sidebar
 permalink: cm/wf_gcp_cloud_md_get_supported_features.html

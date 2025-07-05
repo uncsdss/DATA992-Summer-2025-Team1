@@ -1,3 +1,4 @@
+// uuid: 78d90599-e784-5b85-abe2-1fdf5fe4e395
 ---
 sidebar: sidebar
 permalink: cm/wf_azure_cloud_create_we_byol.html

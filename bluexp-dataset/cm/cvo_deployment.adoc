@@ -1,3 +1,4 @@
+// uuid: 44564b1b-479e-5aa7-9da0-42d195500bf9
 ---
 sidebar: sidebar
 permalink: cm/cvo_deployment.html

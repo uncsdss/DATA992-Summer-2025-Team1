@@ -1,3 +1,4 @@
+// uuid: 75acd88f-94ef-574e-9d1c-be5784ec9c2f
 ---
 sidebar: sidebar
 permalink: platform/create_service_token.html

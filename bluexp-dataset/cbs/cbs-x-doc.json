@@ -1,4 +1,5 @@
 {
+  "uuid": "6f075d6e-2d87-5110-a54b-b9e56bb69ade",
   "paths": {
     "/account/{accountId}/providers/cloudmanager_cbs/api/v1/sfr/volume/{volumeId}/file-explore/start": {
       "post": {
@@ -823,7 +824,6 @@
           "category": "SFR",
           "filename": "get-account-providers-cloudmanager_cbs-api-v1-sfr-working-environment-volume-snapshot-file-explore-list.html",
           "explorer": false
-        
         }
       }
     }

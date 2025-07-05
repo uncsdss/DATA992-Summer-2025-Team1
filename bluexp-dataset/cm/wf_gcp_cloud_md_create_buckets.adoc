@@ -1,3 +1,4 @@
+// uuid: f5c5f522-5681-5de2-8ea4-bad3e0774f62
 ---
 sidebar: sidebar
 permalink: cm/wf_gcp_cloud_md_create_buckets.html

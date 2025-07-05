@@ -1,4 +1,5 @@
 {
+  "uuid": "29761234-33cd-5ce9-a93a-089c44c7ea59",
   "paths": {
     "/aws-credentials/{accountId}": {
       "get": {

@@ -1,3 +1,4 @@
+// uuid: 38eb88ca-dc08-5a3b-8a2a-26942c1122ae
 ---
 sidebar: sidebar
 permalink: platform/http_details.html

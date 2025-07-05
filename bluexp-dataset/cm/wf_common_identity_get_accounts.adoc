@@ -1,3 +1,4 @@
+// uuid: 6c08a0c9-3b9c-535a-bf1d-6f052b477cbd
 ---
 sidebar: sidebar
 permalink: cm/wf_common_identity_get_accounts.html

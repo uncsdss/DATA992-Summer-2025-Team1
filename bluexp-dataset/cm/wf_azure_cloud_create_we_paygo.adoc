@@ -1,3 +1,4 @@
+// uuid: c3d176b8-f444-5c8f-9773-135d6e3256f7
 ---
 sidebar: sidebar
 permalink: cm/wf_azure_cloud_create_we_paygo.html

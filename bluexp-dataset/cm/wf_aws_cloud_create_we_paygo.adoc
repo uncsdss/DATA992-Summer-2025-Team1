@@ -1,3 +1,4 @@
+// uuid: 03d11d62-5e7c-5a7e-b30a-95d0dc64581d
 ---
 sidebar: sidebar
 permalink: cm/wf_aws_cloud_create_we_paygo.html

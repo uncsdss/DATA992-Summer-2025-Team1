@@ -1,3 +1,4 @@
+// uuid: 80e4f7bb-32c7-594b-8c6b-034c42b4a3b6
 ---
 sidebar: sidebar
 permalink: legal-notices.html

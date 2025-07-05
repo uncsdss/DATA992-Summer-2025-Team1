@@ -1,3 +1,4 @@
+// uuid: eebc5983-8d6e-587c-bd79-918d7e5424b2
 ---
 sidebar: sidebar
 permalink: cm/wf_azure_cloud_get_wes.html

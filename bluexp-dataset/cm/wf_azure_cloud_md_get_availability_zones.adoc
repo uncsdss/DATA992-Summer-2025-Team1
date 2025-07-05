@@ -1,3 +1,4 @@
+// uuid: f0a022db-f5f2-5342-970e-3873cd1de111
 ---
 sidebar: sidebar
 permalink: cm/wf_azure_cloud_md_get_availability_zones.html

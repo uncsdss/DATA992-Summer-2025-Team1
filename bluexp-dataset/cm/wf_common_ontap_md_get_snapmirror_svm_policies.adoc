@@ -1,3 +1,4 @@
+// uuid: d8702a30-c32e-58b2-adf3-d5ce774927b8
 ---
 sidebar: sidebar
 permalink: cm/wf_common_ontap_md_get_snapmirror_svm_policies.html

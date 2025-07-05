@@ -1,3 +1,4 @@
+// uuid: c8b6411e-4d3c-5314-b1fe-cbda0fbfe8f0
 ---
 sidebar: sidebar
 permalink: cm/wf_gcp_cloud_md_get_zones.html

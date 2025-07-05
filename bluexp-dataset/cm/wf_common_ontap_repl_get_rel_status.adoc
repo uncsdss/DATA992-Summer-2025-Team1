@@ -1,3 +1,4 @@
+// uuid: b992e51b-5272-51a5-88b1-8ddf6dc43784
 ---
 sidebar: sidebar
 permalink: cm/wf_common_ontap_repl_get_rel_status.html

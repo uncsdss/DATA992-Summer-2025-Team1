@@ -1,3 +1,4 @@
+// uuid: d88894e0-a363-56da-97a0-ed8bd998c4b4
 ---
 sidebar: sidebar
 permalink: cm/wf_gcp_cloud_md_get_permutations.html

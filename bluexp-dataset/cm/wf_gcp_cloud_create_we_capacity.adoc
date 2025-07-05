@@ -1,3 +1,4 @@
+// uuid: c069c7b4-5fb5-5b16-b28d-bc92d432aca2
 ---
 sidebar: sidebar
 permalink: cm/wf_gcp_cloud_create_we_capacity.html

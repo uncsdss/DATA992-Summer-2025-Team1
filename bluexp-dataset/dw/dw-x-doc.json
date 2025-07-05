@@ -1,4 +1,5 @@
 {
+  "uuid": "99185401-600e-591b-a5b3-da6e8a752b05",
   "paths": {
     "/license/serial-number/{serialNumber}": {
       "post": {

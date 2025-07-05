@@ -1,3 +1,4 @@
+// uuid: f6a925ef-962e-5213-87e8-37280e5de65e
 ---
 sidebar: sidebar
 permalink: cm/wf_common_occm_attach_subscription.html

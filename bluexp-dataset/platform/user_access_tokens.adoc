@@ -1,3 +1,4 @@
+// uuid: a254bb2d-7e80-5a9f-be07-7ffccd19b5f0
 ---
 sidebar: sidebar
 permalink: platform/user_access_tokens.html

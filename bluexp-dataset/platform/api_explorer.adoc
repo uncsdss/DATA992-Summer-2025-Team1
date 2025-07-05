@@ -1,3 +1,4 @@
+// uuid: aecdacb0-f5ce-52e6-a27a-c9f0d992ca51
 ---
 sidebar: sidebar
 permalink: platform/api_explorer.html

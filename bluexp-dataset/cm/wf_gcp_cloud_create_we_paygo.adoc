@@ -1,3 +1,4 @@
+// uuid: dddbbac9-6a30-5b0d-aaad-661e9a803c0f
 ---
 sidebar: sidebar
 permalink: cm/wf_gcp_cloud_create_we_paygo.html

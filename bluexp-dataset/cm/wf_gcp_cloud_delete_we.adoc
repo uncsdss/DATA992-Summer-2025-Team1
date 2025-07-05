@@ -1,3 +1,4 @@
+// uuid: a9dd0a89-b761-517c-b616-ea91f469b4c3
 ---
 sidebar: sidebar
 permalink: cm/wf_gcp_cloud_delete_we.html

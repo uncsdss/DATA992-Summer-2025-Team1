@@ -1,3 +1,4 @@
+// uuid: a9fdc9b5-bfd5-5031-a90d-4e45bbe1b8f6
 ---
 sidebar: sidebar
 permalink: cm/wf_gcp_cloud_create_we_byol.html

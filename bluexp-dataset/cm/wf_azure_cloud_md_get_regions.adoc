@@ -1,3 +1,4 @@
+// uuid: b4f480a5-8522-5585-a524-f3c7a1bd8db7
 ---
 sidebar: sidebar
 permalink: cm/wf_azure_cloud_md_get_regions.html

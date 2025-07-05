@@ -1,3 +1,4 @@
+// uuid: 468e1b34-386e-5dc0-82bc-2ec5f8326c9c
 ---
 sidebar: sidebar
 permalink: cm/wf_azure_cloud_md_get_permutations.html

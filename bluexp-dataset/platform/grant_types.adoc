@@ -1,3 +1,4 @@
+// uuid: a466cc3a-350b-5a81-92d3-aafd854a5f6b
 ---
 sidebar: sidebar
 permalink: platform/grant_types.html

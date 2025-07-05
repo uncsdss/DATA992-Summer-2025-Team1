@@ -1,3 +1,4 @@
+// uuid: 36d65405-1fe6-5ac2-b2f6-783ab4bc122a
 ---
 sidebar: sidebar
 permalink: cm/wf_azure_cloud_md_get_storage_account_types.html

@@ -1,3 +1,4 @@
+// uuid: 11a6dfad-3e12-5b52-931d-7b582080ea64
 ---
 sidebar: sidebar
 permalink: cm/wf_aws_cloud_md_get_permutations.html

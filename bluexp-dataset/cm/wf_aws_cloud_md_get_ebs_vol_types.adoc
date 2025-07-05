@@ -1,3 +1,4 @@
+// uuid: 89df83bf-8cff-5499-8ba6-f71746cda5be
 ---
 sidebar: sidebar
 permalink: cm/wf_aws_cloud_md_get_ebs_vol_types.html

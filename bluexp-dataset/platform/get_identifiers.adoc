@@ -1,3 +1,4 @@
+// uuid: 11ee5f3a-22d1-56cc-a58b-071d782bfc0b
 ---
 sidebar: sidebar
 permalink: platform/get_identifiers.html

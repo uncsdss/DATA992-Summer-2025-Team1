@@ -1,3 +1,4 @@
+// uuid: a9965e3c-d062-5e79-91b7-c68c95912dda
 ---
 sidebar: sidebar
 permalink: cm/wf_aws_cloud_get_wes.html

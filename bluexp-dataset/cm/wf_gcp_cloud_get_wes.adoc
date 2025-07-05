@@ -1,3 +1,4 @@
+// uuid: d8f707b4-6318-58d8-9d8f-81def415944d
 ---
 sidebar: sidebar
 permalink: cm/wf_gcp_cloud_get_wes.html

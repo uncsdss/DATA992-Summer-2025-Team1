@@ -1,4 +1,5 @@
 {
+  "uuid": "5ffabc21-8e31-5182-9d18-f6cc34fe7fd3",
   "paths": {
     "/ipa/account/{accountId}/serial-number/{serialNumber}/register": {
       "post": {

@@ -1,3 +1,4 @@
+// uuid: d047a7e8-c936-5b9d-9026-b2151e12c702
 ---
 sidebar: sidebar
 permalink: cm/wf_azure_cloud_md_get_packages.html

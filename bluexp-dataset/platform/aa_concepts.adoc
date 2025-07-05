@@ -1,3 +1,4 @@
+// uuid: d243bcb8-44f3-586a-be0b-e77e857f127f
 ---
 sidebar: sidebar
 permalink: platform/aa_concepts.html

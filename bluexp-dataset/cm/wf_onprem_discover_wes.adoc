@@ -1,3 +1,4 @@
+// uuid: c11b4718-547d-52d8-8de6-87cad3d46eb0
 ---
 sidebar: sidebar
 permalink: cm/wf_onprem_discover_wes.html

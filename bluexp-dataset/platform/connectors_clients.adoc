@@ -1,3 +1,4 @@
+// uuid: 724d15cf-1459-54e5-9a86-82180c84e146
 ---
 sidebar: sidebar
 permalink: platform/connectors_clients.html

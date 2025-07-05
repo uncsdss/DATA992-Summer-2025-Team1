@@ -1,7 +1,8 @@
+uuid: 46f45374-59d8-5c56-9508-857ed6de18d6
 section: automate
 title: Automation technologies
 entries:
-  - title: Overview
-    url: /automate/overview.html
-  - title: Automation blogs
-    url: /automate/blogs.html
+- title: Overview
+  url: /automate/overview.html
+- title: Automation blogs
+  url: /automate/blogs.html

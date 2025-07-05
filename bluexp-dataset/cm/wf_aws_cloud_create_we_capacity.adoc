@@ -1,3 +1,4 @@
+// uuid: ca12a2f5-6e08-583a-adb2-968d76179ba5
 ---
 sidebar: sidebar
 permalink: cm/wf_aws_cloud_create_we_capacity.html

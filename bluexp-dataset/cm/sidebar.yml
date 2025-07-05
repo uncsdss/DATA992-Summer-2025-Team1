@@ -1,8 +1,9 @@
+uuid: a5e05133-c2ee-562d-b5b4-107797b95d35
 section: cm
 title: API reference
 url: /cm/api_reference.html
 entries:
-  - title: Resources
-    url: /cm/api_ref_resources.html
-  - title: Definitions
-    url: /cm/api_ref_definitions.html
+- title: Resources
+  url: /cm/api_ref_resources.html
+- title: Definitions
+  url: /cm/api_ref_definitions.html

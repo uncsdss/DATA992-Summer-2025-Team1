@@ -1,3 +1,4 @@
+// uuid: cb65b5d7-37a7-5044-9368-7bca5ef76d9b
 ---
 sidebar: sidebar
 permalink: automate/blogs.html
