@@ -63,6 +63,44 @@ Utilizing NLP techniques, generate enriched metadata tags to augment existing se
 - Test project methodology via user-defined querying and comparing returned NetApp documentation.
 
 ---
+### Data Visualization
+
+
+The visualization we created is a d3 js web portal. We include some data analysis of the NetApp Bluexp repository under "EDA." 
+There are two formats for analyzing the repository. The "explorer" provides a high level overview and breakdown of the metadata we generated. Also, there is an "Org-chart"
+which provides a more personalized and in depth view of the repository.
+
+![EDA Chart](./images/eda-chart.png "EDA Chart")
+![Explorer Chart](./images/explorer-chart.png "Explorer Chart")
+![Org Chart](./images/org-chart.png "Org Chart")
+
+D3, or Data-Driven Documents, is a popular Javascript library for building interactive web-based visualizations. In order to load data into a D3 visualization from your machine, you need to be running the application on a server.
+ 
+I strongly recommend using python to boot up a local server instance using the terminal command :
+    
+    python3 -m http.server
+    
+and then opening the corresponding page in the browser (typically http://localhost:8000/index.html) to an external site. But the command prompt will tell you if you're loading on a different port than 8000. Other than that, you'll just need access to a browser and an IDE capable of doing HTML development (I like minimalist tools like Notepad++, Atom, Brackets, or Sublime, but VSCode and other full-featured IDEs work just as well).
+ 
+# Terminal Python HTTP server
+To terminate the python HTTP server, you can use the keyboard shortcut:
+ 
+    Control + C (Ctrl+C)
+ 
+# python3 -m http.server isn't working
+1. Check if you have Homebrew installed by running
+    brew --version
+ 
+2. If you see "command not found" error, you'll need to install Homebrew first by running
+    brew install python3
+ 
+3. After installation, restart your terminal and try running
+    python3 -m http.server
+ 
+4. If server starts successfully, you should see a message like
+    "Serving HTTP on 0.0.0.0 port 8000"
+
+
 
 ###  Roles
 

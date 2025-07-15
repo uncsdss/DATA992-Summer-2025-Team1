@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Org Chart – Smooth Click‑to‑Zoom + Persistent Expand/Collapse</title>
+
+  <!-- D3 core -->
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <!-- flextree (before org-chart) -->
+  <script src="https://cdn.jsdelivr.net/npm/d3-flextree@2.1.2/build/d3-flextree.js"></script>
+  <!-- d3-org-chart v2 -->
+  <script src="https://unpkg.com/d3-org-chart@2"></script>
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="css/tree.css">  
+  <style>
+    html, body { margin:0; padding:0; height:100%; }
+    .wrapper { display:flex; height:100%; }
+    .chart-container {
+      position:relative;
+      width:70%; height:100%;
+      background:#f6f6f6;
+    }
+    #sidebar {
+      width:30%; height:100%;
+      border-left:1px solid #ccc;
+      padding:12px; box-sizing:border-box;
+      overflow-y:auto; background:#fff;
+    }
+    #controls {
+      position:absolute; top:10px; left:10px;
+      display:flex; gap:4px; z-index:10;
+    }
+    #controls button {
+      padding:4px 8px; font-size:14px;
+      cursor:pointer; background:#fff;
+      border:1px solid #ccc; border-radius:2px;
+    }
+    /* let the library size these correctly */
+    .chart-container .node-foreign-object-div {
+      border:2px solid #333;
+      border-radius:4px;
+      box-sizing:border-box;
+    }
+    .node-rect { cursor:default; }
+    #sidebar h2 { margin-top:0; font-size:1.2em; }
+    #sidebar ul { padding-left:1.2em; }
+    #sidebar ul li { margin-bottom:4px; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <span class="site-title">Repository Tree Explorer</span>
+    <nav class="site-nav">
+      <a href="../index.html" class="nav-btn">Home</a>
+      <a href="../eda/eda.html" class="nav-btn">EDA</a>
+      <a href="../explorer/explorer.html" class="nav-btn active">Explorer</a>
+    </nav>
+  </header>
+  <div class="wrapper">
+    <div class="chart-container">
+      <div id="controls">
+        <button id="zoom-in">Zoom In +</button>
+        <button id="zoom-out">Zoom Out −</button>
+        <button id="expand-all">Expand All</button>
+        <button id="collapse-all">Collapse All</button>
+      </div>
+      <!-- Org chart will append its <svg> here -->
+    </div>
+    <div id="sidebar">
+      <p><em>Click on a <strong>.adoc</strong> node to zoom in & view metadata.</em></p>
+    </div>
+  </div>
+
+  <script>
+    let chart, files;
+
+    function renderSidebar(md) {
+      const sb = document.getElementById('sidebar');
+      let html = `<h2>${md.title}</h2>`;
+      html += `<p><strong>File:</strong> ${md.file_name}</p>`;
+      html += `<p><strong>Last Modified:</strong> ${new Date(md.last_modified).toLocaleString()}</p>`;
+      html += `<p>${md.summary}</p>`;
+      if (md.section_headings?.length) {
+        html += `<h3>Sections</h3><ul>`;
+        md.section_headings.forEach(h => html += `<li>${h}</li>`);
+        html += `</ul>`;
+      }
+      if (md.keywords?.length) {
+        html += `<h3>Keywords</h3><ul>`;
+        md.keywords.forEach(k => html += `<li>${k}</li>`);
+        html += `</ul>`;
+      }
+      sb.innerHTML = html;
+    }
+
+    d3.json('../data/cell_3_extracted_metadata.json')
+      .then(raw => {
+        files = Array.isArray(raw) ? raw : raw.nodes;
+
+        // Build a flat list of nodes, attaching metadata on .adoc leaves
+        const map = new Map();
+        files.forEach(f => {
+          f.file_path.split('/').reduce((parent, seg) => {
+            const path = parent ? `${parent}/${seg}` : seg;
+            if (!map.has(path)) {
+              map.set(path, {
+                id: path,
+                parentId: parent || null,
+                name: seg,
+                metadata: seg.toLowerCase().endsWith('.adoc') ? f : null
+              });
+            }
+            return path;
+          }, '');
+        });
+        const nodes = Array.from(map.values());
+
+        // Instantiate & render the chart
+        chart = new d3.OrgChart()
+          .container('.chart-container')
+          .data(nodes)
+          .linkUpdate(function() {
+            d3.select(this).attr('stroke-width',3).attr('stroke','#333');
+          })
+          .nodeWidth(() => 200)
+          .nodeHeight(() => 80)
+
+          // render only the inner HTML; the library wraps it in
+          // <foreignObject class="node-foreign-object-div">
+          .nodeContent(d => `
+            <div style="padding:4px; font-size:14px;">
+              ${d.data.name}
+            </div>
+          `)
+
+          // in nodeUpdate we bind click behavior *only* to that foreignObject
+          .nodeUpdate(function(d) {
+            // remove any rounding
+            d3.select(this).select('.node-rect').attr('rx',0).attr('ry',0);
+
+            // click-to-zoom & sidebar on the foreignObject wrapper
+            d3.select(this).select('.node-foreign-object-div')
+              .style('cursor','pointer')
+              .on('click', event => {
+                event.stopPropagation();
+                if (!d.data.metadata) return;
+                renderSidebar(d.data.metadata);
+
+                // grab svg & zoomBehavior
+                const svg = d3.select('.chart-container svg');
+                const { zoomBehavior } = chart.getChartState();
+                const bbox = svg.node().getBoundingClientRect();
+
+                // get pointer coords relative to svg
+                const [mx, my] = d3.pointer(event, svg.node());
+
+                // relative scale factor
+                const factor = 1.5;
+
+                // perform a relative zoom *then* translate so click → center
+                svg.transition().duration(400)
+                  .call(zoomBehavior.scaleBy, factor, [mx, my])
+                  .call(zoomBehavior.translateBy,
+                        (bbox.width/2  - mx),
+                        (bbox.height/2 - my));
+              });
+          })
+          .render();
+
+        // grab svg & zoomBehavior for our toolbar
+        const svgEl = d3.select('.chart-container svg');
+        const zoomBehavior = chart.getChartState().zoomBehavior;
+
+        // zoom in/out buttons
+        document.getElementById('zoom-in')
+          .addEventListener('click',  () => chart.zoomIn());
+        document.getElementById('zoom-out')
+          .addEventListener('click', () => chart.zoomOut());
+
+        // expand/collapse all, preserving current transform
+        document.getElementById('expand-all').addEventListener('click', () => {
+          const t = d3.zoomTransform(svgEl.node());
+          chart.expandAll();
+          svgEl.call(zoomBehavior.transform, t);
+        });
+        document.getElementById('collapse-all').addEventListener('click', () => {
+          const t = d3.zoomTransform(svgEl.node());
+          chart.collapseAll();
+          svgEl.call(zoomBehavior.transform, t);
+        });
+
+        // catch manual "^N" toggles and reapply transform
+        svgEl.node().addEventListener('click', e => {
+          if (
+            e.target.tagName === 'text' &&
+            /^\^\d+/.test(e.target.textContent.trim())
+          ) {
+            const t = d3.zoomTransform(svgEl.node());
+            setTimeout(() => svgEl.call(zoomBehavior.transform, t), 0);
+          }
+        });
+      })
+      .catch(err => console.error(err));
+  </script>
+</body>
+</html>

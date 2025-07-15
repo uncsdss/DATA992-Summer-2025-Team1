@@ -1,0 +1,57 @@
+.site-header {
+  width: 100%;
+  background: #2e4051;
+  padding: 16px 32px 12px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2.5rem;
+  box-sizing: border-box;
+  overflow-x: auto;
+}
+.site-title {
+  color: #fff;
+  font-size: 2rem;
+  font-weight: bold;
+  letter-spacing: 0.04em;
+}
+.site-nav {
+  display: flex;
+  gap: 1rem;
+  flex-shrink: 0;
+}
+.nav-btn {
+  color: #fff;
+  background: #e55353;
+  padding: 0.6rem 1.05rem;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: background 0.2s;
+  white-space: nowrap;
+  border: none;
+  outline: none;
+}
+.nav-btn:hover,
+.nav-btn.active {
+  background: #c43e3e;
+  color: #fff;
+}
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #fafbfe;
+}
+
+@media (max-width: 600px) {
+  .site-header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 14px 8px 8px 10px;
+  }
+  .site-nav {
+    margin-top: 0.5rem;
+    gap: 0.5rem;
+  }
+}
