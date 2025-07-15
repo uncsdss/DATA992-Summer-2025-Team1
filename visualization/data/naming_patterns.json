@@ -1,0 +1,86 @@
+{
+  "prefixes": [
+    {
+      "key": "wf",
+      "count": 258
+    },
+    {
+      "key": "sidebar.yml",
+      "count": 30
+    },
+    {
+      "key": "keybert",
+      "count": 15
+    },
+    {
+      "key": "query",
+      "count": 12
+    },
+    {
+      "key": "metadata",
+      "count": 9
+    },
+    {
+      "key": "api",
+      "count": 8
+    },
+    {
+      "key": "overview.adoc",
+      "count": 6
+    },
+    {
+      "key": "repo",
+      "count": 4
+    },
+    {
+      "key": "additional",
+      "count": 4
+    },
+    {
+      "key": "get",
+      "count": 4
+    }
+  ],
+  "words": [
+    {
+      "key": "sidebar",
+      "count": 30
+    },
+    {
+      "key": "x",
+      "count": 18
+    },
+    {
+      "key": "doc",
+      "count": 18
+    },
+    {
+      "key": "overview",
+      "count": 6
+    },
+    {
+      "key": "cbs",
+      "count": 4
+    },
+    {
+      "key": "metadata_proposed",
+      "count": 4
+    },
+    {
+      "key": "metadata",
+      "count": 4
+    },
+    {
+      "key": "copysync",
+      "count": 4
+    },
+    {
+      "key": "credential",
+      "count": 4
+    },
+    {
+      "key": "fsx",
+      "count": 4
+    }
+  ]
+}
