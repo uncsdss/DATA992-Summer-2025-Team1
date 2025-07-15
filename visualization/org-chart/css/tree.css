@@ -50,19 +50,6 @@ header .home-btn {
 }
 
 
-/* #metadata-panel {
-  position: absolute;
-  top: 60px;              
-  right: 0;
-  bottom: 0;
-  width: 350px;
-  overflow-y: auto;
-  border-left: 1px solid #ccc;
-  padding: 10px;
-  background: rgba(255,255,255,0.95);
-  font: 14px sans-serif;
-} */
-
 
 
 /* --- link strokes & node styling --- */
@@ -79,4 +66,25 @@ header .home-btn {
 .node text {
   font: 18px sans-serif;
   pointer-events: none;
+}
+
+
+.chart-container {
+  margin-top: 60px;                     /* push it below the header */
+  width: 70%;
+  height: calc(100% − 60px);            /* shrink its height by the header’s height */
+  overflow: hidden;
+  background: #f6f6f6;
+}
+
+#sidebar {
+  position: absolute;
+  top: 60px;
+  bottom: 0;
+  width: 350px;
+  right: 0;
+  overflow-y: auto;
+  border-left: 1px solid #ccc;
+  padding: 10px;
+  background: rgba(255,255,255,0.95);
 }
