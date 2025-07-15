@@ -76,7 +76,7 @@ I strongly recommend using python to boot up a local server instance using the t
     
     python3 -m http.server
     
-and then opening the corresponding page in the browser (typically http://localhost:8000/src/index_test.html) to an external site. But the command prompt will tell you if you're loading on a different port than 8000. Other than that, you'll just need access to a browser and an IDE capable of doing HTML development (I like minimalist tools like Notepad++, Atom, Brackets, or Sublime, but VSCode and other full-featured IDEs work just as well).
+and then opening the corresponding page in the browser (typically http://localhost:8000/index.html) to an external site. But the command prompt will tell you if you're loading on a different port than 8000. Other than that, you'll just need access to a browser and an IDE capable of doing HTML development (I like minimalist tools like Notepad++, Atom, Brackets, or Sublime, but VSCode and other full-featured IDEs work just as well).
  
 # Terminal Python HTTP server
 To terminate the python HTTP server, you can use the keyboard shortcut:
