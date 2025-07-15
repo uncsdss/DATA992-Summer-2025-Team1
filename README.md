@@ -70,6 +70,10 @@ The visualization we created is a d3 js web portal. We include some data analysi
 There are two formats for analyzing the repository. The "explorer" provides a high level overview and breakdown of the metadata we generated. Also, there is an "Org-chart"
 which provides a more personalized and in depth view of the repository.
 
+![EDA Chart](./eda-chart.png "EDA Chart")
+![Explorer Chart](./explorer-chart.png "Explorer Chart")
+![Org Chart](./org-chart.png "Org Chart")
+
 D3, or Data-Driven Documents, is a popular Javascript library for building interactive web-based visualizations. In order to load data into a D3 visualization from your machine, you need to be running the application on a server.
  
 I strongly recommend using python to boot up a local server instance using the terminal command :

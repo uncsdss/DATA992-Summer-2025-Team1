@@ -50,7 +50,7 @@ header .home-btn {
 }
 
 
-/* #metadata-panel {
+#metadata-panel {
   position: absolute;
   top: 60px;              
   right: 0;
@@ -61,7 +61,7 @@ header .home-btn {
   padding: 10px;
   background: rgba(255,255,255,0.95);
   font: 14px sans-serif;
-} */
+}
 
 
 
