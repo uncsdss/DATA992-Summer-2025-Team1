@@ -1,7 +1,6 @@
 # DATA992-Summer-2025-Team1
 
 # _Capstone Project_
-</br>
 
 ## About
 
@@ -239,3 +238,54 @@ Our project explores NLP-based metadata generation to improve document retrieval
 See the [full literature review here](literature_review.md).
 
 
+# DATA992-Summer-2025-Team1
+
+## Repository Structure
+
+```
+root-Summer-2025-Team1/
+├── .github/
+│   ├── CODEOWNERS
+│   └── .gitignore
+├── data/
+│   ├── bluexp-dataset/
+│   │   ├── uuid_file_map.csv
+│   │   └── tenancyv4/
+│   │       └── tenancyv4.yaml
+├── docs/
+│   └── literature_review.md
+├── final-proposal.ipynb
+├── images/
+├── metadata-concepts/
+│   ├── cell_2_extracted_adoc_docs
+│   ├── cell_3_extracted_metadata.json
+│   ├── metadata_catalog.json
+│   ├── Named_Entity_Rec.ipynb
+│   ├── preprocessing-metadata-proposed.ipynb
+│   └── summarizer_classifier_metadata.ipynb
+├── notebooks/
+│   ├── 01_data_retrieval.ipynb
+│   ├── 02_eda.ipynb
+│   ├── 03_preprocessing.ipynb
+│   └── ...
+├── proof-of-concepts/
+│   └── nearest_neighbor.ipynb
+├── README.md
+├── requirements.txt
+├── setup.py
+├── src/
+├── visualization/
+│   ├── css/
+│   │   └── main.css
+│   ├── eda/
+│   │   └── eda.html
+│   ├── explorer/
+│   │   ├── explorer.html
+│   │   └── js/
+│   │       └── tree.js
+│   ├── index.html
+│   └── org-chart/
+│       ├── org-chart.html
+│       └── js/
+│           └── tree.js
+```
