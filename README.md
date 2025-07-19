@@ -101,6 +101,18 @@ To terminate the python HTTP server, you can use the keyboard shortcut:
 ---
 
 ## Data Analysis
+
+Our project data focused exclusively on NetApp's [BlueXP-Automation repository](https://github.com/NetAppDocs/bluexp-automation).  This repository contains a total of 194 files, consisting of AsciiDoc(ADOC), JSON, YML, and YAML file formats, along with the standard README.md file.  Our analysis explored various aspects of the data, including:
+
+- the hierarchy of the repository file structure
+- file depth
+- directory file counts
+- file sizes (averages & max/min)
+- file content counts (word counts, header counts, link analysis, etc.)
+- assigning content complexity scores
+- naming structure & pattern recognition analysis
+
+#### For more specific details of our data analysis, please read more at:  [Exploratory Data Analysis (EDA)](./notebooks/02_eda.ipynb "EDA")
 ---
 
 ##  Roles
