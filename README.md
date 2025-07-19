@@ -2,10 +2,6 @@
 
 # _Capstone Project_
 
-## About
-
-Capstone project for Team 1 @ University of North Carolina's Master of Applied Data Science.
-
 ## Problem Statement:
 
 NetApp’s extensive library of technical documentation, authored in AsciiDoc and hosted on GitHub, plays a crucial role in product development, customer support, and implementation success. However, the unstructured nature of this content makes it difficult to retrieve relevant information quickly—resulting in slower onboarding, longer troubleshooting times, and inconsistent knowledge sharing.
