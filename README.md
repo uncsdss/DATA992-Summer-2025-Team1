@@ -2,6 +2,29 @@
 
 # _Capstone Project_
 
+## Table of Contents
+1. [Problem Statement](#problem-statement)
+2. [Project Objectives](#project-objectives)
+3. [Contributors](#contributors)
+4. [Data Sources](#data-sources)
+5. [Project Plan](#project-plan)
+6. [Scope](#scope)
+7. [Methodology](#methodology)
+8. [Data Visualization](#data-visualization)
+9. [Data Analysis](#data-analysis)
+10. [Roles](#roles)
+11. [Schedule & Milestones](#schedule--milestones)
+12. [Challenges](#challenges)
+13. [Data Plan](#data-plan)
+14. Data Cleaning & Validation(#data-cleaning--validation)
+15. [Data Dictionary](#data-dictionary)
+16. [Literature Review](#literature-review)
+17. [Respository Structure](#repository-structure)
+
+---
+
+
+
 ## Problem Statement:
 
 NetApp’s extensive library of technical documentation, authored in AsciiDoc and hosted on GitHub, plays a crucial role in product development, customer support, and implementation success. However, the unstructured nature of this content makes it difficult to retrieve relevant information quickly—resulting in slower onboarding, longer troubleshooting times, and inconsistent knowledge sharing.
@@ -9,13 +32,13 @@ We aim to address this challenge by developing a metadata enrichment system usin
 The project will be constrained by access to existing documentation, GitHub-based workflows, and available compute for NLP models. It must deliver a working prototype, performance metrics comparing baseline and augmented search, and visualizations that communicate its impact.
 Stakeholders—including NetApp documentation teams, internal engineers, and external users—will benefit from faster, more accurate access to the right documentation at the right time. Ultimately, the project will help NetApp improve operational efficiency, reduce cognitive load for its users, and set a precedent for intelligent document retrieval systems.
 
-## Project Objectives:
+## [Project Objectives](#project-objectives):
 
 - Explore and analyze NetApp open-source documentation - beginning with the BlueXP-Automation API repository.
 - Employ NLP models to identify and extract key entities, concepts, and relationships within the textual content, enhancing the metadata with semantic tags and topic modeling results
 - Write a detailed report and an executive presentation discussing our findings, sharing our methodologies, and offering recommendations for further development.
 
-## Contributors
+## [Contributors](#contributors)
 
 [Adam Green](https://www.linkedin.com/in/agreen01/) | [Hubert Hwang](https://www.linkedin.com/in/hubert-hwang-1280076a) | [Jimmy Kruse](https://www.linkedin.com/in/jimmy-kruse-a7a021122) | [Dorn Lee](https://www.linkedin.com/in/dorn-l-79b204a7/) | 
 | :----------------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------: |
@@ -23,22 +46,22 @@ Stakeholders—including NetApp documentation teams, internal engineers, and ext
 |[<img src="https://user-images.githubusercontent.com/36062933/108450440-38656600-7233-11eb-9ed0-34ecedcae435.png" width="20"> ](https://github.com/agreen8911)   |   [<img src="https://user-images.githubusercontent.com/36062933/108450440-38656600-7233-11eb-9ed0-34ecedcae435.png" width="20"> ](https://github.com/hhwang919)    |   [<img src="https://user-images.githubusercontent.com/36062933/108450440-38656600-7233-11eb-9ed0-34ecedcae435.png" width="20"> ](https://github.com/jrkruser)    |   [<img src="https://user-images.githubusercontent.com/36062933/108450440-38656600-7233-11eb-9ed0-34ecedcae435.png" width="20"> ](https://github.com/dl9133)    |
 |[ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="20"> ](https://www.linkedin.com/in/agreen01/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="20"> ](https://www.linkedin.com/in/hubert-hwang-1280076a) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="20"> ](https://www.linkedin.com/in/jimmy-kruse-a7a021122) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="20"> ](https://www.linkedin.com/in/dorn-l-79b204a7)     |            
 
-## Data Sources
+## [Data Sources](#data-sources)
 
 This project is based on NetApp's BlueXP-Automation GitHub repository, which can be found here: https://github.com/NetAppDocs/bluexp-automation 
 
-##   Project Plan
+## [Project Plan](#project-plan)
 
 
 ---
 
-###  Scope
+### [Scope](#scope)
 
 Utilizing NLP techniques, generate enriched metadata tags to augment existing search retrieval processes and improve returned results, including both the total number of relevant documents and the highest quality (highest relevance) documentation.
 
 ---
 
-###  Methodology
+###  [Methodology](#methodology)
 
 - Extract repository(ies) text to be analyzed utilizing Python methods.
 - Conduct data preprocessing to ensure a clean training/evaluation dataset. The dataset preprocessing includes:
@@ -58,7 +81,7 @@ Utilizing NLP techniques, generate enriched metadata tags to augment existing se
 - Test project methodology via user-defined querying and comparing returned NetApp documentation.
 
 ---
-## Data Visualization
+## [Data Visualization](#data-visualization)
 
 
 The visualization we created is a d3 js web portal. We include some data analysis of the NetApp Bluexp repository under "EDA." 
@@ -96,7 +119,7 @@ To terminate the python HTTP server, you can use the keyboard shortcut:
     "Serving HTTP on 0.0.0.0 port 8000"
 ---
 
-## Data Analysis
+## [Data Analysis](#data-analysis)
 
 Our project data focused exclusively on NetApp's [BlueXP-Automation repository](https://github.com/NetAppDocs/bluexp-automation).  This repository contains a total of 194 files, consisting of AsciiDoc(ADOC), JSON, YML, and YAML file formats, along with the standard README.md file.  Our analysis explored various aspects of the data, including:
 
@@ -111,7 +134,7 @@ Our project data focused exclusively on NetApp's [BlueXP-Automation repository](
 #### For more specific details of our data analysis, please read more at:  [Exploratory Data Analysis (EDA)](./notebooks/02_eda.ipynb "EDA")
 ---
 
-##  Roles
+##  [Roles](#roles)
 
 | Member        | Role             | Duties                                                                 |
 |---------------|------------------|------------------------------------------------------------------------|
@@ -122,7 +145,7 @@ Our project data focused exclusively on NetApp's [BlueXP-Automation repository](
 
 ---
 
-##  Schedule & Milestones
+##  [Schedule & Milestones](#schedule--milestones)
 
 ####  Sprint 3 Release (June 22)
 - Access zipped GitHub repo for `.adoc` files
@@ -175,7 +198,7 @@ Our project data focused exclusively on NetApp's [BlueXP-Automation repository](
 
 ---
 
-###  Challenges
+##  [Challenges](#challenges)
 
 - Queries may lack context or be overly brief (e.g., one-word queries)
 - Similar content across `.adoc` files causes retrieval conflicts
@@ -191,7 +214,7 @@ Our project data focused exclusively on NetApp's [BlueXP-Automation repository](
 
 
 
-## Data Plan
+## [Data Plan](#data-plan)
 
 We intend to focus on the .adoc (AsciiDoc) files from the NetAppDocs/bluexp-automation GitHub repository. Additional files json, yml, and yaml will be explored. 
 Specific data of interest includes section titles, headers, code snippets, and descriptive text from documentation; Explore raw and cleaned text content for model training.
@@ -207,7 +230,7 @@ Specific data of interest includes section titles, headers, code snippets, and d
 - Parse files to extract structured metadata and raw textual content.
 - Scrape additional NetApp documentation for larger training sets.
   
-## Data Cleaning and Validation
+## Data Cleaning & Validation
 
 ### Preprocessing Tasks:
 
@@ -223,7 +246,7 @@ Specific data of interest includes section titles, headers, code snippets, and d
 - Compare model retrieval results against NetApp’s internal search and stakeholder queries.
 - Segment data for training/validation/testing.
 
-## Data Dictionary 
+## [Data Dictionary](#data-dictionary) 
 
 | **Field Name**           | **Type**         | **Description**                                                   |
 |--------------------------|------------------|-------------------------------------------------------------------|
@@ -241,16 +264,13 @@ Specific data of interest includes section titles, headers, code snippets, and d
 
 
 
-## Literature Review
+## [Literature Review](#literature-review)
 
 Our project explores NLP-based metadata generation to improve document retrieval from the NetApp BlueXP documentation set. The literature covers techniques in hybrid retrieval, taxonomy-driven metadata design, query reformulation, topic modeling, and automated tag evaluation. Together, these sources inform our approach of using BERT-based models (e.g., BERTopic, KeyBERT), LLM-driven summaries, and rule-based extraction to generate and validate metadata tags.
 
 See the [full literature review here](literature_review.md).
 
-
-# DATA992-Summer-2025-Team1
-
-## Repository Structure
+## [Repository Structure](#respository-structure)
 
 ```
 root-Summer-2025-Team1/
