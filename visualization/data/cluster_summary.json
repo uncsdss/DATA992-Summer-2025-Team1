@@ -1,0 +1,27 @@
+[
+  {
+    "cluster":"other",
+    "count":55,
+    "examples":"legal-notices.adoc, project.yml, README.md"
+  },
+  {
+    "cluster":"api_reference",
+    "count":6,
+    "examples":"api_reference.adoc, api_ref_definitions.adoc, api_ref_resources.adoc"
+  },
+  {
+    "cluster":"workflows",
+    "count":129,
+    "examples":"wf_aws_cloud_add_capacity.adoc, wf_aws_cloud_create_we_byol.adoc, wf_aws_cloud_create_we_capacity.adoc"
+  },
+  {
+    "cluster":"create_operations",
+    "count":2,
+    "examples":"create_service_token.adoc, create_user_token.adoc"
+  },
+  {
+    "cluster":"read_operations",
+    "count":2,
+    "examples":"get_identifiers.adoc, get_nss_key.adoc"
+  }
+]

@@ -1,11 +1,10 @@
 .eda-chart-group { display: none !important; }
 .eda-chart-group.active {
-  display: flex !important;
-  flex-direction: row !important;
-  flex-wrap: wrap !important;
-  justify-content: flex-start;
-  align-items: flex-start;
-  gap: 32px;
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  justify-items: stretch;
+  align-items: start;
 }
 
 .eda-chart-card {
@@ -16,10 +15,154 @@
   max-width: 400px;
   flex: 1 1 310px;
   margin-bottom: 0;
+  cursor: pointer; /* Make all charts clearly clickable */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
+.eda-chart-card.enlarged {
+  position: fixed;
+  top: 2%;
+  left: 2%;
+  width: 96vw;
+  height: 90vh;
+  z-index: 1000;
+  background: white;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  overflow: auto;
+  padding: 1rem;
+}
+
+
+.eda-chart-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.4);
+  z-index: 999;
+  display: none;
+}
+.eda-chart-overlay.active {
+  display: block;
+}
+
 .eda-chart-card h3 {
   margin-bottom: 16px;
 }
+
+.graph-modal {
+  display: none;
+  position: fixed;
+  z-index: 1001;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.6);
+}
+
+/* .graph-modal-content {
+  background-color: #fff;
+  margin: 7% auto;
+  padding: 1rem;
+  border-radius: 8px;
+  width: 80vw;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
+
+.graph-modal-content {
+  background-color: #fff;
+  margin: 1% auto;
+  padding: 0;
+  border-radius: 8px;
+  width: 75vw;
+  height: 75vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* .graph-modal-content svg {
+  width: 98%;
+  height: 98%;
+} */
+
+
+
+.graph-modal-content svg {
+  width: 120%;
+  height: 120%;
+}
+
+.graph-modal-close {
+  position: absolute;
+  top: 3rem;
+  right: 2rem;
+  font-size: 2rem;
+  font-weight: bold;
+  cursor: pointer;
+  color: #333;
+}
+
+#graph-modal-body {
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 80vh;
+  padding: 1rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#graph-modal-body svg {
+  max-height: 55vh; /* Add this line */
+  height: auto;
+  width: 100%;
+  object-fit: contain;
+}
+
+#chart-modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+#chart-modal-content {
+  background-color: #fff;
+  margin: 2rem auto;
+  padding: 1rem;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 1200px;
+}
+
+#chart-modal-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
+
+#chart-modal-close {
+  float: right;
+  font-size: 1.8rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+
 
 .eda-ribbon { display: flex; background: #f4f4f4; padding: 0.5rem; border-bottom: 1px solid #ddd; }
 .eda-ribbon button { margin-right: 1rem; padding: 0.5rem 1rem; border: none; background: #fff; cursor: pointer; border-radius: 4px; }
