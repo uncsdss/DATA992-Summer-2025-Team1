@@ -3,40 +3,44 @@
 # _Capstone Project_
 
 ## Table of Contents
-1. [Problem Statement](#problem-statement)
-2. [Project Objectives](#project-objectives)
-3. [Contributors](#contributors)
-4. [Data Sources](#data-sources)
-5. [Project Plan](#project-plan)
-6. [Data Visualization](#data-visualization)
-7. [Data Analysis](#data-analysis)
-8. [Roles](#roles)
-9. [Schedule & Milestones](#schedule--milestones)
-10. [Challenges](#challenges)
-11. [Data Plan](#data-plan)
-12. [Data Cleaning & Validation](#data-cleaning--validation)
-13. [Data Dictionary](#data-dictionary)
-14. [Literature Review](#literature-review)
-15. [Respository Structure](#repository-structure)
+### [1. Project Overview](#project-overview)
+   - [Problem Statement](#problem-statement)
+   - [Project Objectives](#project-objectives)
+   - [Contributors](#contributors)
+   - [Roles](#roles)
+   - [Respository Structure](#repository-structure)
+   - [Project Plan](#project-plan)
+   - [Schedule & Milestones](#schedule--milestones)
+   - [Challenges](#challenges)
+
+### [2.  Repository Structure](#repository-structure)
+### [3.  Data](#data)
+   - [Data Source](#data-source)
+   - [Data Plan](#data-plan)
+   - [Data Analysis](#data-analysis)
+   - [Data Visualization](#data-visualization)
+   - [Data Dictionary](#data-dictionary)
+   - [Data Cleaning & Validation](#data-cleaning--validation)
+### [4.  Literature Review](#literature-review)
 
 ---
 
+## Project Overview:
 
-
-## Problem Statement:
+### Problem Statement:
 
 NetApp’s extensive library of technical documentation, authored in AsciiDoc and hosted on GitHub, plays a crucial role in product development, customer support, and implementation success. However, the unstructured nature of this content makes it difficult to retrieve relevant information quickly—resulting in slower onboarding, longer troubleshooting times, and inconsistent knowledge sharing.
 We aim to address this challenge by developing a metadata enrichment system using natural language processing and machine learning. The focus will be on the bluexp-automation repository, analyzing text blocks, headers, code, and tables to extract key entities, topics, semantic relationships, and contextual tags. This enriched metadata will feed into a prototype retrieval system that significantly enhances searchability and contextual understanding.
 The project will be constrained by access to existing documentation, GitHub-based workflows, and available compute for NLP models. It must deliver a working prototype, performance metrics comparing baseline and augmented search, and visualizations that communicate its impact.
 Stakeholders—including NetApp documentation teams, internal engineers, and external users—will benefit from faster, more accurate access to the right documentation at the right time. Ultimately, the project will help NetApp improve operational efficiency, reduce cognitive load for its users, and set a precedent for intelligent document retrieval systems.
 
-## Project Objectives
+### Project Objectives:
 
 - Explore and analyze NetApp open-source documentation - beginning with the BlueXP-Automation API repository.
 - Employ NLP models to identify and extract key entities, concepts, and relationships within the textual content, enhancing the metadata with semantic tags and topic modeling results
 - Write a detailed report and an executive presentation discussing our findings, sharing our methodologies, and offering recommendations for further development.
 
-## Contributors
+### Contributors:
 
 [Adam Green](https://www.linkedin.com/in/agreen01/) | [Hubert Hwang](https://www.linkedin.com/in/hubert-hwang-1280076a) | [Jimmy Kruse](https://www.linkedin.com/in/jimmy-kruse-a7a021122) | [Dorn Lee](https://www.linkedin.com/in/dorn-l-79b204a7/) | 
 | :----------------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------: |
@@ -44,22 +48,13 @@ Stakeholders—including NetApp documentation teams, internal engineers, and ext
 |[<img src="https://user-images.githubusercontent.com/36062933/108450440-38656600-7233-11eb-9ed0-34ecedcae435.png" width="20"> ](https://github.com/agreen8911)   |   [<img src="https://user-images.githubusercontent.com/36062933/108450440-38656600-7233-11eb-9ed0-34ecedcae435.png" width="20"> ](https://github.com/hhwang919)    |   [<img src="https://user-images.githubusercontent.com/36062933/108450440-38656600-7233-11eb-9ed0-34ecedcae435.png" width="20"> ](https://github.com/jrkruser)    |   [<img src="https://user-images.githubusercontent.com/36062933/108450440-38656600-7233-11eb-9ed0-34ecedcae435.png" width="20"> ](https://github.com/dl9133)    |
 |[ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="20"> ](https://www.linkedin.com/in/agreen01/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="20"> ](https://www.linkedin.com/in/hubert-hwang-1280076a) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="20"> ](https://www.linkedin.com/in/jimmy-kruse-a7a021122) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="20"> ](https://www.linkedin.com/in/dorn-l-79b204a7)     |            
 
-## Data Sources
+### Project Plan:
 
-This project is based on NetApp's BlueXP-Automation GitHub repository, which can be found here: https://github.com/NetAppDocs/bluexp-automation 
-
-## Project Plan
-
-
----
-
-### Scope
+#### Scope:
 
 Utilizing NLP techniques, generate enriched metadata tags to augment existing search retrieval processes and improve returned results, including both the total number of relevant documents and the highest quality (highest relevance) documentation.
 
----
-
-### Methodology
+#### Methodology:
 
 - Extract repository(ies) text to be analyzed utilizing Python methods.
 - Conduct data preprocessing to ensure a clean training/evaluation dataset. The dataset preprocessing includes:
@@ -79,6 +74,66 @@ Utilizing NLP techniques, generate enriched metadata tags to augment existing se
 - Test project methodology via user-defined querying and comparing returned NetApp documentation.
 
 ---
+
+## [Repository Structure](#respository-structure):
+
+```
+root-Summer-2025-Team1/
+├── .github/
+│   ├── CODEOWNERS
+│   └── .gitignore
+├── data/
+│   ├── bluexp-dataset/
+│   │   ├── uuid_file_map.csv
+│   │   └── tenancyv4/
+│   │       └── tenancyv4.yaml
+├── docs/
+│   └── literature_review.md
+├── final-proposal.ipynb
+├── images/
+├── metadata-concepts/
+│   ├── cell_2_extracted_adoc_docs
+│   ├── cell_3_extracted_metadata.json
+│   ├── metadata_catalog.json
+│   ├── Named_Entity_Rec.ipynb
+│   ├── preprocessing-metadata-proposed.ipynb
+│   └── summarizer_classifier_metadata.ipynb
+├── notebooks/
+│   ├── 01_data_retrieval.ipynb
+│   ├── 02_eda.ipynb
+│   ├── 03_preprocessing.ipynb
+│   └── ...
+├── proof-of-concepts/
+│   └── nearest_neighbor.ipynb
+├── README.md
+├── requirements.txt
+├── setup.py
+├── src/
+├── visualization/
+│   ├── css/
+│   │   └── main.css
+│   ├── eda/
+│   │   └── eda.html
+│   ├── explorer/
+│   │   ├── explorer.html
+│   │   └── js/
+│   │       └── tree.js
+│   ├── index.html
+│   └── org-chart/
+│       ├── org-chart.html
+│       └── js/
+│           └── tree.js
+```
+
+---
+
+## Data
+
+### Data Source
+
+This project is based on NetApp's BlueXP-Automation GitHub repository, which can be found here: https://github.com/NetAppDocs/bluexp-automation 
+
+
 ## Data Visualization
 
 
@@ -268,52 +323,4 @@ Our project explores NLP-based metadata generation to improve document retrieval
 
 See the [full literature review here](literature_review.md).
 
-## [Repository Structure](#respository-structure)
 
-```
-root-Summer-2025-Team1/
-├── .github/
-│   ├── CODEOWNERS
-│   └── .gitignore
-├── data/
-│   ├── bluexp-dataset/
-│   │   ├── uuid_file_map.csv
-│   │   └── tenancyv4/
-│   │       └── tenancyv4.yaml
-├── docs/
-│   └── literature_review.md
-├── final-proposal.ipynb
-├── images/
-├── metadata-concepts/
-│   ├── cell_2_extracted_adoc_docs
-│   ├── cell_3_extracted_metadata.json
-│   ├── metadata_catalog.json
-│   ├── Named_Entity_Rec.ipynb
-│   ├── preprocessing-metadata-proposed.ipynb
-│   └── summarizer_classifier_metadata.ipynb
-├── notebooks/
-│   ├── 01_data_retrieval.ipynb
-│   ├── 02_eda.ipynb
-│   ├── 03_preprocessing.ipynb
-│   └── ...
-├── proof-of-concepts/
-│   └── nearest_neighbor.ipynb
-├── README.md
-├── requirements.txt
-├── setup.py
-├── src/
-├── visualization/
-│   ├── css/
-│   │   └── main.css
-│   ├── eda/
-│   │   └── eda.html
-│   ├── explorer/
-│   │   ├── explorer.html
-│   │   └── js/
-│   │       └── tree.js
-│   ├── index.html
-│   └── org-chart/
-│       ├── org-chart.html
-│       └── js/
-│           └── tree.js
-```
