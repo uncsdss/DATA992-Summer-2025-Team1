@@ -150,7 +150,7 @@ Utilizing NLP techniques, generate enriched metadata tags to augment existing se
 
 ---
 
-## [Repository Structure](#respository-structure):
+## Repository Structure
 
 ```
 root-Summer-2025-Team1/
