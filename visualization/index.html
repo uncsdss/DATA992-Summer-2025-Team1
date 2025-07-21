@@ -1,112 +1,14 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Welcome – Repo Tree Explorer</title>
-  <link rel="stylesheet" href="css/main.css">
-  <style>
-    body { margin:0; font-family:sans-serif; background:#fafafa; color:#333; }
-    header { background:#2c3e50; color:#fff; padding:20px; text-align:left;}
-    main { max-width:800px; margin:40px auto; padding:0 20px; text-align:left; }
-    .btn {
-      display:inline-block;
-      margin-top:30px;
-      padding:12px 24px;
-      background:#e74c3c;
-      color:#fff;
-      text-decoration:none;
-      font-size:18px;
-      border-radius:4px;
-    }
-    .btn:hover { background:#c0392b; }
-  </style>
-</head>
-<body>
-  <header class="site-header">
-  <span class="site-title">Repository Tree Explorer</span>
-  <nav class="site-nav">
-    <a href="index.html" class="nav-btn active">Home</a>
-    <a href="org-chart/org-chart.html" class="nav-btn active">Org Chart</a>
-    <a href="eda/eda.html" class="nav-btn">EDA</a>
-    <a href="explorer/explorer.html" class="nav-btn">Explorer</a>
-  </nav>
-</header>
-  <main>
-    <h2>Welcome!</h2>
-</br>
-</br>
-    <h2>Introduction</h2>
-</br>
-    <h2>The Problem</h2>
-    <p>
-      NetApp’s extensive library of technical documentation, authored in AsciiDoc and hosted on GitHub, plays a crucial role in product development, customer support, and implementation success. However, the unstructured nature of this content makes it difficult to retrieve relevant information quickly—resulting in slower onboarding, longer troubleshooting times, and inconsistent knowledge sharing. We aim to address this challenge by developing a metadata enrichment system using natural language processing and machine learning. The focus will be on the bluexp-automation repository, analyzing text blocks, headers, code, and tables to extract key entities, topics, semantic relationships, and contextual tags. This enriched metadata will feed into a prototype retrieval system that significantly enhances searchability and contextual understanding. The project will be constrained by access to existing documentation, GitHub-based workflows, and available compute for NLP models. It must deliver a working prototype, performance metrics comparing baseline and augmented search, and visualizations that communicate its impact. Stakeholders—including NetApp documentation teams, internal engineers, and external users—will benefit from faster, more accurate access to the right documentation at the right time. Ultimately, the project will help NetApp improve operational efficiency, reduce cognitive load for its users, and set a precedent for intelligent document retrieval systems.
-
-    </p>
-</br>
-     <h2>Our Approach</h2>
-     <ul>
-  <li>Extract repository(ies) text to be analyzed utilizing Python methods.</li>
-  <li>Conduct data preprocessing to ensure a clean training/evaluation dataset. The dataset preprocessing includes:
-    <ul>
-      <li>Parsing the YAML front-matter to use as higher priority</li>
-      <li>Removing empty lines (whitespace)</li>
-      <li>Removing Ascii markup and comments</li>
-      <li>Removing stop-words</li>
-      <li>Converting all text to lower-case</li>
-      <li>Tokenizing the cleaned text for model training</li>
-    </ul>
-  </li>
-  <li>Generate metadata tags utilizing NLP techniques, such as BERT-based models, including KeyBERT and LLM-generated tags.
-    <ul>
-      <li>Metadata tag generation approaches being explored include:
-        <ul>
-          <li>BERTopic Modeling with RAKE & TF-IDF</li>
-          <li>Fine-tuned T5 model with KeyBERT and a secondary grading model for tag quality evaluation</li>
-          <li>LLM-augmented generation</li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-  <li>Build and integrate a secondary <strong>grading model</strong> to evaluate the relevance of generated tags to document content.
-    <ul>
-      <li>Grading model assigns a score to the relevancy of the generated tag (from the first model) and classifies it as relevant (1) or not (0).</li>
-    </ul>
-  </li>
-  <li>Test project methodology via user-defined querying and comparing returned NetApp documentation.</li>
-</ul>
-</br>
-     <h2>Data Analysis & Insights</h2>
-</br>
-     <h2>Achievements</h2>
-</br>
-<h2>Interactive Spreadsheet</h2>
-<p>Click below to view and interact with a spreadsheet file:</p>
-<a href="spreadsheet.html" class="btn">Open Spreadsheet Viewer</a>
-</br>
-    <h2>Welcome!</h2>
-    <p>
-      We have created a tool to view Netapps bluexp repository’s folder and file structure
-      in an interactive tree. Click "Launch Explorer" !
-    </p>
-    <a href="explorer/explorer.html" class="btn">Explore the Repo Tree!</a>
-</br>
-</br>
-</br>
-</br>
-     <h2>Data Sources</h2>
-     <p>
-        This project is based on NetApp's BlueXP-Automation GitHub repository, which can be found here: 
-     </p>
-     <a href="https://github.com/NetAppDocs/bluexp-automation" class="btn"> Netapp Bluexp Repo</a>
-</br>
-</br>
-</br>
-</br>
-    <h2>EDA</h2>
-     <p>
-        The projects primary EDA can be found here:
-     </p>
-     <button onclick="location.href='eda/eda.html'" class="btn">EDA</button>
-  </main>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MADS Capstone Project - Team 1</title>
+    <script type="module" crossorigin src="/assets/index-Cq-mVXyr.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CbZsRvJf.css">
+  </head>
+  <body>
+    <div id="root" style="width: 100vw; height: 100vh;"></div>
+  </body>
 </html>
