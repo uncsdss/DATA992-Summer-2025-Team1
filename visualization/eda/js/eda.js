@@ -65,6 +65,43 @@ function showEDATab(key) {
   document.getElementById('btn-' + key).click();
 }
 
+function attachTooltip(selection, getContent) {
+  const tooltip = d3.select("#tooltip");
+  selection
+    .on("mouseover", function(event, d) {
+      tooltip.transition().duration(100).style("opacity", 1);
+      tooltip.html(getContent(d));
+    })
+    .on("mousemove", function(event) {
+      tooltip.style("left", (event.pageX + 10) + "px")
+             .style("top", (event.pageY - 28) + "px");
+    })
+    .on("mouseout", function() {
+      tooltip.transition().duration(200).style("opacity", 0);
+    });
+}
+
+function attachGlobalTooltip(selection, formatter) {
+  const tooltip = d3.select("#tooltip");
+  selection
+    .on("mouseover", function(event, d) {
+      d3.select(this).attr("opacity", 0.7);
+      tooltip
+        .style("opacity", 1)
+        .html(formatter(d));
+    })
+    .on("mousemove", function(event) {
+      tooltip
+        .style("left", (event.pageX + 10) + "px")
+        .style("top", (event.pageY - 28) + "px");
+    })
+    .on("mouseout", function() {
+      d3.select(this).attr("opacity", 1);
+      tooltip.style("opacity", 0);
+    });
+}
+
+
 
 // --------Modal View Section--------
 
@@ -149,11 +186,12 @@ function renderDocLengthHistogramModal(width, height) {
   container.html("");
 
   const docLengths = latestData.map(d => d.num_words);
-  const margin = { top: 50, right: 60, bottom: 60, left: 80 };  // Add generous margins for large view.
+  const margin = { top: 50, right: 60, bottom: 60, left: 80 };
 
   const svg = container.append("svg")
-    .attr("width", width)
-    .attr("height", height);
+    .attr("viewBox", `0 0 ${width} ${height}`)
+    .attr("preserveAspectRatio", "xMinYMin meet")
+    .classed("svg-content-responsive", true);
 
   const plotWidth = width - margin.left - margin.right;
   const plotHeight = height - margin.top - margin.bottom;
@@ -170,7 +208,7 @@ function renderDocLengthHistogramModal(width, height) {
     .domain([0, d3.max(bins, d => d.length)]).nice()
     .range([margin.top + plotHeight, margin.top]);
 
-  svg.append("g")
+  const bars = svg.append("g")
     .attr("fill", "#3f8efc")
     .selectAll("rect")
     .data(bins)
@@ -179,6 +217,12 @@ function renderDocLengthHistogramModal(width, height) {
     .attr("y", d => y(d.length))
     .attr("width", d => Math.max(0, x(d.x1) - x(d.x0) - 2))
     .attr("height", d => y(0) - y(d.length));
+
+  // 🔔 Hover tooltip identical to overview:
+attachGlobalTooltip(bars, d =>
+  `Documents: ${d.length}<br>Range: ${Math.round(d.x0)} – ${Math.round(d.x1)} words`
+);
+
 
   svg.append("g")
     .attr("transform", `translate(0,${margin.top + plotHeight})`)
@@ -211,14 +255,16 @@ function renderDocLengthHistogramModal(width, height) {
     .attr("font-weight", "bold")
     .text("Document Length Distribution");
 
-    container.append("div")
+  container.append("div")
     .attr("class", "modal-analysis")
     .style("margin-top", "20px")
     .style("font-size", "14px")
     .style("line-height", "1.5")
     .text("This is where your analysis description will go. You can replace this text dynamically.");
-
 }
+
+
+
 
 // Histogram: File Type Distrubtion (Modal)
 function renderFileTypeDistribution(data, containerSelector = "#chart-file-type .chart", width = 360, height = 300) {
@@ -237,8 +283,9 @@ function renderFileTypeDistribution(data, containerSelector = "#chart-file-type 
 
   const margin = { top: 30, right: 20, bottom: 60, left: 60 };
   const svg = container.append("svg")
-    .attr("width", width)
-    .attr("height", height);
+    .attr("viewBox", `0 0 ${width} ${height}`)
+    .attr("preserveAspectRatio", "xMinYMin meet")
+    .classed("svg-content-responsive", true);
 
   const x = d3.scaleBand()
     .domain(counts.map(d => d.key))
@@ -253,16 +300,19 @@ function renderFileTypeDistribution(data, containerSelector = "#chart-file-type 
     .domain(counts.map(d => d.key))
     .range(d3.schemeSet2);
 
-  svg.append("g")
-    .selectAll("rect")
-    .data(counts)
-    .join("rect")
-    .attr("x", d => x(d.key))
-    .attr("y", d => y(d.value))
-    .attr("width", x.bandwidth())
-    .attr("height", d => y(0) - y(d.value))
-    .attr("fill", d => color(d.key));
+const bars = svg.append("g")
+  .selectAll("rect")
+  .data(counts)
+  .join("rect")
+  .attr("x", d => x(d.key))
+  .attr("y", d => y(d.value))
+  .attr("width", x.bandwidth())
+  .attr("height", d => y(0) - y(d.value))
+  .attr("fill", d => color(d.key));
 
+attachGlobalTooltip(bars, d =>
+  `File type: ${d.key}<br>Count: ${d.value}`
+);
   svg.append("g")
     .selectAll("text.label")
     .data(counts)
@@ -353,8 +403,9 @@ function renderFileSizeDistributionModal(width, height) {
 
   const margin = { top: 50, right: 30, bottom: 40, left: 60 };
   const svg = container.append("svg")
-    .attr("width", width)
-    .attr("height", height);
+    .attr("viewBox", `0 0 ${width} ${height}`)
+    .attr("preserveAspectRatio", "xMinYMin meet")
+    .classed("svg-content-responsive", true);
 
   const x = d3.scaleLinear()
     .domain(d3.extent(fileSizes)).nice()
@@ -364,16 +415,21 @@ function renderFileSizeDistributionModal(width, height) {
     .domain([0, d3.max(bins, d => d.length)]).nice()
     .range([height - margin.bottom, margin.top]);
 
-  svg.append("g")
-    .attr("fill", "lightgreen")
-    .attr("stroke", "black")
-    .selectAll("rect")
-    .data(bins)
-    .join("rect")
-    .attr("x", d => x(d.x0))
-    .attr("y", d => y(d.length))
-    .attr("width", d => Math.max(0, x(d.x1) - x(d.x0) - 1))
-    .attr("height", d => y(0) - y(d.length));
+const bars = svg.append("g")
+  .attr("fill", "lightgreen")
+  .attr("stroke", "black")
+  .selectAll("rect")
+  .data(bins)
+  .join("rect")
+  .attr("x", d => x(d.x0))
+  .attr("y", d => y(d.length))
+  .attr("width", d => Math.max(0, x(d.x1) - x(d.x0) - 1))
+  .attr("height", d => y(0) - y(d.length));
+
+attachGlobalTooltip(bars, d =>
+  `Files: ${d.length}<br>Size range: 10^${d.x0.toFixed(1)} – 10^${d.x1.toFixed(1)} bytes`
+);
+
 
   svg.append("g")
     .attr("transform", `translate(0,${height - margin.bottom})`)
@@ -463,8 +519,9 @@ function renderFilenameLengthDistributionModal(width, height) {
 
   const margin = { top: 50, right: 30, bottom: 40, left: 60 };
   const svg = container.append("svg")
-    .attr("width", width)
-    .attr("height", height);
+    .attr("viewBox", `0 0 ${width} ${height}`)
+    .attr("preserveAspectRatio", "xMinYMin meet")
+    .classed("svg-content-responsive", true);
 
   const x = d3.scaleLinear()
     .domain(d3.extent(lengths)).nice()
@@ -474,16 +531,21 @@ function renderFilenameLengthDistributionModal(width, height) {
     .domain([0, d3.max(bins, d => d.length)]).nice()
     .range([height - margin.bottom, margin.top]);
 
-  svg.append("g")
-    .attr("fill", "mediumseagreen")
-    .attr("stroke", "black")
-    .selectAll("rect")
-    .data(bins)
-    .join("rect")
-    .attr("x", d => x(d.x0))
-    .attr("y", d => y(d.length))
-    .attr("width", d => Math.max(0, x(d.x1) - x(d.x0) - 1))
-    .attr("height", d => y(0) - y(d.length));
+const bars = svg.append("g")
+  .attr("fill", "mediumseagreen")
+  .attr("stroke", "black")
+  .selectAll("rect")
+  .data(bins)
+  .join("rect")
+  .attr("x", d => x(d.x0))
+  .attr("y", d => y(d.length))
+  .attr("width", d => Math.max(0, x(d.x1) - x(d.x0) - 1))
+  .attr("height", d => y(0) - y(d.length));
+
+attachGlobalTooltip(bars, d =>
+  `Files: ${d.length}<br>Length range: ${Math.round(d.x0)}–${Math.round(d.x1)} chars`
+);
+
 
   svg.append("g")
     .attr("transform", `translate(0,${height - margin.bottom})`)
@@ -565,8 +627,9 @@ function renderHeaderHierarchyHistogramModal(width, height) {
 
   const margin = { top: 50, right: 30, bottom: 40, left: 80 };
   const svg = container.append("svg")
-    .attr("width", width)
-    .attr("height", height);
+    .attr("viewBox", `0 0 ${width} ${height}`)
+    .attr("preserveAspectRatio", "xMinYMin meet")
+    .classed("svg-content-responsive", true);
 
   const y = d3.scaleBand()
     .domain(headerLevels.map(d => d.key))
@@ -580,15 +643,20 @@ function renderHeaderHierarchyHistogramModal(width, height) {
   // 🔥 Explicit hardcoded color array (same as overview)
   const colors = ["#66c2a5", "#fc8d62", "#8da0cb"];
 
-  svg.append("g")
-    .selectAll("rect")
-    .data(headerLevels)
-    .join("rect")
-    .attr("y", d => y(d.key))
-    .attr("x", margin.left)
-    .attr("height", y.bandwidth())
-    .attr("width", d => x(d.value) - margin.left)
-    .attr("fill", (d, i) => colors[i]);  // <-- consistent colors
+const bars = svg.append("g")
+  .selectAll("rect")
+  .data(headerLevels)
+  .join("rect")
+  .attr("y", d => y(d.key))
+  .attr("x", margin.left)
+  .attr("height", y.bandwidth())
+  .attr("width", d => x(d.value) - margin.left)
+  .attr("fill", (d, i) => colors[i]);
+
+attachGlobalTooltip(bars, d =>
+  `Header Level: ${d.key}<br>Count: ${d.value}`
+);
+
 
   svg.append("g")
     .attr("transform", `translate(0,${height - margin.bottom})`)
@@ -650,9 +718,9 @@ function renderLinkDensityHistogramModal(width, height) {
 
   const margin = { top: 50, right: 30, bottom: 40, left: 60 };
   const svg = container.append("svg")
-    .attr("width", width)
-    .attr("height", height);
-
+    .attr("viewBox", `0 0 ${width} ${height}`)
+    .attr("preserveAspectRatio", "xMinYMin meet")
+    .classed("svg-content-responsive", true);
   const x = d3.scaleLinear()
     .domain([0, d3.max(linkCounts)]).nice()
     .range([margin.left, width - margin.right]);
@@ -661,16 +729,21 @@ function renderLinkDensityHistogramModal(width, height) {
     .domain([0, d3.max(bins, d => d.length)]).nice()
     .range([height - margin.bottom, margin.top]);
 
-  svg.append("g")
-    .attr("fill", "#e74c3c")
-    .attr("stroke", "black")
-    .selectAll("rect")
-    .data(bins)
-    .join("rect")
-    .attr("x", d => x(d.x0))
-    .attr("y", d => y(d.length))
-    .attr("width", d => Math.max(0, x(d.x1) - x(d.x0) - 1))
-    .attr("height", d => y(0) - y(d.length));
+const bars = svg.append("g")
+  .attr("fill", "#e74c3c")
+  .attr("stroke", "black")
+  .selectAll("rect")
+  .data(bins)
+  .join("rect")
+  .attr("x", d => x(d.x0))
+  .attr("y", d => y(d.length))
+  .attr("width", d => Math.max(0, x(d.x1) - x(d.x0) - 1))
+  .attr("height", d => y(0) - y(d.length));
+
+attachGlobalTooltip(bars, d =>
+  `Link Count Range: ${d.x0} – ${d.x1}<br>Documents: ${d.length}`
+);
+
 
   svg.append("g")
     .attr("transform", `translate(0,${height - margin.bottom})`)
@@ -735,9 +808,9 @@ function renderLinkDistributionBarModal(width, height) {
 
   const margin = { top: 50, right: 30, bottom: 40, left: 60 };
   const svg = container.append("svg")
-    .attr("width", width)
-    .attr("height", height);
-
+    .attr("viewBox", `0 0 ${width} ${height}`)
+    .attr("preserveAspectRatio", "xMinYMin meet")
+    .classed("svg-content-responsive", true);
   const x = d3.scaleBand()
     .domain(linkData.map(d => d.type))
     .range([margin.left, width - margin.right])
@@ -751,15 +824,21 @@ function renderLinkDistributionBarModal(width, height) {
     .domain(linkData.map(d => d.type))
     .range(d3.schemeSet2);
 
-  svg.append("g")
-    .selectAll("rect")
-    .data(linkData)
-    .join("rect")
-      .attr("x", d => x(d.type))
-      .attr("y", d => y(d.count))
-      .attr("width", x.bandwidth())
-      .attr("height", d => y(0) - y(d.count))
-      .attr("fill", d => color(d.type));
+const bars = svg.append("g")
+  .selectAll("rect")
+  .data(linkData)
+  .join("rect")
+  .attr("x", d => x(d.type))
+  .attr("y", d => y(d.count))
+  .attr("width", x.bandwidth())
+  .attr("height", d => y(0) - y(d.count))
+  .attr("fill", d => color(d.type));
+
+attachGlobalTooltip(bars, d =>
+  `Link Type: ${d.type}<br>Count: ${d.count}`
+);
+
+
 
   svg.append("g")
     .attr("transform", `translate(0,${height - margin.bottom})`)
@@ -832,9 +911,9 @@ function renderTopPrefixesBarModal(width, height) {
 
   const margin = { top: 50, right: 30, bottom: 60, left: 60 };
   const svg = container.append("svg")
-    .attr("width", width)
-    .attr("height", height);
-
+    .attr("viewBox", `0 0 ${width} ${height}`)
+    .attr("preserveAspectRatio", "xMinYMin meet")
+    .classed("svg-content-responsive", true);
   const x = d3.scaleBand()
     .domain(prefixList.map(d => d.key))
     .range([margin.left, width - margin.right])
@@ -844,7 +923,7 @@ function renderTopPrefixesBarModal(width, height) {
     .domain([0, d3.max(prefixList, d => d.value)]).nice()
     .range([height - margin.bottom, margin.top]);
 
-  svg.append("g")
+  const bars = svg.append("g")
     .attr("fill", "#f0627e")
     .selectAll("rect")
     .data(prefixList)
@@ -853,6 +932,10 @@ function renderTopPrefixesBarModal(width, height) {
     .attr("y", d => y(d.value))
     .attr("width", x.bandwidth())
     .attr("height", d => y(0) - y(d.value));
+
+    attachGlobalTooltip(bars, d =>
+  `Prefix: ${d.key}<br>Frequency: ${d.value}`
+);
 
   svg.append("g")
     .attr("transform", `translate(0,${height - margin.bottom})`)
@@ -914,8 +997,9 @@ function renderTopDirectoriesBarModal(width, height) {
 
   const margin = { top: 50, right: 30, bottom: 40, left: 180 };
   const svg = container.append("svg")
-    .attr("width", width)
-    .attr("height", height);
+    .attr("viewBox", `0 0 ${width} ${height}`)
+    .attr("preserveAspectRatio", "xMinYMin meet")
+    .classed("svg-content-responsive", true);
 
   const y = d3.scaleBand()
     .domain(dirCounts.map(d => d.key))
@@ -926,7 +1010,11 @@ function renderTopDirectoriesBarModal(width, height) {
     .domain([0, d3.max(dirCounts, d => d.value)]).nice()
     .range([margin.left, width - margin.right]);
 
-  svg.append("g")
+ const color = d3.scaleOrdinal()
+  .domain(dirCounts.map(d => d.key))
+  .range(d3.schemeTableau10);   
+
+ const bars = svg.append("g")
     .selectAll("rect")
     .data(dirCounts)
     .join("rect")
@@ -934,7 +1022,11 @@ function renderTopDirectoriesBarModal(width, height) {
     .attr("y", d => y(d.key))
     .attr("width", d => x(d.value) - x(0))
     .attr("height", y.bandwidth())
-    .attr("fill", "#80cbc4");  // Match overview color if needed
+    .attr("fill", d => color(d.key));  // Match overview color if needed\
+
+        attachGlobalTooltip(bars, d =>
+  `Files: ${d.key}<br>Directory: ${d.value}`
+);
 
 svg.append("g")
   .attr("transform", `translate(0,${height - margin.bottom})`)
@@ -1006,8 +1098,9 @@ function renderCommonWordsBarModal(width, height) {
 
   const margin = { top: 50, right: 30, bottom: 40, left: 120 };
   const svg = container.append("svg")
-    .attr("width", width)
-    .attr("height", height);
+    .attr("viewBox", `0 0 ${width} ${height}`)
+    .attr("preserveAspectRatio", "xMinYMin meet")
+    .classed("svg-content-responsive", true);
 
   const y = d3.scaleBand()
     .domain(words.map(d => d.key).reverse())
@@ -1018,7 +1111,7 @@ function renderCommonWordsBarModal(width, height) {
     .domain([0, d3.max(words, d => d.value)]).nice()
     .range([margin.left, width - margin.right]);
 
-  svg.append("g")
+  const bars = svg.append("g")
     .selectAll("rect")
     .data(words)
     .join("rect")
@@ -1027,6 +1120,10 @@ function renderCommonWordsBarModal(width, height) {
     .attr("width", d => x(d.value) - x(0))
     .attr("height", y.bandwidth())
     .attr("fill", "#4682b4");  // Match overview color if needed.
+
+        attachGlobalTooltip(bars, d =>
+  `Count: ${d.key}<br>Word: ${d.value}`
+);
 
   svg.append("g")
     .attr("transform", `translate(0,${height - margin.bottom})`)
@@ -1075,8 +1172,9 @@ function renderFileClustersBarSummaryModal(width, height) {
 
   const margin = { top: 50, right: 30, bottom: 60, left: 60 };
   const svg = container.append("svg")
-    .attr("width", width)
-    .attr("height", height);
+    .attr("viewBox", `0 0 ${width} ${height}`)
+    .attr("preserveAspectRatio", "xMinYMin meet")
+    .classed("svg-content-responsive", true);
 
   const x = d3.scaleBand()
     .domain(data.map(d => d.cluster))
@@ -1087,7 +1185,7 @@ function renderFileClustersBarSummaryModal(width, height) {
     .domain([0, d3.max(data, d => d.count)]).nice()
     .range([height - margin.bottom, margin.top]);
 
-  svg.append("g")
+  const bars = svg.append("g")
     .selectAll("rect")
     .data(data)
     .join("rect")
@@ -1096,6 +1194,11 @@ function renderFileClustersBarSummaryModal(width, height) {
     .attr("width", x.bandwidth())
     .attr("height", d => y(0) - y(d.count))
     .attr("fill", "steelblue");
+
+        attachGlobalTooltip(bars, d =>
+  `Cluster: ${d.cluster}<br>Files: ${d.count}`
+);
+
 
   svg.append("g")
     .attr("transform", `translate(0,${height - margin.bottom})`)
@@ -1159,8 +1262,9 @@ function renderCodeDensityScatterModal(width, height) {
 
   const margin = { top: 50, right: 30, bottom: 60, left: 80 };
   const svg = container.append("svg")
-    .attr("width", width)
-    .attr("height", height);
+    .attr("viewBox", `0 0 ${width} ${height}`)
+    .attr("preserveAspectRatio", "xMinYMin meet")
+    .classed("svg-content-responsive", true);
 
   const points = latestData
     .filter(d => d.total_lines > 0)
@@ -1235,8 +1339,9 @@ function renderDirectoryDepthPieModal(width, height) {
   const radius = Math.min(width, height) / 2 - 10;
 
   const svg = container.append("svg")
-    .attr("width", width)
-    .attr("height", height)
+    .attr("viewBox", `0 0 ${width} ${height}`)
+    .attr("preserveAspectRatio", "xMinYMin meet")
+    .classed("svg-content-responsive", true)
     .append("g")
     .attr("transform", `translate(${width / 2}, ${height / 2})`);
 
@@ -1274,7 +1379,7 @@ function renderDirectoryDepthPieModal(width, height) {
     .attr("stroke", "white")
     .style("stroke-width", "2px");
 
-  // 🔔 Add percentage labels inside slices like overview:
+  //  Add percentage labels inside slices like overview:
   svg.selectAll("text")
     .data(arcs)
     .join("text")
@@ -1293,21 +1398,21 @@ function renderDirectoryDepthPieModal(width, height) {
     .text("Directory Depth Distribution");
 
     const analysisContainer = container.append("div")
-  .attr("class", "modal-analysis")
-  .style("margin-top", "20px")
-  .style("font-size", "14px")
-  .style("line-height", "1.5")
-  .style("max-width", "800px")  // Optional: constrain width for readability
-  .style("text-align", "left")  // Ensure left-aligned text
-  .html(`
-    <h3 style="margin-bottom: 8px;">Directory Depth</h3>
-    <p>
-      The repo consists of numerous subdirectories (15) and files (194). The vast majority of the files have a depth of 1, 
-      meaning that they are nested in a subdirectory folder and therefore we will need to consider the appropriate methods 
-      to crawl/walk through repo hierarchy to absorb file contents. Additionally, depth (nested files) are important when 
-      considering graph modeling.
-    </p>
-  `);
+    .attr("class", "modal-analysis")
+    .style("margin-top", "20px")
+    .style("font-size", "14px")
+    .style("line-height", "1.5")
+    .style("max-width", "800px")  
+    .style("text-align", "left")  
+    .html(`
+      <h3 style="margin-bottom: 8px;">Directory Depth</h3>
+      <p>
+        The repo consists of numerous subdirectories (15) and files (194). The vast majority of the files have a depth of 1, 
+        meaning that they are nested in a subdirectory folder and therefore we will need to consider the appropriate methods 
+        to crawl/walk through repo hierarchy to absorb file contents. Additionally, depth (nested files) are important when 
+        considering graph modeling.
+      </p>
+    `);
 
 // const analysisContainer = container.append("div")
 //   .attr("class", "modal-analysis")
@@ -1334,8 +1439,9 @@ function renderNamingConventionPieModal(width, height) {
 
   const radius = Math.min(width, height) / 2 - 10;
   const svg = container.append("svg")
-    .attr("width", width)
-    .attr("height", height)
+    .attr("viewBox", `0 0 ${width} ${height}`)
+    .attr("preserveAspectRatio", "xMinYMin meet")
+    .classed("svg-content-responsive", true)
     .append("g")
     .attr("transform", `translate(${width / 2}, ${height / 2})`);
 
@@ -1426,8 +1532,9 @@ function renderWordCountBoxPlotModal(width, height) {
 
   const margin = { top: 60, right: 40, bottom: 60, left: 60 };
   const svg = container.append("svg")
-    .attr("width", width)
-    .attr("height", height);
+    .attr("viewBox", `0 0 ${width} ${height}`)
+    .attr("preserveAspectRatio", "xMinYMin meet")
+    .classed("svg-content-responsive", true)
 
   const plotWidth = width - margin.left - margin.right;
   const plotHeight = height - margin.top - margin.bottom;
@@ -1549,51 +1656,73 @@ const analysisContainer = container.append("div")
 
 });
 
-// --------Over View Section--------
+// --------Overview Section--------
 
 
-const DEFAULT_WIDTH = 440;
-const DEFAULT_HEIGHT = 380;
+const DEFAULT_WIDTH = 400;
+const DEFAULT_HEIGHT = 350;
 
 //  Histogram: Document Length (Overview)
+
 function renderDocLengthHistogram(data) {
   const container = d3.select("#chart-doc-length .chart");
-  container.html(""); 
+  container.html("");
+
   const docLengths = data.map(d => d.num_words);
- const width = DEFAULT_WIDTH, height = DEFAULT_HEIGHT, margin = {top: 20, right: 30, bottom: 40, left: 60};
+
+  let containerWidth = container.node().getBoundingClientRect().width || 400;
+  const aspectRatio = 4 / 3;
+  const width = containerWidth;
+  const height = Math.max(200, containerWidth / aspectRatio);
+  const margin = { top: 20, right: 30, bottom: 40, left: 60 };
+
   const svg = container.append("svg")
-      .attr("width", width)
-      .attr("height", height);
+    .attr("viewBox", `0 0 ${width} ${height}`)
+    .attr("preserveAspectRatio", "xMinYMin meet")
+    .classed("svg-content-responsive", true);
+
   const x = d3.scaleLinear()
-      .domain([0, d3.max(docLengths)]).nice()
-      .range([margin.left, width - margin.right]);
+    .domain([0, d3.max(docLengths)]).nice()
+    .range([margin.left, width - margin.right]);
+
   const bins = d3.bin()
-      .domain(x.domain())
-      .thresholds(30)(docLengths);
+    .domain(x.domain())
+    .thresholds(30)(docLengths);
+
   const y = d3.scaleLinear()
-      .domain([0, d3.max(bins, d => d.length)]).nice()
-      .range([height - margin.bottom, margin.top]);
-  svg.append("g")
+    .domain([0, d3.max(bins, d => d.length)]).nice()
+    .range([height - margin.bottom, margin.top]);
+
+  const bars = svg.append("g")
     .attr("fill", "#3f8efc")
     .selectAll("rect")
     .data(bins)
     .join("rect")
-      .attr("x", d => x(d.x0) + 1)
-      .attr("y", d => y(d.length))
-      .attr("width", d => Math.max(0, x(d.x1) - x(d.x0) - 2))
-      .attr("height", d => y(0) - y(d.length));
+    .attr("x", d => x(d.x0) + 1)
+    .attr("y", d => y(d.length))
+    .attr("width", d => Math.max(0, x(d.x1) - x(d.x0) - 2))
+    .attr("height", d => y(0) - y(d.length));
+
+  // 🔔 Apply global tooltip helper:
+  attachGlobalTooltip(bars, d => 
+    `Documents: ${d.length}<br>Range: ${Math.round(d.x0)} – ${Math.round(d.x1)} words`
+  );
+
   svg.append("g")
     .attr("transform", `translate(0,${height - margin.bottom})`)
     .call(d3.axisBottom(x));
+
   svg.append("g")
     .attr("transform", `translate(${margin.left},0)`)
     .call(d3.axisLeft(y));
+
   svg.append("text")
     .attr("x", width / 2)
     .attr("y", height - 5)
     .attr("text-anchor", "middle")
     .attr("font-size", 13)
     .text("Document Length (words)");
+
   svg.append("text")
     .attr("transform", "rotate(-90)")
     .attr("x", -height / 2)
@@ -1603,12 +1732,15 @@ function renderDocLengthHistogram(data) {
     .text("Number of Documents");
 }
 
-//  Histogram data (Overview): Document type 
+
+
+
+
+//  Histogram: Document type (Overview)
 function renderFileTypeDistribution(data) {
   const container = d3.select("#chart-file-type .chart");
   container.html("");
 
-  // Ensure extension field is valid
   const countsMap = {};
   data.forEach(d => {
     const ext = d.extension ? d.extension.trim() : "unknown";
@@ -1619,85 +1751,81 @@ function renderFileTypeDistribution(data) {
     .map(([key, value]) => ({ key, value }))
     .sort((a, b) => d3.descending(a.value, b.value));
 
-  const width = DEFAULT_WIDTH, height = DEFAULT_HEIGHT;
+  let containerWidth = container.node().getBoundingClientRect().width || 400;
+  const aspectRatio = 4 / 3;
+  const width = containerWidth;
+  const height = Math.max(200, containerWidth / aspectRatio);
   const margin = { top: 20, right: 30, bottom: 40, left: 60 };
 
-
   const svg = container.append("svg")
-    .attr("width", width)
-    .attr("height", height);
+    .attr("viewBox", `0 0 ${width} ${height}`)
+    .attr("preserveAspectRatio", "xMinYMin meet")
+    .classed("svg-content-responsive", true);
 
   const x = d3.scaleBand()
     .domain(counts.map(d => d.key))
     .range([margin.left, width - margin.right])
     .padding(0.3);
 
+  const yMax = d3.max(counts, d => d.value) || 1;
   const y = d3.scaleLinear()
-    .domain([0, d3.max(counts, d => d.value) * 1.1]).nice()
+    .domain([0, yMax * 1.1]).nice()
     .range([height - margin.bottom, margin.top]);
 
-  const color = d3.scaleOrdinal()
-    .domain(counts.map(d => d.key))
-    .range(d3.schemeSet2);
+  const colorMap = {
+    ".adoc": "#66c2a5",
+    ".yml": "#fc8d62",
+    ".json": "#8da0cb",
+    ".md": "#e78ac3",
+    ".yaml": "#a6d854",
+    "unknown": "#999999"
+  };
 
-  // Bars
-  svg.append("g")
+  const bars = svg.append("g")
     .selectAll("rect")
     .data(counts)
     .join("rect")
-      .attr("x", d => x(d.key))
-      .attr("y", d => y(d.value))
-      .attr("width", x.bandwidth())
-      .attr("height", d => y(0) - y(d.value))
-      .attr("fill", d => color(d.key));
+    .attr("x", d => x(d.key))
+    .attr("y", d => y(d.value))
+    .attr("height", d => Math.max(0, y(0) - y(d.value)))
+    .attr("width", x.bandwidth())
+    .attr("fill", d => colorMap[d.key] || "#3f8efc");
 
-  // Bar labels
-  svg.append("g")
-    .selectAll("text.label")
-    .data(counts)
-    .join("text")
-      .attr("class", "label")
-      .attr("x", d => x(d.key) + x.bandwidth() / 2)
-      .attr("y", d => y(d.value) - 5)
-      .attr("text-anchor", "middle")
-      .attr("font-size", 11)
-      .attr("fill", "#333")
-      .text(d => d.value);
+  // 🔔 Apply global tooltip helper:
+  attachGlobalTooltip(bars, d =>
+    `File type: ${d.key}<br>Count: ${d.value}`
+  );
 
-  // X Axis
   svg.append("g")
     .attr("transform", `translate(0,${height - margin.bottom})`)
     .call(d3.axisBottom(x))
     .selectAll("text")
-      .attr("transform", "rotate(-30)")
-      .attr("dx", "-.8em")
-      .attr("dy", ".15em")
-      .style("text-anchor", "end");
+    .attr("transform", "rotate(-30)")
+    .style("text-anchor", "end");
 
-  // Y Axis
   svg.append("g")
     .attr("transform", `translate(${margin.left},0)`)
     .call(d3.axisLeft(y));
 
-  // X label
   svg.append("text")
     .attr("x", width / 2)
-    .attr("y", height - 10)
+    .attr("y", height - 5)
     .attr("text-anchor", "middle")
     .attr("font-size", 13)
-    .attr("font-weight", "bold")
     .text("File Extension");
 
-  // Y label
   svg.append("text")
     .attr("transform", "rotate(-90)")
     .attr("x", -height / 2)
-    .attr("y", 18)
+    .attr("y", 15)
     .attr("text-anchor", "middle")
     .attr("font-size", 13)
-    .attr("font-weight", "bold")
     .text("Number of Files");
 }
+
+
+
+
 
 
 
@@ -1708,69 +1836,72 @@ function renderFileSizeDistribution(data) {
   const container = d3.select("#chart-file-size .chart");
   container.html("");
 
-  const fileSizes = data
-    .map(d => d.size_bytes)
-    .filter(d => d > 0)
-    .map(d => Math.log10(d));
+  const fileSizes = data.map(d => d.size_bytes > 0 ? Math.log10(d.size_bytes) : 0);
+  const median = d3.median(fileSizes);
 
-  const bins = d3.bin()
-    .domain(d3.extent(fileSizes))
-    .thresholds(20)(fileSizes);
-
-const width = DEFAULT_WIDTH, height = DEFAULT_HEIGHT;
+  let containerWidth = container.node().getBoundingClientRect().width || 400;
+  const aspectRatio = 4 / 3;
+  const width = containerWidth;
+  const height = Math.max(200, containerWidth / aspectRatio);
   const margin = { top: 20, right: 30, bottom: 40, left: 60 };
 
   const svg = container.append("svg")
-    .attr("width", width)
-    .attr("height", height);
+    .attr("viewBox", `0 0 ${width} ${height}`)
+    .attr("preserveAspectRatio", "xMinYMin meet")
+    .classed("svg-content-responsive", true);
 
   const x = d3.scaleLinear()
-    .domain(d3.extent(fileSizes)).nice()
+    .domain([d3.min(fileSizes), d3.max(fileSizes)]).nice()
     .range([margin.left, width - margin.right]);
+
+  const bins = d3.bin()
+    .domain(x.domain())
+    .thresholds(30)(fileSizes);
 
   const y = d3.scaleLinear()
     .domain([0, d3.max(bins, d => d.length)]).nice()
     .range([height - margin.bottom, margin.top]);
 
-  // Bars
-  svg.append("g")
+  const bars = svg.append("g")
     .attr("fill", "lightgreen")
-    .attr("stroke", "black")
     .selectAll("rect")
     .data(bins)
     .join("rect")
-      .attr("x", d => x(d.x0))
-      .attr("y", d => y(d.length))
-      .attr("width", d => Math.max(0, x(d.x1) - x(d.x0) - 1))
-      .attr("height", d => y(0) - y(d.length));
+    .attr("x", d => x(d.x0) + 1)
+    .attr("y", d => y(d.length))
+    .attr("width", d => Math.max(0, x(d.x1) - x(d.x0) - 2))
+    .attr("height", d => y(0) - y(d.length));
+
+  // 🔔 Apply global tooltip helper:
+  attachGlobalTooltip(bars, d =>
+    `Files: ${d.length}<br>Size range: 10^${d.x0.toFixed(1)} – 10^${d.x1.toFixed(1)} bytes`
+  );
 
   // Median line
-  const median = d3.median(fileSizes);
   svg.append("line")
     .attr("x1", x(median))
     .attr("x2", x(median))
-    .attr("y1", y(0))
-    .attr("y2", y(d3.max(bins, d => d.length)))
+    .attr("y1", margin.top)
+    .attr("y2", height - margin.bottom)
     .attr("stroke", "red")
+    .attr("stroke-width", 2)
     .attr("stroke-dasharray", "4 2");
 
   svg.append("text")
     .attr("x", x(median) + 4)
-    .attr("y", y(d3.max(bins, d => d.length)) + 10)
-    .attr("font-size", 11)
+    .attr("y", margin.top + 10)
     .attr("fill", "red")
-    .text(`Median`);
+    .attr("font-size", 12)
+    .text("Median");
 
-  // Axes
   svg.append("g")
     .attr("transform", `translate(0,${height - margin.bottom})`)
-    .call(d3.axisBottom(x).ticks(6).tickFormat(d3.format(".1f")));
+    .call(d3.axisBottom(x).ticks(6).tickFormat(d => `10^${d.toFixed(1)}`));
 
   svg.append("g")
     .attr("transform", `translate(${margin.left},0)`)
     .call(d3.axisLeft(y));
 
-  // X label
   svg.append("text")
     .attr("x", width / 2)
     .attr("y", height - 5)
@@ -1778,7 +1909,6 @@ const width = DEFAULT_WIDTH, height = DEFAULT_HEIGHT;
     .attr("font-size", 13)
     .text("File Size (log10 bytes)");
 
-  // Y label
   svg.append("text")
     .attr("transform", "rotate(-90)")
     .attr("x", -height / 2)
@@ -1788,66 +1918,85 @@ const width = DEFAULT_WIDTH, height = DEFAULT_HEIGHT;
     .text("Frequency");
 }
 
+
+
+
 // Histogram: File Name Distribution
 function renderFilenameLengthHistogram(data) {
   const container = d3.select("#chart-filename-length .chart");
   container.html("");
 
-  const lengths = data
-    .map(d => d.filename ? d.filename.length : 0)
-    .filter(l => l > 0);
+  const filenameLengths = data.map(d => d.filename ? d.filename.length : 0);
+  const median = d3.median(filenameLengths);
 
-  const meanLength = d3.mean(lengths).toFixed(1);
-
-  const bins = d3.bin()
-    .domain(d3.extent(lengths))
-    .thresholds(20)(lengths);
-
-  const width = DEFAULT_WIDTH, height = DEFAULT_HEIGHT;
+  let containerWidth = container.node().getBoundingClientRect().width;
+  if (containerWidth === 0) containerWidth = 400;
+  const aspectRatio = 4 / 3;
+  const width = containerWidth;
+  const height = Math.max(200, containerWidth / aspectRatio);
   const margin = { top: 20, right: 30, bottom: 40, left: 60 };
 
   const svg = container.append("svg")
-    .attr("width", width)
-    .attr("height", height);
+    .attr("viewBox", `0 0 ${width} ${height}`)
+    .attr("preserveAspectRatio", "xMinYMin meet")
+    .classed("svg-content-responsive", true);
 
   const x = d3.scaleLinear()
-    .domain(d3.extent(lengths)).nice()
+    .domain([0, d3.max(filenameLengths)]).nice()
     .range([margin.left, width - margin.right]);
 
+  const bins = d3.bin()
+    .domain(x.domain())
+    .thresholds(30)(filenameLengths);
+
   const y = d3.scaleLinear()
-    .domain([0, d3.max(bins, d => d.length)]).nice()
+    .domain([0, 24])
     .range([height - margin.bottom, margin.top]);
 
-  // Bars
   svg.append("g")
-    .attr("fill", "seagreen")
     .selectAll("rect")
     .data(bins)
     .join("rect")
-      .attr("x", d => x(d.x0))
-      .attr("y", d => y(d.length))
-      .attr("width", d => Math.max(0, x(d.x1) - x(d.x0) - 1))
-      .attr("height", d => y(0) - y(d.length));
+    .attr("x", d => x(d.x0) + 1)
+    .attr("y", d => y(d.length))
+    .attr("width", d => Math.max(0, x(d.x1) - x(d.x0) - 2))
+    .attr("height", d => y(0) - y(d.length))
+    .attr("fill", "#4CAF50") // Consistent green color
+    .attr("stroke", "black")
+    .attr("opacity", 1)
+    .on("mouseover", function(event, d) {
+      d3.select(this).attr("opacity", 0.7);
+      d3.select("#tooltip")
+        .style("opacity", 1)
+        .html(`Files: ${d.length}<br>Length range: ${Math.round(d.x0)}–${Math.round(d.x1)} chars`);
+    })
+    .on("mousemove", function(event) {
+      d3.select("#tooltip")
+        .style("left", (event.pageX + 10) + "px")
+        .style("top", (event.pageY - 28) + "px");
+    })
+    .on("mouseout", function() {
+      d3.select(this).attr("opacity", 1);
+      d3.select("#tooltip").style("opacity", 0);
+    });
 
-  // Mean line
+  // Median marker
   svg.append("line")
-    .attr("x1", x(meanLength))
-    .attr("x2", x(meanLength))
-    .attr("y1", y(0))
-    .attr("y2", y(d3.max(bins, d => d.length)))
+    .attr("x1", x(median))
+    .attr("x2", x(median))
+    .attr("y1", margin.top)
+    .attr("y2", height - margin.bottom)
     .attr("stroke", "red")
-    .attr("stroke-dasharray", "4 2")
-    .attr("stroke-width", 2);
+    .attr("stroke-width", 2)
+    .attr("stroke-dasharray", "4 2");
 
-  // Legend text for mean
   svg.append("text")
-    .attr("x", x(meanLength) + 5)
-    .attr("y", y(d3.max(bins, d => d.length)) + 15)
-    .attr("font-size", 11)
+    .attr("x", x(median) + 4)
+    .attr("y", margin.top + 10)
     .attr("fill", "red")
-    .text(`Mean: ${meanLength}`);
+    .attr("font-size", 12)
+    .text("Median");
 
-  // Axes
   svg.append("g")
     .attr("transform", `translate(0,${height - margin.bottom})`)
     .call(d3.axisBottom(x));
@@ -1856,22 +2005,24 @@ function renderFilenameLengthHistogram(data) {
     .attr("transform", `translate(${margin.left},0)`)
     .call(d3.axisLeft(y));
 
-  // Axis labels
   svg.append("text")
     .attr("x", width / 2)
     .attr("y", height - 5)
     .attr("text-anchor", "middle")
-    .attr("font-size", 12)
-    .text("Filename Length (chars)");
+    .attr("font-size", 13)
+    .text("Filename Length (characters)");
 
   svg.append("text")
     .attr("transform", "rotate(-90)")
     .attr("x", -height / 2)
     .attr("y", 15)
     .attr("text-anchor", "middle")
-    .attr("font-size", 12)
+    .attr("font-size", 13)
     .text("Frequency");
 }
+
+
+
 
 
 
@@ -1880,110 +2031,157 @@ function renderHeaderHierarchyHistogram(data) {
   const container = d3.select("#chart-header-hierarchy .chart");
   container.html("");
 
-  // Total counts for h1, h2, h3
-  const totals = [
-    { level: "H1", count: d3.sum(data, d => d.h1_count || 0) },
-    { level: "H2", count: d3.sum(data, d => d.h2_count || 0) },
-    { level: "H3", count: d3.sum(data, d => d.h3_count || 0) }
-  ];
+  if (!data || data.length === 0) {
+    console.warn("No data provided for Header Hierarchy Usage");
+    return;
+  }
 
-  const width = DEFAULT_WIDTH, height = DEFAULT_HEIGHT;
-  const margin = { top: 20, right: 30, bottom: 40, left: 80 };
+  const headerLevels = [
+    { key: "H1", value: d3.sum(data, d => d.h1_count || 0) },
+    { key: "H2", value: d3.sum(data, d => d.h2_count || 0) },
+    { key: "H3", value: d3.sum(data, d => d.h3_count || 0) }
+  ].filter(d => d.value > 0);
+
+  let containerWidth = container.node().getBoundingClientRect().width;
+  if (containerWidth === 0) containerWidth = 400;
+  const aspectRatio = 4 / 3;
+  const width = containerWidth;
+  const height = Math.max(200, containerWidth / aspectRatio);
+  const margin = { top: 20, right: 30, bottom: 40, left: 60 };
 
   const svg = container.append("svg")
-    .attr("width", width)
-    .attr("height", height);
+    .attr("viewBox", `0 0 ${width} ${height}`)
+    .attr("preserveAspectRatio", "xMinYMin meet")
+    .classed("svg-content-responsive", true);
 
   const y = d3.scaleBand()
-    .domain(totals.map(d => d.level))
+    .domain(headerLevels.map(d => d.key))
     .range([margin.top, height - margin.bottom])
     .padding(0.3);
 
+  const xMax = d3.max(headerLevels, d => d.value) || 1;
   const x = d3.scaleLinear()
-    .domain([0, d3.max(totals, d => d.count)]).nice()
+    .domain([0, xMax * 1.1]).nice()
     .range([margin.left, width - margin.right]);
 
-  const color = d3.scaleOrdinal()
-    .domain(totals.map(d => d.level))
-    .range(d3.schemeSet2);
+  const colors = ["#66c2a5", "#fc8d62", "#8da0cb"];
 
-  // Bars
-  svg.append("g")
+  const bars = svg.append("g")
     .selectAll("rect")
-    .data(totals)
+    .data(headerLevels)
     .join("rect")
-      .attr("y", d => y(d.level))
-      .attr("x", x(0))
-      .attr("width", d => x(d.count) - x(0))
-      .attr("height", y.bandwidth())
-      .attr("fill", d => color(d.level));
+    .attr("y", d => y(d.key))
+    .attr("x", x(0))
+    .attr("width", d => Math.max(0, x(d.value) - x(0)))
+    .attr("height", y.bandwidth())
+    .attr("fill", (d, i) => colors[i]);
 
-  // Axis - Top for X, left for Y
-  svg.append("g")
-    .attr("transform", `translate(0,${height - margin.bottom})`)
-    .call(d3.axisBottom(x).ticks(5));
+  // 🔔 Attach tooltip hover interaction here
+  attachGlobalTooltip(bars, d =>
+    `Header Level: ${d.key}<br>Count: ${d.value}`
+  );
 
-  svg.append("g")
-    .attr("transform", `translate(${margin.left},0)`)
-    .call(d3.axisLeft(y));
-
-  // X axis label
-  svg.append("text")
-    .attr("x", width / 2)
-    .attr("y", height - 5)
-    .attr("text-anchor", "middle")
-    .attr("font-size", 12)
-    .text("Total Count");
-}
-
-
-//  Histogram: Link Density 
-function renderLinkDensityHistogram(data) {
-  const container = d3.select("#chart-link-density .chart");
-  container.html(""); 
-  const linkCounts = data.map(d => d.links || 0);
-  const width = DEFAULT_WIDTH, height = DEFAULT_HEIGHT, margin = {top: 20, right: 30, bottom: 40, left: 60};
-  const svg = container.append("svg")
-      .attr("width", width)
-      .attr("height", height);
-  const x = d3.scaleLinear()
-      .domain([0, d3.max(linkCounts)]).nice()
-      .range([margin.left, width - margin.right]);
-  const bins = d3.bin()
-      .domain(x.domain())
-      .thresholds(20)(linkCounts);
-  const y = d3.scaleLinear()
-      .domain([0, d3.max(bins, d => d.length)]).nice()
-      .range([height - margin.bottom, margin.top]);
-  svg.append("g")
-    .attr("fill", "#e55353")
-    .selectAll("rect")
-    .data(bins)
-    .join("rect")
-      .attr("x", d => x(d.x0) + 1)
-      .attr("y", d => y(d.length))
-      .attr("width", d => Math.max(0, x(d.x1) - x(d.x0) - 2))
-      .attr("height", d => y(0) - y(d.length));
   svg.append("g")
     .attr("transform", `translate(0,${height - margin.bottom})`)
     .call(d3.axisBottom(x));
+
   svg.append("g")
     .attr("transform", `translate(${margin.left},0)`)
     .call(d3.axisLeft(y));
+
   svg.append("text")
     .attr("x", width / 2)
     .attr("y", height - 5)
     .attr("text-anchor", "middle")
     .attr("font-size", 13)
-    .text("Links per Document");
+    .text("Total Count");
+
   svg.append("text")
     .attr("transform", "rotate(-90)")
     .attr("x", -height / 2)
     .attr("y", 15)
     .attr("text-anchor", "middle")
     .attr("font-size", 13)
-    .text("Number of Documents");
+    .text("Header Level");
 }
+
+
+
+
+
+
+//  Histogram: Link Density 
+function renderLinkDensityHistogram(data) {
+  const container = d3.select("#chart-link-density .chart");
+  container.html("");
+
+  const linkCounts = data.map(d => d.links || 0);
+
+  let containerWidth = container.node().getBoundingClientRect().width;
+  if (containerWidth === 0) containerWidth = 400;
+  const aspectRatio = 4 / 3;
+  const width = containerWidth;
+  const height = Math.max(200, containerWidth / aspectRatio);
+  const margin = { top: 20, right: 30, bottom: 40, left: 60 };
+
+  const svg = container.append("svg")
+    .attr("viewBox", `0 0 ${width} ${height}`)
+    .attr("preserveAspectRatio", "xMinYMin meet")
+    .classed("svg-content-responsive", true);
+
+  const x = d3.scaleLinear()
+    .domain([0, d3.max(linkCounts)]).nice()
+    .range([margin.left, width - margin.right]);
+
+  const bins = d3.bin()
+    .domain(x.domain())
+    .thresholds(20)(linkCounts);
+
+  const y = d3.scaleLinear()
+    .domain([0, d3.max(bins, d => d.length)]).nice()
+    .range([height - margin.bottom, margin.top]);
+
+  const bars = svg.append("g")
+    .attr("fill", "#e78ac3")
+    .selectAll("rect")
+    .data(bins)
+    .join("rect")
+    .attr("x", d => x(d.x0) + 1)
+    .attr("y", d => y(d.length))
+    .attr("width", d => Math.max(0, x(d.x1) - x(d.x0) - 2))
+    .attr("height", d => y(0) - y(d.length));
+
+  // ✅ Attach global tooltip:
+  attachGlobalTooltip(bars, d =>
+    `Link Range: ${d.x0} – ${d.x1}<br>Count: ${d.length}`
+  );
+
+  svg.append("g")
+    .attr("transform", `translate(0,${height - margin.bottom})`)
+    .call(d3.axisBottom(x));
+
+  svg.append("g")
+    .attr("transform", `translate(${margin.left},0)`)
+    .call(d3.axisLeft(y));
+
+  svg.append("text")
+    .attr("x", width / 2)
+    .attr("y", height - 5)
+    .attr("text-anchor", "middle")
+    .attr("font-size", 13)
+    .text("Link Count");
+
+  svg.append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("x", -height / 2)
+    .attr("y", 15)
+    .attr("text-anchor", "middle")
+    .attr("font-size", 13)
+    .text("Number of Files");
+}
+
+
+
 
 // Histogram: Link Distribution
 function renderLinkDistributionBar(data) {
@@ -1998,12 +2196,16 @@ function renderLinkDistributionBar(data) {
     { type: "External Links", count: totalExternal }
   ];
 
-  const width = DEFAULT_WIDTH, height = DEFAULT_HEIGHT;
+  let containerWidth = container.node().getBoundingClientRect().width || 400;
+  const aspectRatio = 4 / 3;
+  const width = containerWidth;
+  const height = Math.max(200, width / aspectRatio);
   const margin = { top: 20, right: 30, bottom: 40, left: 60 };
 
   const svg = container.append("svg")
-    .attr("width", width)
-    .attr("height", height);
+    .attr("viewBox", `0 0 ${width} ${height}`)
+    .attr("preserveAspectRatio", "xMinYMin meet")
+    .classed("svg-content-responsive", true);
 
   const x = d3.scaleBand()
     .domain(linkData.map(d => d.type))
@@ -2011,22 +2213,27 @@ function renderLinkDistributionBar(data) {
     .padding(0.4);
 
   const y = d3.scaleLinear()
-    .domain([0, d3.max(linkData, d => d.count)]).nice()
+    .domain([0, d3.max(linkData, d => d.count) * 1.1]).nice()
     .range([height - margin.bottom, margin.top]);
 
   const color = d3.scaleOrdinal()
     .domain(linkData.map(d => d.type))
     .range(d3.schemeSet2);
 
-  svg.append("g")
+  const bars = svg.append("g")
     .selectAll("rect")
     .data(linkData)
     .join("rect")
-      .attr("x", d => x(d.type))
-      .attr("y", d => y(d.count))
-      .attr("width", x.bandwidth())
-      .attr("height", d => y(0) - y(d.count))
-      .attr("fill", d => color(d.type));
+    .attr("x", d => x(d.type))
+    .attr("y", d => y(d.count))
+    .attr("width", x.bandwidth())
+    .attr("height", d => y(0) - y(d.count))
+    .attr("fill", d => color(d.type));
+
+  // ✅ Global hover and tooltip:
+  attachGlobalTooltip(bars, d =>
+    `Link Type: ${d.type}<br>Count: ${d.count}`
+  );
 
   svg.append("g")
     .attr("transform", `translate(0,${height - margin.bottom})`)
@@ -2040,7 +2247,7 @@ function renderLinkDistributionBar(data) {
     .attr("x", width / 2)
     .attr("y", height - 5)
     .attr("text-anchor", "middle")
-    .attr("font-size", 12)
+    .attr("font-size", 13)
     .text("Link Type");
 
   svg.append("text")
@@ -2048,38 +2255,47 @@ function renderLinkDistributionBar(data) {
     .attr("x", -height / 2)
     .attr("y", 15)
     .attr("text-anchor", "middle")
-    .attr("font-size", 12)
+    .attr("font-size", 13)
     .text("Total Count");
 }
+
+
 
 
 
 // Histogram: Top 10 Prefixes 
 
 function renderTopPrefixesBar(data) {
-  // Extract prefix from filename using the first "_" or "-"
+  const container = d3.select("#chart-prefix .chart");
+  container.html("");
+
   const getPrefix = filename => {
     if (!filename) return "";
     let match = filename.match(/^[^-_]+/);
     return match ? match[0] : "";
   };
 
-  // Count prefixes
   const prefixCounts = {};
   data.forEach(d => {
     const prefix = getPrefix(d.filename);
     if (prefix) prefixCounts[prefix] = (prefixCounts[prefix] || 0) + 1;
   });
 
-  // Convert to array, sort, take top 10
   const prefixList = Object.entries(prefixCounts)
-    .map(([key, value]) => ({key, value}))
+    .map(([key, value]) => ({ key, value }))
     .sort((a, b) => d3.descending(a.value, b.value))
     .slice(0, 10);
 
-  const width = DEFAULT_WIDTH, height = DEFAULT_HEIGHT, margin = {top: 20, right: 30, bottom: 60, left: 60};
-  const svg = d3.select("#chart-prefix .chart").html("")
-    .append("svg").attr("width", width).attr("height", height);
+  let containerWidth = container.node().getBoundingClientRect().width || 400;
+  const aspectRatio = 4 / 3;
+  const width = containerWidth;
+  const height = Math.max(200, width / aspectRatio);
+  const margin = { top: 20, right: 30, bottom: 60, left: 60 };
+
+  const svg = container.append("svg")
+    .attr("viewBox", `0 0 ${width} ${height}`)
+    .attr("preserveAspectRatio", "xMinYMin meet")
+    .classed("svg-content-responsive", true);
 
   const x = d3.scaleBand()
     .domain(prefixList.map(d => d.key))
@@ -2087,10 +2303,10 @@ function renderTopPrefixesBar(data) {
     .padding(0.2);
 
   const y = d3.scaleLinear()
-    .domain([0, d3.max(prefixList, d => d.value)]).nice()
+    .domain([0, d3.max(prefixList, d => d.value) * 1.1]).nice()
     .range([height - margin.bottom, margin.top]);
 
-  svg.append("g")
+  const bars = svg.append("g")
     .attr("fill", "#f0627e")
     .selectAll("rect")
     .data(prefixList)
@@ -2098,23 +2314,43 @@ function renderTopPrefixesBar(data) {
     .attr("x", d => x(d.key))
     .attr("y", d => y(d.value))
     .attr("width", x.bandwidth())
-    .attr("height", d => y(0) - y(d.value));
+    .attr("height", d => Math.max(0, y(0) - y(d.value)));
+
+  // ✅ Attach hover and tooltip globally consistent:
+  attachGlobalTooltip(bars, d =>
+    `Prefix: ${d.key}<br>Count: ${d.value}`
+  );
 
   svg.append("g")
     .attr("transform", `translate(0,${height - margin.bottom})`)
-    .call(d3.axisBottom(x)).selectAll("text")
-    .attr("transform", "rotate(-30)").attr("dx", "-.8em").attr("dy", ".15em").style("text-anchor", "end");
+    .call(d3.axisBottom(x))
+    .selectAll("text")
+    .attr("transform", "rotate(-30)")
+    .attr("dx", "-.8em")
+    .attr("dy", ".15em")
+    .style("text-anchor", "end");
+
   svg.append("g")
     .attr("transform", `translate(${margin.left},0)`)
     .call(d3.axisLeft(y));
 
   svg.append("text")
-    .attr("x", width/2).attr("y", height-10).attr("text-anchor", "middle")
+    .attr("x", width / 2)
+    .attr("y", height - 5)
+    .attr("text-anchor", "middle")
+    .attr("font-size", 13)
     .text("Prefix");
+
   svg.append("text")
-    .attr("transform", "rotate(-90)").attr("x", -height/2).attr("y", 15).attr("text-anchor", "middle")
+    .attr("transform", "rotate(-90)")
+    .attr("x", -height / 2)
+    .attr("y", 15)
+    .attr("text-anchor", "middle")
+    .attr("font-size", 13)
     .text("Frequency");
 }
+
+
 
 // Histogram: Top 10 Directories
 function renderTopDirectoriesBar(data) {
@@ -2125,109 +2361,50 @@ function renderTopDirectoriesBar(data) {
   const dirCounts = d3.rollups(
     data,
     v => v.length,
-    d => d.directory
-  ).map(([dir, count]) => ({ dir, count }))
+    d => d.directory || "Unknown"
+  ).map(([directory, count]) => ({ directory, count }))
    .sort((a, b) => d3.descending(a.count, b.count))
    .slice(0, 10);
 
-  const width = DEFAULT_WIDTH, height = DEFAULT_HEIGHT;
-  const margin = { top: 20, right: 20, bottom: 40, left: 120 };
+  let containerWidth = container.node().getBoundingClientRect().width || 400;
+  const aspectRatio = 4 / 3;
+  const width = containerWidth;
+  const height = Math.max(250, width / aspectRatio);
+  const margin = { top: 20, right: 30, bottom: 40, left: 120 };
 
   const svg = container.append("svg")
-    .attr("width", width)
-    .attr("height", height);
+    .attr("viewBox", `0 0 ${width} ${height}`)
+    .attr("preserveAspectRatio", "xMinYMin meet")
+    .classed("svg-content-responsive", true);
 
   const y = d3.scaleBand()
-    .domain(dirCounts.map(d => d.dir))
+    .domain(dirCounts.map(d => d.directory))
     .range([margin.top, height - margin.bottom])
-    .padding(0.1);
+    .padding(0.2);
 
   const x = d3.scaleLinear()
-    .domain([0, d3.max(dirCounts, d => d.count)]).nice()
+    .domain([0, d3.max(dirCounts, d => d.count) * 1.1]).nice()
     .range([margin.left, width - margin.right]);
 
-  svg.append("g")
+  const color = d3.scaleOrdinal()
+    .domain(dirCounts.map(d => d.directory))
+    .range(d3.schemeTableau10);
+
+  const bars = svg.append("g")
     .selectAll("rect")
     .data(dirCounts)
     .join("rect")
-      .attr("x", x(0))
-      .attr("y", d => y(d.dir))
-      .attr("width", d => x(d.count) - x(0))
-      .attr("height", y.bandwidth())
-      .attr("fill", "skyblue");
+    .attr("x", margin.left)
+    .attr("y", d => y(d.directory))
+    .attr("height", y.bandwidth())
+    .attr("width", d => x(d.count) - margin.left)
+    .attr("fill", d => color(d.directory));
 
-      svg.append("g")
-  .attr("transform", `translate(0,${height - margin.bottom})`)
-  .call(d3.axisBottom(x));
+  // ✅ Attach consistent global tooltip
+  attachGlobalTooltip(bars, d =>
+    `Directory: ${d.directory}<br>File Count: ${d.count}`
+  );
 
-  // svg.append("g")
-  //   .attr("transform", `translate(0,${margin.top})`)
-  //   .call(d3.axisTop(x).ticks(5));
-
-  svg.append("g")
-    .attr("transform", `translate(${margin.left},0)`)
-    .call(d3.axisLeft(y).tickFormat(d => d.length > 20 ? d.slice(0, 20) + "..." : d));
-
-  svg.append("text")
-    .attr("x", width / 2)
-    .attr("y", height - 5)
-    .attr("text-anchor", "middle")
-    .attr("font-size", 12)
-    .text("Number of Files");
-}
-
-// Histogram: Most Common Words
-function renderCommonWordsBar(data) {
-  const container = d3.select("#chart-common-words .chart");
-  container.html("");
-
-  const wordCounts = {};
-  data.forEach(d => {
-    const filename = d.filename || "";
-    const nameWithoutExtension = filename.split(".")[0];
-    const words = nameWithoutExtension.split(/[-_]/);
-    words.forEach(w => {
-      const word = w.toLowerCase();
-      if (word && word.length > 1) {
-        wordCounts[word] = (wordCounts[word] || 0) + 1;
-      }
-    });
-  });
-
-  const wordsArray = Object.entries(wordCounts)
-    .map(([word, count]) => ({ word, count }))
-    .sort((a, b) => d3.descending(a.count, b.count))
-    .slice(0, 10);
-
-const width = DEFAULT_WIDTH, height = DEFAULT_HEIGHT;
-  const margin = { top: 20, right: 30, bottom: 40, left: 100 };
-
-  const svg = container.append("svg")
-    .attr("width", width)
-    .attr("height", height);
-
-const y = d3.scaleBand()
-  .domain(wordsArray.map(d => d.word))
-  .range([height - margin.bottom, margin.top])  
-  .padding(0.3);
-
-
-  const x = d3.scaleLinear()
-    .domain([0, d3.max(wordsArray, d => d.count)]).nice()
-    .range([margin.left, width - margin.right]);
-
-  // Bars - horizontal style like matplotlib `barh`
-  svg.append("g")
-    .selectAll("rect")
-    .data(wordsArray)
-    .join("rect")
-      .attr("y", d => y(d.word))
-      .attr("x", x(0))
-      .attr("height", y.bandwidth())
-      .attr("width", d => x(d.count) - x(0))
-      .attr("fill", "steelblue");
-
-  // Axes
   svg.append("g")
     .attr("transform", `translate(0,${height - margin.bottom})`)
     .call(d3.axisBottom(x).ticks(5));
@@ -2236,12 +2413,100 @@ const y = d3.scaleBand()
     .attr("transform", `translate(${margin.left},0)`)
     .call(d3.axisLeft(y));
 
-  // Labels
   svg.append("text")
     .attr("x", width / 2)
     .attr("y", height - 5)
     .attr("text-anchor", "middle")
-    .attr("font-size", 12)
+    .attr("font-size", 13)
+    .text("Number of Files");
+
+  svg.append("text")
+    .attr("transform", "rotate(-90)")
+    .attr("x", -height / 2)
+    .attr("y", 15)
+    .attr("text-anchor", "middle")
+    .attr("font-size", 13)
+    .text("Directory");
+}
+
+
+
+// Histogram: Most Common Words
+function renderCommonWordsBar(data) {
+  const container = d3.select("#chart-common-words .chart");
+  container.html("");
+
+  if (!data || data.length === 0) {
+    console.warn("No data provided for Common Words Bar");
+    return;
+  }
+
+  const wordCounts = {};
+  data.forEach(d => {
+    if (d.filename) {
+      d.filename.split(/[^a-zA-Z0-9]+/).forEach(w => {
+        const word = w.toLowerCase();
+        if (word && word.length > 1) {
+          wordCounts[word] = (wordCounts[word] || 0) + 1;
+        }
+      });
+    }
+  });
+
+  const words = Object.entries(wordCounts)
+    .map(([key, value]) => ({ key, value }))
+    .sort((a, b) => d3.descending(a.value, b.value))
+    .slice(0, 10);
+
+  let containerWidth = container.node().getBoundingClientRect().width || 400;
+  const aspectRatio = 4 / 3;
+  const width = containerWidth;
+  const height = Math.max(200, width / aspectRatio);
+  const margin = { top: 20, right: 30, bottom: 40, left: 100 };
+
+  const svg = container.append("svg")
+    .attr("viewBox", `0 0 ${width} ${height}`)
+    .attr("preserveAspectRatio", "xMinYMin meet")
+    .classed("svg-content-responsive", true);
+
+  const y = d3.scaleBand()
+    .domain(words.map(d => d.key).reverse())
+    .range([margin.top, height - margin.bottom])
+    .padding(0.2);
+
+  const xMax = d3.max(words, d => d.value) || 1;
+  const x = d3.scaleLinear()
+    .domain([0, xMax * 1.1]).nice()
+    .range([margin.left, width - margin.right]);
+
+  const bars = svg.append("g")
+    .attr("fill", "#4682b4")
+    .selectAll("rect")
+    .data(words)
+    .join("rect")
+    .attr("y", d => y(d.key))
+    .attr("x", x(0))
+    .attr("width", d => Math.max(0, x(d.value) - x(0)))
+    .attr("height", y.bandwidth());
+
+  // ✅ Attach global hover/tooltip behavior:
+  attachGlobalTooltip(bars, d =>
+    `Word: ${d.key}<br>Count: ${d.value}`
+  );
+
+  svg.append("g")
+    .attr("transform", `translate(0,${height - margin.bottom})`)
+    .call(d3.axisBottom(x));
+
+  svg.append("g")
+    .attr("transform", `translate(${margin.left},0)`)
+    .call(d3.axisLeft(y));
+
+  svg.append("text")
+    .attr("x", width / 2)
+    .attr("y", height - 5)
+    .attr("text-anchor", "middle")
+    .attr("font-size", 13)
     .text("Frequency");
 
   svg.append("text")
@@ -2249,46 +2514,64 @@ const y = d3.scaleBand()
     .attr("x", -height / 2)
     .attr("y", 15)
     .attr("text-anchor", "middle")
-    .attr("font-size", 12)
+    .attr("font-size", 13)
     .text("Word");
 }
 
+
+
 // Histogram: File Clusters
-function renderFileClustersBarSummary(summaryData) {
+function renderFileClustersBarSummary(data) {
   const container = d3.select("#chart-file-clusters .chart");
   container.html("");
 
-  const width = DEFAULT_WIDTH, height = DEFAULT_HEIGHT;
-  const margin = { top: 20, right: 30, bottom: 60, left: 60 };
+  if (!data || data.length === 0) {
+    console.warn("No data provided for File Clusters");
+    return;
+  }
+
+  let containerWidth = container.node().getBoundingClientRect().width;
+  if (containerWidth === 0) containerWidth = 400;
+  const aspectRatio = 4 / 3;
+  const width = containerWidth;
+  const height = Math.max(200, containerWidth / aspectRatio);
+  const margin = { top: 20, right: 30, bottom: 80, left: 60 };
 
   const svg = container.append("svg")
-    .attr("width", width)
-    .attr("height", height);
+    .attr("viewBox", `0 0 ${width} ${height}`)
+    .attr("preserveAspectRatio", "xMinYMin meet")
+    .classed("svg-content-responsive", true);
 
   const x = d3.scaleBand()
-    .domain(summaryData.map(d => d.cluster))
+    .domain(data.map(d => d.cluster))
     .range([margin.left, width - margin.right])
     .padding(0.3);
 
   const y = d3.scaleLinear()
-    .domain([0, d3.max(summaryData, d => d.count)]).nice()
+    .domain([0, d3.max(data, d => d.count) * 1.1]).nice()
     .range([height - margin.bottom, margin.top]);
 
-  svg.append("g")
+  // draw bars and capture selection
+  const bars = svg.append("g")
+    .attr("fill", "#3f8efc")
     .selectAll("rect")
-    .data(summaryData)
+    .data(data)
     .join("rect")
       .attr("x", d => x(d.cluster))
       .attr("y", d => y(d.count))
       .attr("width", x.bandwidth())
-      .attr("height", d => y(0) - y(d.count))
-      .attr("fill", "steelblue");
+      .attr("height", d => y(0) - y(d.count));
+
+  // ✨ attach the global tooltip helper here
+  attachGlobalTooltip(bars, d =>
+    `Cluster: ${d.cluster}<br>Files: ${d.count}`
+  );
 
   svg.append("g")
     .attr("transform", `translate(0,${height - margin.bottom})`)
     .call(d3.axisBottom(x))
     .selectAll("text")
-      .attr("transform", "rotate(-45)")
+      .attr("transform", "rotate(-30)")
       .style("text-anchor", "end");
 
   svg.append("g")
@@ -2299,7 +2582,7 @@ function renderFileClustersBarSummary(summaryData) {
     .attr("x", width / 2)
     .attr("y", height - 5)
     .attr("text-anchor", "middle")
-    .attr("font-size", 12)
+    .attr("font-size", 13)
     .text("File Cluster");
 
   svg.append("text")
@@ -2307,9 +2590,14 @@ function renderFileClustersBarSummary(summaryData) {
     .attr("x", -height / 2)
     .attr("y", 15)
     .attr("text-anchor", "middle")
-    .attr("font-size", 12)
+    .attr("font-size", 13)
     .text("Number of Files");
 }
+
+
+
+
+
 
 
 
@@ -2327,8 +2615,9 @@ function renderCodeDensityScatter(data) {
     }));
   const width = DEFAULT_WIDTH, height = DEFAULT_HEIGHT, margin = {top: 20, right: 30, bottom: 40, left: 60};
   const svg = container.append("svg")
-      .attr("width", width)
-      .attr("height", height);
+    .attr("viewBox", `0 0 ${width} ${height}`)
+    .attr("preserveAspectRatio", "xMinYMin meet")
+    .classed("svg-content-responsive", true);
   const x = d3.scaleLinear()
       .domain([0, d3.max(points, d => d.size)]).nice()
       .range([margin.left, width - margin.right]);
@@ -2385,8 +2674,9 @@ function renderDirectoryDepthPie(data) {
   const radius = Math.min(width, height) / 2;
 
   const svg = container.append("svg")
-    .attr("width", width)
-    .attr("height", height)
+    .attr("viewBox", `0 0 ${width} ${height}`)
+    .attr("preserveAspectRatio", "xMinYMin meet")
+    .classed("svg-content-responsive", true)
     .append("g")
     .attr("transform", `translate(${width / 2}, ${height / 2})`);
 
@@ -2463,8 +2753,9 @@ function renderNamingConventionPie(data) {
   const radius = Math.min(width, height) / 2;
 
   const svg = container.append("svg")
-    .attr("width", width)
-    .attr("height", height)
+    .attr("viewBox", `0 0 ${width} ${height}`)
+    .attr("preserveAspectRatio", "xMinYMin meet")
+    .classed("svg-content-responsive", true)
     .append("g")
     .attr("transform", `translate(${width / 2}, ${height / 2})`);
 
@@ -2530,8 +2821,9 @@ function renderWordCountBoxPlot(data) {
   const margin = { top: 20, right: 30, bottom: 40, left: 60 };
 
   const svg = container.append("svg")
-    .attr("width", width)
-    .attr("height", height);
+    .attr("viewBox", `0 0 ${width} ${height}`)
+    .attr("preserveAspectRatio", "xMinYMin meet")
+    .classed("svg-content-responsive", true)
 
   const x = d3.scaleLinear()
     .domain([0, d3.max(filtered)]).nice()

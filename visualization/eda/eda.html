@@ -14,8 +14,23 @@
 
 <body>
 <!-- Nav bar -->
+ 
+  <div id="tooltip" style="
+    position: absolute;
+    text-align: center;
+    padding: 6px 8px;
+    font-size: 12px;
+    background: rgba(0,0,0,0.75);
+    color: #fff;
+    border-radius: 4px;
+    pointer-events: none;
+    opacity: 0;
+  "></div>
+
 <header class="site-header">
+  
   <span class="site-title">Repository Tree Explorer</span>
+  
   <nav class="site-nav">
     <a href="../index.html" class="nav-btn">Home</a>
     <a href="../org-chart/org-chart.html" class="nav-btn active">Org Chart</a>
@@ -23,10 +38,39 @@
     <a href="../explorer/explorer.html" class="nav-btn">Explorer</a>
     
   </nav>
+  
 </header>
 
   <section class="eda-section">
     <h1>Exploratory Data Analysis</h1>
+    
+<div id="eda-intro" style="
+  background-color: #f9f9f9;
+  padding: 12px 16px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  font-size: 14px;
+  color: #333;
+  line-height: 1.5;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+">
+
+
+
+  <strong>Interactive EDA Dashboard:</strong>  
+  <p>This is an interactive dashboard that provides analysis of the repository’s structure and content. Some key interactive features include:</p>
+  <ul style="margin-top: 0; padding-left: 1.2rem;">
+    <li><strong>Responsive resizing:</strong> All charts automatically adjust to browser window size and zoom level.</li>
+    <li><strong>Modal view:</strong> Enlarge charts with a zoomable modal for closer inspection.</li>
+    <li><strong>Axis labels and legends:</strong>Chart dimensions and categories.</li>
+    <li><strong>Tooltips:</strong> Hover over data points to see exact values and contextual information.</li>
+    <li><strong>Annotations:</strong> Median markers and highlights guide interpretation of key metrics.</li>
+    <li><strong>Consistent styling:</strong> Layout and color schemes match across all charts for easier comparison.</li>
+  </ul>
+</div>
+
+
  <div class="eda-ribbon">
   <button id="btn-histogram" class="active">Histogram</button>
   <button id="btn-scatter">Scatter Plot</button>
