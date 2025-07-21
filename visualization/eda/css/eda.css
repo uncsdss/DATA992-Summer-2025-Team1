@@ -51,6 +51,14 @@
   margin-bottom: 16px;
 }
 
+.eda-chart-card svg {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+
 .graph-modal {
   display: none;
   position: fixed;
@@ -59,9 +67,14 @@
   top: 0;
   width: 100vw;
   height: 100vh;
-  overflow: auto;
+  overflow: visible;
   background-color: rgba(0,0,0,0.6);
 }
+
+#tooltip {
+  z-index: 2000; /* Ensure tooltip is on top of modal */
+}
+
 
 /* .graph-modal-content {
   background-color: #fff;
