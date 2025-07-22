@@ -72,10 +72,8 @@
 
 
  <div class="eda-ribbon">
-  <button id="btn-histogram" class="active">Histogram</button>
-  <button id="btn-scatter">Scatter Plot</button>
-  <button id="btn-pie">Pie Chart</button>
-  <button id="btn-boxplot">Box Plot</button>
+  <button id="btn-histogram" class="active">Repository Structure</button>
+  <button id="btn-scatter">File Content</button>
 
 </div>
 
@@ -89,10 +87,7 @@
     <!-- Histogram -->
 
 <div class="eda-chart-group" id="histogram-group">
-  <div class="eda-chart-card" id="chart-doc-length">
-    <h3>Document Length Distribution</h3>
-    <div class="chart"></div>
-  </div>
+
   <div class="eda-chart-card" id="chart-file-type">
     <h3>File Type Distribution</h3>
     <div class="chart"></div>
@@ -105,18 +100,8 @@
   <h3>Filename Length Distribution</h3>
   <div class="chart"></div>
   </div>
-  <div class="eda-chart-card" id="chart-header-hierarchy">
-    <h3>Header Hierarchy Usage</h3>
-    <div class="chart"></div>
-  </div>
-  <div class="eda-chart-card" id="chart-link-density">
-    <h3>Link Density by Documentation Section</h3>
-    <div class="chart"></div>
-  </div>
-  <div class="eda-chart-card" id="chart-link-distribution">
-  <h3>Link Distribution (Documentation Files)</h3>
-  <div class="chart"></div>
-  </div>
+
+
   <div class="eda-chart-card" id="chart-prefix">
     <h3>Top 10 File Name Prefixes</h3>
     <div class="chart"></div>
@@ -140,31 +125,39 @@
 
 <!-- Scatter Plot Tab Group (ALL SCATTER PLOTS HERE) -->
 <div class="eda-chart-group" id="scatter-group">
+    <div class="eda-chart-card" id="chart-doc-length">
+    <h3>Document Length Distribution</h3>
+    <div class="chart"></div>
+  </div>
+    <div class="eda-chart-card" id="chart-header-hierarchy">
+    <h3>Header Hierarchy Usage</h3>
+    <div class="chart"></div>
+  </div>
   <div class="eda-chart-card" id="chart-code-density">
     <h3>Code Density vs Document Size</h3>
     <div class="chart"></div>
   </div>
-</div>
-
-<!-- New Pie Chart Tab Group -->
-<div class="eda-chart-group" id="pie-group">
-  <div class="eda-chart-card" id="chart-directory-depth">
+    <div class="eda-chart-card" id="chart-link-density">
+    <h3>Link Density by Documentation Section</h3>
+    <div class="chart"></div>
+  </div>
+  <div class="eda-chart-card" id="chart-link-distribution">
+  <h3>Link Distribution (Documentation Files)</h3>
+  <div class="chart"></div>
+  </div>
+    <div class="eda-chart-card" id="chart-directory-depth">
     <h3>Directory Depth Distribution</h3>
     <div class="chart"></div>
   </div>
   <div class="eda-chart-card" id="chart-naming-convention">
   <h3>Naming Convention Styles</h3>
   <div class="chart"></div>
-  </div>
 </div>
-
-<!-- Box Plot -->
-<div class="eda-chart-group" id="boxplot-group">
   <div class="eda-chart-card" id="chart-wordcount-boxplot">
     <h3>Word Count Distribution (Box Plot)</h3>
     <div class="chart"></div>
   </div>
-</div>
+
 
 
   
