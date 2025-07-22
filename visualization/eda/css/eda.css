@@ -58,6 +58,10 @@
   object-fit: contain;
 }
 
+.eda-section {
+  padding-left: 20px;
+  padding-right: 20px; 
+}
 
 .graph-modal {
   display: none;
