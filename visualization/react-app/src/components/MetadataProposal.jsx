@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { metadataItems } from '../const/metadataItemList'
+import { FormattedCodeBlock } from './FormattedCodeBlock'
 
 
 
@@ -44,9 +45,9 @@ export const MetadataProposal = () => {
                   <td className="px-3 py-2 text-left">
                     <div className="text-sm text-gray-600 dark:text-gray-700">
                       {expandedItem === item.id ? (
-                        <p className="whitespace-normal">{item.logic}</p>
+                        <FormattedCodeBlock content={item.logic} />
                       ) : (
-                        <p className="line-clamp-2">{item.logic}</p>
+                        <p className="line-clamp-2">{item.logic.replace(/\n/g, ' ')}</p>
                       )}
                     </div>
                   </td>

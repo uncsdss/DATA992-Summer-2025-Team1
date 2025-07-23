@@ -8,8 +8,8 @@ export const Header = () => {
   
                         <div className="flex items-center space-x-4">
               <nav className="hidden md:flex space-x-8">
-                <Link to="/" className="text-gray-600 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white px-3 py-2 text-sm font-medium transition-colors duration-200">
-                  Home
+              <Link to="/explorer" className="text-gray-600 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white px-3 py-2 text-sm font-medium transition-colors duration-200">
+                  Repo Tree Explorer
                 </Link>
                 <Link to="/org-chart" className="text-gray-600 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white px-3 py-2 text-sm font-medium transition-colors duration-200">
                   Repo Org Chart
@@ -17,9 +17,7 @@ export const Header = () => {
                 <Link to="/eda" className="text-gray-600 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white px-3 py-2 text-sm font-medium transition-colors duration-200">
                   EDA
                 </Link>
-                <Link to="/explorer" className="text-gray-600 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white px-3 py-2 text-sm font-medium transition-colors duration-200">
-                  Repo Tree Explorer
-                </Link>
+
               </nav>
               
             </div>

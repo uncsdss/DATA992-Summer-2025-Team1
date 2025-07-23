@@ -16,7 +16,7 @@ export const metadataItems = [
     {
       id: 3,
       proposedMetadata: "uuid",
-      logic: "Tags files with unique identifers that can be potentially used to associate file relationship; one main benefit of using a UUID vs file name is to reduce risk of possible file duplication",
+      logic: "Tags files with unique identifers that can be potentially used to associate file relationship; one main benefit of using a UUID vs file name is to reduce risk of possible file duplication.\n\nStandard UUID Format:\nExample: {\n  \"uuid\": \"550e8400-e29b-41d4-a716-446655440000\"\n}\n\nCustom UUID Format:\nRRRR-LL-CCCC-TT-XXXXXXXXXXXXXXXXXXXXXXXX\n\nWhere:\nRRRR = Repository Code\nLL = Language\nCCCC = Concept\nTT = File Type (ad, ym, js, md)\nXXXXXXXXXXXXXXXXXXXXXXXX = Random Unique ID (hex)",
       processingMethod: "Standard python methods/libraries",
       category: "file-structure"
     },

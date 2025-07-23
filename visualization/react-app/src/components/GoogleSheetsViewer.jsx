@@ -1,8 +1,6 @@
 import React from 'react'
 
 export const GoogleSheetsViewer = ({ sheetUrl, title = "Data Sheet", height = "600px", showHeader = true }) => {
-  // Example URL format: https://docs.google.com/spreadsheets/d/YOUR_SHEET_ID/pubhtml?widget=true&headers=false
-  // You'll need to replace YOUR_SHEET_ID with your actual Google Sheet ID
   
   return (
     <div className={showHeader ? "bg-white dark:bg-white dark:text-gray-900 rounded-xl shadow-lg border border-gray-200 dark:border-gray-300 p-6 dark:bg-opacity-95 backdrop-blur-sm space-card glow-border" : ""}>
