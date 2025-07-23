@@ -21,11 +21,18 @@
       background:#f6f6f6;
     }
     #sidebar {
-      width:30%; height:100%;
-      border-left:1px solid #ccc;
-      padding:12px; box-sizing:border-box;
-      overflow-y:auto; background:#fff;
-    }
+      position: absolute;   /* stick it to the right edge */
+      top: 0;
+      right: 0;
+      bottom: 0;            /* stretch it all the way down */
+      width: 600px;         /* or whatever width you like */
+      padding: 1em;
+      overflow-y: auto;     /* enable vertical scrolling */
+      box-sizing: border-box;
+      background: #fff;      /* optional, for contrast */
+      border-left: 1px solid #ddd;
+      z-index: 10;
+}
     #controls {
       position:absolute; top:10px; left:10px;
       display:flex; gap:4px; z-index:10;
@@ -70,20 +77,43 @@
     function renderSidebar(md) {
       const sb = document.getElementById('sidebar');
       let html = `<h2>${md.title}</h2>`;
+
+      // New metadata fields
+      html += `<p><strong>UUID:</strong> ${md.uuid}</p>`;
+      html += `<p><strong>Persona:</strong> ${md.persona}</p>`;
+      html += `<p><strong>Doc Type:</strong> ${md.doc_type}</p>`;
+
+      // Existing fields
       html += `<p><strong>File:</strong> ${md.file_name}</p>`;
       html += `<p><strong>Last Modified:</strong> ${new Date(md.last_modified).toLocaleString()}</p>`;
-      html += `<p>${md.summary}</p>`;
+      html += `<p><strong>Summary:</strong>${md.summary}</p>`;
+
+      // Synonyms
+      html += `<p><strong>Synonyms:</strong> ${md.synonym_data}</p>`;
+
+      // Sections
       if (md.section_headings?.length) {
-        html += `<h3>Sections</h3><ul>`;
+        html += `<h3>Section Headings</h3><ul>`;
         md.section_headings.forEach(h => html += `<li>${h}</li>`);
         html += `</ul>`;
       }
+
+      // Keywords
       if (md.keywords?.length) {
         html += `<h3>Keywords</h3><ul>`;
         md.keywords.forEach(k => html += `<li>${k}</li>`);
         html += `</ul>`;
       }
+
+      // Tags
+      if (md.tags?.length) {
+        html += `<h3>Tags</h3><ul>`;
+        md.tags.forEach(tag => html += `<li>${tag}</li>`);
+        html += `</ul>`;
+      }
+
       sb.innerHTML = html;
+      
     }
 
     d3.json('../data/cell_3_extracted_metadata.json')
