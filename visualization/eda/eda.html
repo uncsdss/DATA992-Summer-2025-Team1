@@ -19,7 +19,7 @@
     position: absolute;
     text-align: center;
     padding: 6px 8px;
-    font-size: 12px;
+    font-size: 14px;
     background: rgba(0,0,0,0.75);
     color: #fff;
     border-radius: 4px;
@@ -28,7 +28,16 @@
   "></div>
 
   <section class="eda-section">
-    <h1>Exploratory Data Analysis</h1>
+    <strong>Exploratory Data Analysis:</strong>  
+      <p>To better understand the structure and content of the BlueXP-Automation documentation, we performed an in-depth EDA across 194 files. Key findings include:</p>
+      <ul style="margin-top: 0;">
+      <li><strong>AsciiDoc dominance:</strong> Most files use AsciiDoc format, with a focus on workflow and cloud management topics.</li>
+      <li><strong>Shallow directory depth:</strong> Files are generally found in shallow subdirectories, but vary significantly in length and complexity.</li>
+      <li><strong>Structural consistency:</strong> Patterns in header depth, linking, and naming conventions (e.g., <code>wf_</code> prefixes) indicate high organization with dense semantic content.</li>
+      <li><strong>Complexity scoring:</strong> A custom score was used to flag files that may need richer metadata.</li>
+      <li><strong>Pattern-based clustering:</strong> Filenames were used to group files into functional categories like workflows and API references.</li>
+</ul>
+
     
 <div id="eda-intro" style="
   background-color: #f9f9f9;

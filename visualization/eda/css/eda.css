@@ -180,7 +180,6 @@
 }
 
 
-
 .eda-ribbon { display: flex; background: #f4f4f4; padding: 0.5rem; border-bottom: 1px solid #ddd; }
 .eda-ribbon button { margin-right: 1rem; padding: 0.5rem 1rem; border: none; background: #fff; cursor: pointer; border-radius: 4px; }
 .eda-ribbon button.active { background: #007acc; color: #fff; }
