@@ -2,8 +2,38 @@
 const M = { top:20, right:20, bottom:20, left:20 };
 const dx = 15, dy = 1000;
 
+function buildHierarchyFromFlatList(flatList) {
+  const root = { name: "root", children: [] };
+
+  flatList.forEach(item => {
+    const parts = item.file_path.split('/');
+    let current = root;
+
+    parts.forEach((part, idx) => {
+      let existing = current.children.find(c => c.name === part);
+      if (!existing) {
+        existing = {
+          name: part,
+          children: [],
+        };
+        current.children.push(existing);
+      }
+
+      if (idx === parts.length - 1) {
+        // Attach metadata at leaf
+        existing.metadata = item;
+      }
+
+      current = existing;
+    });
+  });
+
+  return root;
+}
+
 // load data and draw tree
-d3.json('../data/repo-tree.json').then(data => {
+d3.json('../data/cell_3_extracted_metadata.json').then(flatList => {
+  const data = buildHierarchyFromFlatList(flatList);
   const root = d3.hierarchy(data);
   const tree = d3.tree().nodeSize([dx, dy]);
   tree(root);
@@ -76,14 +106,58 @@ d3.json('../data/repo-tree.json').then(data => {
 
 function showMetadata(d) {
   const panel = d3.select('#metadata-panel').html('');
-  panel.append('h3').text(d.name);
-  if (!d.metadata || Object.keys(d.metadata).length===0) {
+
+  if (!d.metadata || Object.keys(d.metadata).length === 0) {
+    panel.append('h3').text(d.name);
     panel.append('p').text('No metadata available.');
-  } else {
-    Object.entries(d.metadata).forEach(([k,v]) =>
-      panel.append('p').html(`<strong>${k}:</strong> ${v}`)
-    );
+    return;
+  }
+
+  const md = d.metadata;
+  panel.append('h2').text(md.title || d.name);
+
+  if (md.uuid) panel.append('p').html(`<strong>UUID:</strong> ${md.uuid}`);
+  if (md.persona) panel.append('p').html(`<strong>Persona:</strong> ${md.persona}`);
+  if (md.doc_type) panel.append('p').html(`<strong>Doc Type:</strong> ${md.doc_type}`);
+  if (md.file_name) panel.append('p').html(`<strong>File:</strong> ${md.file_name}`);
+  if (md.last_modified) panel.append('p').html(`<strong>Last Modified:</strong> ${md.last_modified}`);
+  if (md.summary) panel.append('p').html(`<strong>Summary:</strong> ${md.summary}`);
+
+  if (md.synonym_data && md.synonym_data.length) {
+    const text = Array.isArray(md.synonym_data) ? md.synonym_data.join(', ') : md.synonym_data;
+    panel.append('p').html(`<strong>Synonyms:</strong> ${text}`);
+  }
+
+  if (md.section_headings && typeof md.section_headings === 'string') {
+    const sections = md.section_headings.split(',').map(s => s.trim());
+    panel.append('p').html('<strong>Section Headings</strong>');
+    panel.append('ul')
+      .selectAll('li')
+      .data(sections)
+      .join('li')
+      .text(d => d);
+  }
+
+  if (md.keywords && md.keywords.length) {
+    panel.append('p').html('<strong>Keywords</strong>');
+    panel.append('ul')
+      .selectAll('li')
+      .data(md.keywords)
+      .join('li')
+      .text(d => d);
+  }
+
+  if (md.tags && md.tags.length) {
+    panel.append('p').html('<strong>Tags</strong>');
+    panel.append('ul')
+      .selectAll('li')
+      .data(md.tags)
+      .join('li')
+      .text(d => d);
   }
 }
+
+
+
 
 

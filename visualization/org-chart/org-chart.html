@@ -10,8 +10,11 @@
   <script src="https://cdn.jsdelivr.net/npm/d3-flextree@2.1.2/build/d3-flextree.js"></script>
   <!-- d3-org-chart v2 -->
   <script src="https://unpkg.com/d3-org-chart@2"></script>
-  <link rel="stylesheet" href="../css/main.css">
-  <link rel="stylesheet" href="css/tree.css">  
+  <!-- (no need for js-yaml unless you actually want to parse raw YAML content) -->
+
+  <link rel="stylesheet" href="./css/main.css">
+  <link rel="stylesheet" href="css/tree.css">
+
   <style>
     html, body { margin:0; padding:0; height:100%; }
     .wrapper { display:flex; height:100%; }
@@ -35,11 +38,8 @@
       cursor:pointer; background:#fff;
       border:1px solid #ccc; border-radius:2px;
     }
-    /* let the library size these correctly */
     .chart-container .node-foreign-object-div {
-      border:2px solid #333;
-      border-radius:4px;
-      box-sizing:border-box;
+      border:2px solid #333; border-radius:4px; box-sizing:border-box;
     }
     .node-rect { cursor:default; }
     #sidebar h2 { margin-top:0; font-size:1.2em; }
@@ -48,14 +48,7 @@
   </style>
 </head>
 <body>
-  <header class="site-header">
-    <span class="site-title">Repository Tree Explorer</span>
-    <nav class="site-nav">
-      <a href="../index.html" class="nav-btn">Home</a>
-      <a href="../eda/eda.html" class="nav-btn">EDA</a>
-      <a href="../explorer/explorer.html" class="nav-btn active">Explorer</a>
-    </nav>
-  </header>
+
   <div class="wrapper">
     <div class="chart-container">
       <div id="controls">
@@ -67,37 +60,61 @@
       <!-- Org chart will append its <svg> here -->
     </div>
     <div id="sidebar">
-      <p><em>Click on a <strong>.adoc</strong> node to zoom in & view metadata.</em></p>
+      <p><em>Click on a node to view metadata.</em></p>
     </div>
   </div>
 
   <script>
     let chart, files;
 
+    // Renders all metadata fields, including JSON/YAML ones
     function renderSidebar(md) {
       const sb = document.getElementById('sidebar');
-      let html = `<h2>${md.title}</h2>`;
+      let html = `<h2>${md.title || md.file_name}</h2>`;
+
+      // Core metadata
+      html += `<p><strong>UUID:</strong> ${md.uuid || ''}</p>`;
+      html += `<p><strong>Persona:</strong> ${md.persona || ''}</p>`;
+      html += `<p><strong>Doc Type:</strong> ${md.doc_type || ''}</p>`;
       html += `<p><strong>File:</strong> ${md.file_name}</p>`;
-      html += `<p><strong>Last Modified:</strong> ${new Date(md.last_modified).toLocaleString()}</p>`;
-      html += `<p>${md.summary}</p>`;
+      html += `<p><strong>Last Modified:</strong> ${
+        md.last_modified
+          ? new Date(md.last_modified).toLocaleString()
+          : ''
+      }</p>`;
+      html += `<p><strong>Summary: </strong>${md.summary || ''}</p>`;
+      html += `<p><strong>Synonyms:</strong> ${md.synonym_data || ''}</p>`;
+
+      // Section headings
       if (md.section_headings?.length) {
-        html += `<h3>Sections</h3><ul>`;
+        html += `<h3>Section Headings</h3><ul>`;
         md.section_headings.forEach(h => html += `<li>${h}</li>`);
         html += `</ul>`;
       }
+
+      // Keywords
       if (md.keywords?.length) {
         html += `<h3>Keywords</h3><ul>`;
         md.keywords.forEach(k => html += `<li>${k}</li>`);
         html += `</ul>`;
       }
+
+      // Tags
+      if (md.tags?.length) {
+        html += `<h3>Tags</h3><ul>`;
+        md.tags.forEach(t => html += `<li>${t}</li>`);
+        html += `</ul>`;
+      }
+
       sb.innerHTML = html;
     }
 
+    // Load your pre‑computed metadata array
     d3.json('../data/cell_3_extracted_metadata.json')
       .then(raw => {
         files = Array.isArray(raw) ? raw : raw.nodes;
 
-        // Build a flat list of nodes, attaching metadata on .adoc leaves
+        // Build a flat list of nodes, now treating .adoc, .json, .yml/.yaml as metadata leaves
         const map = new Map();
         files.forEach(f => {
           f.file_path.split('/').reduce((parent, seg) => {
@@ -107,7 +124,10 @@
                 id: path,
                 parentId: parent || null,
                 name: seg,
-                metadata: seg.toLowerCase().endsWith('.adoc') ? f : null
+                metadata: ['.adoc','.json','.yml','.yaml']
+                  .some(ext => seg.toLowerCase().endsWith(ext))
+                  ? f
+                  : null
               });
             }
             return path;
@@ -115,7 +135,7 @@
         });
         const nodes = Array.from(map.values());
 
-        // Instantiate & render the chart
+        // Instantiate & render the org‑chart
         chart = new d3.OrgChart()
           .container('.chart-container')
           .data(nodes)
@@ -124,21 +144,16 @@
           })
           .nodeWidth(() => 200)
           .nodeHeight(() => 80)
-
-          // render only the inner HTML; the library wraps it in
-          // <foreignObject class="node-foreign-object-div">
           .nodeContent(d => `
             <div style="padding:4px; font-size:14px;">
               ${d.data.name}
             </div>
           `)
-
-          // in nodeUpdate we bind click behavior *only* to that foreignObject
           .nodeUpdate(function(d) {
-            // remove any rounding
+            // remove rounding
             d3.select(this).select('.node-rect').attr('rx',0).attr('ry',0);
 
-            // click-to-zoom & sidebar on the foreignObject wrapper
+            // attach click → sidebar + zoom
             d3.select(this).select('.node-foreign-object-div')
               .style('cursor','pointer')
               .on('click', event => {
@@ -146,61 +161,43 @@
                 if (!d.data.metadata) return;
                 renderSidebar(d.data.metadata);
 
-                // grab svg & zoomBehavior
+                // zoom into the clicked node
                 const svg = d3.select('.chart-container svg');
                 const { zoomBehavior } = chart.getChartState();
                 const bbox = svg.node().getBoundingClientRect();
-
-                // get pointer coords relative to svg
                 const [mx, my] = d3.pointer(event, svg.node());
-
-                // relative scale factor
                 const factor = 1.5;
-
-                // perform a relative zoom *then* translate so click → center
                 svg.transition().duration(400)
                   .call(zoomBehavior.scaleBy, factor, [mx, my])
                   .call(zoomBehavior.translateBy,
-                        (bbox.width/2  - mx),
-                        (bbox.height/2 - my));
+                        bbox.width/2 - mx,
+                        bbox.height/2 - my);
               });
           })
           .render();
 
-        // grab svg & zoomBehavior for our toolbar
+        // Hook up your buttons
         const svgEl = d3.select('.chart-container svg');
         const zoomBehavior = chart.getChartState().zoomBehavior;
-
-        // zoom in/out buttons
         document.getElementById('zoom-in')
           .addEventListener('click',  () => chart.zoomIn());
         document.getElementById('zoom-out')
           .addEventListener('click', () => chart.zoomOut());
-
-        // expand/collapse all, preserving current transform
-        document.getElementById('expand-all').addEventListener('click', () => {
-          const t = d3.zoomTransform(svgEl.node());
-          chart.expandAll();
-          svgEl.call(zoomBehavior.transform, t);
-        });
-        document.getElementById('collapse-all').addEventListener('click', () => {
-          const t = d3.zoomTransform(svgEl.node());
-          chart.collapseAll();
-          svgEl.call(zoomBehavior.transform, t);
-        });
-
-        // catch manual "^N" toggles and reapply transform
-        svgEl.node().addEventListener('click', e => {
-          if (
-            e.target.tagName === 'text' &&
-            /^\^\d+/.test(e.target.textContent.trim())
-          ) {
+        document.getElementById('expand-all')
+          .addEventListener('click', () => {
             const t = d3.zoomTransform(svgEl.node());
-            setTimeout(() => svgEl.call(zoomBehavior.transform, t), 0);
-          }
-        });
+            chart.expandAll();
+            svgEl.call(zoomBehavior.transform, t);
+          });
+        document.getElementById('collapse-all')
+          .addEventListener('click', () => {
+            const t = d3.zoomTransform(svgEl.node());
+            chart.collapseAll();
+            svgEl.call(zoomBehavior.transform, t);
+          });
       })
-      .catch(err => console.error(err));
+      .catch(err => console.error('Failed loading metadata:', err));
   </script>
+
 </body>
 </html>
