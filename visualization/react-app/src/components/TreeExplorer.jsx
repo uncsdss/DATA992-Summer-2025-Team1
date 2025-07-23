@@ -13,13 +13,7 @@ export const TreeExplorer = () => {
     return (
       <div className="fixed inset-0 flex flex-col bg-white dark:bg-black dark:space-bg">
         <div className="bg-white dark:bg-black dark:space-bg border-b border-gray-200 dark:border-gray-800 shadow-sm p-4 flex-shrink-0 z-10">
-          <div className="flex justify-between items-center">
-            <div className="flex items-center">
-              <svg className="w-5 h-5 text-blue-600 dark:text-blue-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-              <h1 className="text-xl font-semibold text-gray-900 dark:text-white">Repository Explorer</h1>
-            </div>
+          <div className="flex justify-end items-center">
             <Link to="/" 
                   className="inline-flex items-center px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white text-sm font-medium rounded-lg transition-colors duration-200">
               <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
