@@ -260,7 +260,7 @@ attachGlobalTooltip(bars, d =>
     .style("margin-top", "20px")
     .style("font-size", "14px")
     .style("line-height", "1.5")
-    .text("This is where your analysis description will go. You can replace this text dynamically.");
+    .text("The median file length is 415 words, with most documents having lengths below 1,000 words. A small number of outliers significantly exceed this, with word counts ranging up to nearly 40,000. These exceptions could pose problems for certain processing techniques.");
 }
 
 
@@ -492,10 +492,7 @@ const analysisContainer = container.append("div")
   .html(`
     <h3 style="margin-bottom: 8px;">Directory Depth</h3>
     <p>
-      The repo consists of numerous subdirectories (15) and files (194). The vast majority of the files have a depth of 1, 
-      meaning that they are nested in a subdirectory folder and therefore we will need to consider the appropriate methods 
-      to crawl/walk through repo hierarchy to absorb file contents. Additionally, depth (nested files) are important when 
-      considering graph modeling.
+        File sizes are fairly regularly distributed with a mean of 3.9KB and a slight right skew. The files should be fairly handleable for mass processing and manipulation.
     </p>
   `);
 
@@ -605,10 +602,7 @@ const analysisContainer = container.append("div")
   .html(`
     <h3 style="margin-bottom: 8px;">Directory Depth</h3>
     <p>
-      The repo consists of numerous subdirectories (15) and files (194). The vast majority of the files have a depth of 1, 
-      meaning that they are nested in a subdirectory folder and therefore we will need to consider the appropriate methods 
-      to crawl/walk through repo hierarchy to absorb file contents. Additionally, depth (nested files) are important when 
-      considering graph modeling.
+        The length of filenames ranges from around 5 to 40 characters with a mean of 22.4. The distribution is irregular. Many of the longer filename lengths correspond to files that describe multi step technical processes.
     </p>
   `);
 
@@ -710,7 +704,12 @@ function renderLinkDensityHistogramModal(width, height) {
   const container = d3.select("#graph-modal-body");
   container.html("");
 
-  const linkCounts = latestData.map(d => d.links || 0);
+  // const linkCounts = latestData.map(d => d.links || 0);
+
+const rawLinks = latestData.map(d => d.links || 0);
+const q95 = d3.quantile(rawLinks, 0.95); // Calculate 95th percentile
+const linkCounts = rawLinks.filter(d => d <= q95); // Filter out top 5%
+
 
   const bins = d3.bin()
     .domain(d3.extent(linkCounts))
@@ -978,7 +977,7 @@ function renderTopPrefixesBarModal(width, height) {
     .style("margin-top", "20px")
     .style("font-size", "14px")
     .style("line-height", "1.5")
-    .text("This is where your analysis description will go. You can replace this text dynamically.");
+    .text("The wf_ prefix stands for ‘workflows’ and is by far the most common prefix. This makes sense given content of the repository, but it means that filename-based classification or tagging strategies may be less effective.");
 }
 
 // Histogram: Top Directories (Modal)
@@ -1161,7 +1160,7 @@ function renderCommonWordsBarModal(width, height) {
     .style("margin-top", "20px")
     .style("font-size", "14px")
     .style("line-height", "1.5")
-    .text("This is where your analysis description will go. You can replace this text dynamically.");
+    .text("The most common words relate to cloud technologies and workflows. This illustrates the need for creative methods to separate documents which are so similar in content.");
 }
 
 function renderFileClustersBarSummaryModal(width, height) {
@@ -2115,7 +2114,11 @@ function renderLinkDensityHistogram(data) {
   const container = d3.select("#chart-link-density .chart");
   container.html("");
 
-  const linkCounts = data.map(d => d.links || 0);
+  // const linkCounts = data.map(d => d.links || 0);
+
+  const rawLinks = data.map(d => d.links || 0);
+  const q95 = d3.quantile(rawLinks, 0.95);
+  const linkCounts = rawLinks.filter(d => d <= q95);
 
   let containerWidth = container.node().getBoundingClientRect().width;
   if (containerWidth === 0) containerWidth = 400;
