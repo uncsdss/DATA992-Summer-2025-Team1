@@ -21,6 +21,8 @@
    - [Data Cleaning & Validation](#data-cleaning--validation)
 ### [4.  Literature Review](#literature-review)
 
+### [5.  Final Presentation](#final-presentation)
+
 ---
 
 ## Project Overview:
@@ -327,5 +329,15 @@ To terminate the python HTTP server, you can use the keyboard shortcut:
 Our project explores NLP-based metadata generation to improve document retrieval from the NetApp BlueXP documentation set. The literature covers techniques in hybrid retrieval, taxonomy-driven metadata design, query reformulation, topic modeling, and automated tag evaluation. Together, these sources inform our approach of using BERT-based models (e.g., BERTopic, KeyBERT), LLM-driven summaries, and rule-based extraction to generate and validate metadata tags.
 
 See the [full literature review here](literature_review.md).
+
+## Final Presentation
+
+To run the final presentation:
+1. In your terminal, navigate to the react-app directory
+2. Run `npm install`
+3. Run `npm run dev`
+4. In your browser open the port shown in terminal (http:localhost:5147)
+5. In a separate terminal (split terminal) navigate to the `visualization` directory and run `python3 -m http.server`
+   
 
 
