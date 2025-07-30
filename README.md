@@ -40,7 +40,6 @@ Stakeholders—including NetApp documentation teams, internal engineers, and ext
 
 - Explore and analyze NetApp open-source documentation - beginning with the BlueXP-Automation API repository.
 - Employ NLP models to identify and extract key entities, concepts, and relationships within the textual content, enhancing the metadata with semantic tags and topic modeling results
-- Write a detailed report and an executive presentation discussing our findings, sharing our methodologies, and offering recommendations for further development.
 
 ---
 
@@ -74,13 +73,7 @@ Utilizing NLP techniques, generate enriched metadata tags to augment existing se
 #### Methodology:
 
 - Extract repository(ies) text to be analyzed utilizing Python methods.
-- Conduct data preprocessing to ensure a clean training/evaluation dataset. The dataset preprocessing includes:
-  - Parsing the YAML front-matter to use as higher priority
-  - Removing empty lines (whitespace)
-  - Removing Ascii markup and comments
-  - Removing stop-words
-  - Converting all text to lower-case
-  - Tokenizing the cleaned text for model training
+- Conduct data preprocessing to ensure a clean training/evaluation dataset.
 - Generate metadata tags utilizing NLP techniques, such as BERT-based models, including KeyBERT and LLM-generated tags.
   - Metadata tag generation approaches being explored include:
     - BERTopic Modeling with RAKE & TF-IDF
@@ -130,12 +123,13 @@ Utilizing NLP techniques, generate enriched metadata tags to augment existing se
 - Prepare final presentation
 
 ####  Data Analysis (July 21)
-- Techniques: BERT, LLM, Grading, KeyBERT, etc.
+- Techniques: Zero-Shot Facebook BART, Word2Net
+- Built Data Visualizations with D3.js
 - Evaluate tag relevance
 - Score the tags with the grading model
 
 ####  Final Presentation (July 23)
-- Dynamic visuals
+- Dynamic visuals (building UI utilizing React & TailwindCSS)
 - Summary of findings
 - Key achievements and insights
 - Recommendations
@@ -212,7 +206,7 @@ This project is based on NetApp's BlueXP-Automation GitHub repository, which can
 
 ### Data Plan
 
-We intend to focus on the .adoc (AsciiDoc) files from the NetAppDocs/bluexp-automation GitHub repository. Additional files json, yml, and yaml will be explored. 
+We reviewed and processed all file stypes in teh repo, but we intend to focus on the .adoc (AsciiDoc) files from the NetAppDocs/bluexp-automation GitHub repository. Additional files json, yml, and yaml will be explored. 
 Specific data of interest includes section titles, headers, code snippets, and descriptive text from documentation; Explore raw and cleaned text content for model training.
 
 #### Goal:
