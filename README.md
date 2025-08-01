@@ -22,6 +22,8 @@
 ### [4.  Literature Review](#literature-review)
 
 ### [5.  Final Presentation](#final-presentation)
+   - [Running](#running)
+   - [Feedback & Next Steps](#feedback--next-steps)
 
 ---
 
@@ -326,6 +328,7 @@ See the [full literature review here](literature_review.md).
 
 ## Final Presentation
 
+#### Running
 To run the final presentation:
 1. In your terminal, navigate to the react-app directory
 2. Run `npm install`
@@ -333,7 +336,7 @@ To run the final presentation:
 4. In your browser open the port shown in terminal (http:localhost:5147)
 5. In a separate terminal (split terminal) navigate to the `visualization` directory and run `python3 -m http.server`
    
-## Final Presentation Feedback
+#### Feedback & Next Steps
 
 The final presentation to stakeholders and peers took place on July 23th. The interactivity and visual nature of our app was well recieved and the depth of our analysis/understanding of the documentation was praised. There were some areas we could have improved:
 - Our presentation started strong with a good overview and summary of our project, but we could have benefited from a more intentional and conclusive ending to close on a strong message.
