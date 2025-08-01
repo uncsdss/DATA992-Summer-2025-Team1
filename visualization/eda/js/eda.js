@@ -4,7 +4,7 @@ let latestClusterSummary = [];
 document.addEventListener('DOMContentLoaded', function () {
   d3.json('../data/doc_metadata.json').then(data => {
 
-     latestData = data;  // <-- ADD THIS LINE so modal uses same dataset
+     latestData = data;  
 
     renderDocLengthHistogram(data);
     renderFileTypeDistribution(data);
@@ -117,9 +117,9 @@ document.addEventListener('DOMContentLoaded', function () {
   const modalClose = document.querySelector(".graph-modal-close");
 
 d3.selectAll(".eda-chart-card").on("click", function() {
-  const cardId = this.id;  // e.g., "chart-doc-length"
+  const cardId = this.id;  
   modal.style.display = "block";
-  modalBody.innerHTML = "";  // Clear modal
+  modalBody.innerHTML = "";  
 
   // Render corresponding chart directly at larger size
   if (cardId === "chart-doc-length") {
@@ -218,7 +218,7 @@ function renderDocLengthHistogramModal(width, height) {
     .attr("width", d => Math.max(0, x(d.x1) - x(d.x0) - 2))
     .attr("height", d => y(0) - y(d.length));
 
-  // 🔔 Hover tooltip identical to overview:
+  
 attachGlobalTooltip(bars, d =>
   `Documents: ${d.length}<br>Range: ${Math.round(d.x0)} – ${Math.round(d.x1)} words`
 );
@@ -368,8 +368,8 @@ const analysisContainer = container.append("div")
   .style("margin-top", "20px")
   .style("font-size", "14px")
   .style("line-height", "1.5")
-  .style("max-width", "800px")  // Optional: constrain width for readability
-  .style("text-align", "left")  // Ensure left-aligned text
+  .style("max-width", "800px")  
+  .style("text-align", "left") 
   .html(`
     <h3>File Types</h3>
     <p>The repo consists of a total of five (5) file types:</p>
@@ -439,7 +439,7 @@ attachGlobalTooltip(bars, d =>
     .attr("transform", `translate(${margin.left},0)`)
     .call(d3.axisLeft(y));
 
-  // Add red median line
+  
   svg.append("line")
     .attr("x1", x(median))
     .attr("x2", x(median))
@@ -457,7 +457,7 @@ attachGlobalTooltip(bars, d =>
     .attr("font-size", 11)
     .text("Median");
 
-  // Add axis labels
+  
   svg.append("text")
     .attr("x", width / 2)
     .attr("y", height - 5)
@@ -473,7 +473,7 @@ attachGlobalTooltip(bars, d =>
     .attr("font-size", 13)
     .text("Frequency");
 
-  // Add chart title
+  
   svg.append("text")
     .attr("x", width / 2)
     .attr("y", 25)
@@ -487,8 +487,8 @@ const analysisContainer = container.append("div")
   .style("margin-top", "20px")
   .style("font-size", "14px")
   .style("line-height", "1.5")
-  .style("max-width", "800px")  // Optional: constrain width for readability
-  .style("text-align", "left")  // Ensure left-aligned text
+  .style("max-width", "800px")  
+  .style("text-align", "left") 
   .html(`
     <h3 style="margin-bottom: 8px;">Directory Depth</h3>
     <p>
@@ -597,8 +597,8 @@ const analysisContainer = container.append("div")
   .style("margin-top", "20px")
   .style("font-size", "14px")
   .style("line-height", "1.5")
-  .style("max-width", "800px")  // Optional: constrain width for readability
-  .style("text-align", "left")  // Ensure left-aligned text
+  .style("max-width", "800px")  
+  .style("text-align", "left")  
   .html(`
     <h3 style="margin-bottom: 8px;">Directory Depth</h3>
     <p>
@@ -634,7 +634,6 @@ function renderHeaderHierarchyHistogramModal(width, height) {
     .domain([0, d3.max(headerLevels, d => d.value)]).nice()
     .range([margin.left, width - margin.right]);
 
-  // 🔥 Explicit hardcoded color array (same as overview)
   const colors = ["#66c2a5", "#fc8d62", "#8da0cb"];
 
 const bars = svg.append("g")
@@ -704,11 +703,10 @@ function renderLinkDensityHistogramModal(width, height) {
   const container = d3.select("#graph-modal-body");
   container.html("");
 
-  // const linkCounts = latestData.map(d => d.links || 0);
 
 const rawLinks = latestData.map(d => d.links || 0);
-const q95 = d3.quantile(rawLinks, 0.95); // Calculate 95th percentile
-const linkCounts = rawLinks.filter(d => d <= q95); // Filter out top 5%
+const q95 = d3.quantile(rawLinks, 0.95); 
+const linkCounts = rawLinks.filter(d => d <= q95); 
 
 
   const bins = d3.bin()
@@ -796,7 +794,8 @@ function renderLinkDistributionBarModal(width, height) {
   const container = d3.select("#graph-modal-body");
   container.html("");
 
-  // ✅ Use same aggregation fields as your working overview renderer
+ 
+
   const totalInternal = d3.sum(latestData, d => d.internal_links || 0);
   const totalExternal = d3.sum(latestData, d => d.external_links || 0);
 
@@ -1021,7 +1020,7 @@ function renderTopDirectoriesBarModal(width, height) {
     .attr("y", d => y(d.key))
     .attr("width", d => x(d.value) - x(0))
     .attr("height", y.bandwidth())
-    .attr("fill", d => color(d.key));  // Match overview color if needed\
+    .attr("fill", d => color(d.key));  
 
         attachGlobalTooltip(bars, d =>
   `Files: ${d.key}<br>Directory: ${d.value}`
@@ -1118,7 +1117,7 @@ function renderCommonWordsBarModal(width, height) {
     .attr("y", d => y(d.key))
     .attr("width", d => x(d.value) - x(0))
     .attr("height", y.bandwidth())
-    .attr("fill", "#4682b4");  // Match overview color if needed.
+    .attr("fill", "#4682b4"); 
 
         attachGlobalTooltip(bars, d =>
   `Count: ${d.key}<br>Word: ${d.value}`
@@ -1352,14 +1351,14 @@ function renderDirectoryDepthPieModal(width, height) {
 
   const color = d3.scaleOrdinal()
     .domain(depthData.map(d => d.depth))
-    .range(d3.schemeSet2);  // 🔔 Ensure same scheme as overview
+    .range(d3.schemeSet2);  
 
   const pie = d3.pie()
   .value(d => {
     const percent = d.count / total * 100;
     return percent < 5 ? d.count * 3 : d.count;
   })
-  .sort(null)  // keep consistent ordering
+  .sort(null)  
   .startAngle(-Math.PI / 7.5);
 
 
@@ -1378,7 +1377,7 @@ function renderDirectoryDepthPieModal(width, height) {
     .attr("stroke", "white")
     .style("stroke-width", "2px");
 
-  //  Add percentage labels inside slices like overview:
+  
   svg.selectAll("text")
     .data(arcs)
     .join("text")
@@ -1413,19 +1412,7 @@ function renderDirectoryDepthPieModal(width, height) {
       </p>
     `);
 
-// const analysisContainer = container.append("div")
-//   .attr("class", "modal-analysis")
-//   .style("margin-top", "20px")
-//   .style("font-size", "14px")
-//   .style("line-height", "1.5")
-//   .style("max-width", "800px")
-//   .style("text-align", "left")
-//   .html(`
-//     <h3 style="font-style: italic; font-weight: normal; margin-bottom: 8px;">Directories with the Highest File Count</h3>
-//     <p>
-//       The bar chart below shows the top 10 directories in the repository by file count. The <code>cm/</code> directory, short for Cloud Management, contains the overwhelming majority of files. It includes dozens of .adoc documents detailing workflows and API procedures for operating the BlueXP platform across cloud providers such as AWS, Azure, and Google Cloud. Since most of the documentation consists of technical task walkthroughs, we will tailor our metadata approach to reflect this structure and content focus.
-//     </p>
-//   `);
+
 
 
 }
@@ -1463,11 +1450,11 @@ function renderNamingConventionPieModal(width, height) {
 
   const color = d3.scaleOrdinal()
     .domain(pieData.map(d => d.style))
-    .range(["#00BFFF", "#FFD700"]);  // Same colors as overview
+    .range(["#00BFFF", "#FFD700"]);  
 
   const pie = d3.pie()
     .value(d => d.count)
-    .sort(null);  // Ensure consistent slice order
+    .sort(null);  
 
   const arc = d3.arc()
     .innerRadius(0)
@@ -1487,7 +1474,7 @@ function renderNamingConventionPieModal(width, height) {
     .attr("stroke", "white")
     .attr("stroke-width", 1);
 
-  // Percentage inside slices
+
   arcs.append("text")
     .attr("transform", d => `translate(${arc.centroid(d)})`)
     .attr("text-anchor", "middle")
@@ -1495,7 +1482,7 @@ function renderNamingConventionPieModal(width, height) {
     .attr("fill", "#000")
     .text(d => `${((d.data.count / total) * 100).toFixed(1)}%`);
 
-  // External labels for styles
+ 
   arcs.append("text")
     .attr("transform", d => `translate(${outerArc.centroid(d)})`)
     .attr("text-anchor", "middle")
@@ -1556,7 +1543,7 @@ function renderWordCountBoxPlotModal(width, height) {
   const max = d3.max(filtered.filter(d => d <= upperFence));
   const outliers = filtered.filter(d => d < min || d > max);
 
-  // Box
+
   svg.append("rect")
     .attr("x", x(q1))
     .attr("y", centerY - boxHeight / 2)
@@ -1565,7 +1552,7 @@ function renderWordCountBoxPlotModal(width, height) {
     .attr("stroke", "black")
     .attr("fill", "none");
 
-  // Median line
+ 
   svg.append("line")
     .attr("x1", x(median))
     .attr("x2", x(median))
@@ -1574,7 +1561,6 @@ function renderWordCountBoxPlotModal(width, height) {
     .attr("stroke", "orange")
     .attr("stroke-width", 2);
 
-  // Whiskers
   svg.append("line")
     .attr("x1", x(min))
     .attr("x2", x(q1))
@@ -1589,7 +1575,7 @@ function renderWordCountBoxPlotModal(width, height) {
     .attr("y2", centerY)
     .attr("stroke", "black");
 
-  // Whisker caps
+  
   svg.append("line")
     .attr("x1", x(min))
     .attr("x2", x(min))
@@ -1604,7 +1590,7 @@ function renderWordCountBoxPlotModal(width, height) {
     .attr("y2", centerY + boxHeight / 4)
     .attr("stroke", "black");
 
-  // Outliers
+
   svg.append("g")
     .selectAll("circle")
     .data(outliers)
@@ -1614,12 +1600,12 @@ function renderWordCountBoxPlotModal(width, height) {
     .attr("r", 3)
     .attr("fill", "black");
 
-  // Axis
+
   svg.append("g")
     .attr("transform", `translate(0,${centerY + boxHeight / 2 + 20})`)
     .call(d3.axisBottom(x).ticks(8));
 
-  // Labels
+
   svg.append("text")
     .attr("x", width / 2)
     .attr("y", 30)
@@ -1702,7 +1688,6 @@ function renderDocLengthHistogram(data) {
     .attr("width", d => Math.max(0, x(d.x1) - x(d.x0) - 2))
     .attr("height", d => y(0) - y(d.length));
 
-  // 🔔 Apply global tooltip helper:
   attachGlobalTooltip(bars, d => 
     `Documents: ${d.length}<br>Range: ${Math.round(d.x0)} – ${Math.round(d.x1)} words`
   );
@@ -1790,7 +1775,6 @@ function renderFileTypeDistribution(data) {
     .attr("width", x.bandwidth())
     .attr("fill", d => colorMap[d.key] || "#3f8efc");
 
-  // 🔔 Apply global tooltip helper:
   attachGlobalTooltip(bars, d =>
     `File type: ${d.key}<br>Count: ${d.value}`
   );
@@ -1871,12 +1855,12 @@ function renderFileSizeDistribution(data) {
     .attr("width", d => Math.max(0, x(d.x1) - x(d.x0) - 2))
     .attr("height", d => y(0) - y(d.length));
 
-  // 🔔 Apply global tooltip helper:
+
   attachGlobalTooltip(bars, d =>
     `Files: ${d.length}<br>Size range: 10^${d.x0.toFixed(1)} – 10^${d.x1.toFixed(1)} bytes`
   );
 
-  // Median line
+
   svg.append("line")
     .attr("x1", x(median))
     .attr("x2", x(median))
@@ -1960,7 +1944,7 @@ function renderFilenameLengthHistogram(data) {
     .attr("y", d => y(d.length))
     .attr("width", d => Math.max(0, x(d.x1) - x(d.x0) - 2))
     .attr("height", d => y(0) - y(d.length))
-    .attr("fill", "#4CAF50") // Consistent green color
+    .attr("fill", "#4CAF50") 
     .attr("stroke", "black")
     .attr("opacity", 1)
     .on("mouseover", function(event, d) {
@@ -1979,7 +1963,7 @@ function renderFilenameLengthHistogram(data) {
       d3.select("#tooltip").style("opacity", 0);
     });
 
-  // Median marker
+
   svg.append("line")
     .attr("x1", x(median))
     .attr("x2", x(median))
@@ -2075,7 +2059,7 @@ function renderHeaderHierarchyHistogram(data) {
     .attr("height", y.bandwidth())
     .attr("fill", (d, i) => colors[i]);
 
-  // 🔔 Attach tooltip hover interaction here
+
   attachGlobalTooltip(bars, d =>
     `Header Level: ${d.key}<br>Count: ${d.value}`
   );
@@ -2114,7 +2098,6 @@ function renderLinkDensityHistogram(data) {
   const container = d3.select("#chart-link-density .chart");
   container.html("");
 
-  // const linkCounts = data.map(d => d.links || 0);
 
   const rawLinks = data.map(d => d.links || 0);
   const q95 = d3.quantile(rawLinks, 0.95);
@@ -2154,7 +2137,7 @@ function renderLinkDensityHistogram(data) {
     .attr("width", d => Math.max(0, x(d.x1) - x(d.x0) - 2))
     .attr("height", d => y(0) - y(d.length));
 
-  // ✅ Attach global tooltip:
+
   attachGlobalTooltip(bars, d =>
     `Link Range: ${d.x0} – ${d.x1}<br>Count: ${d.length}`
   );
@@ -2233,7 +2216,7 @@ function renderLinkDistributionBar(data) {
     .attr("height", d => y(0) - y(d.count))
     .attr("fill", d => color(d.type));
 
-  // ✅ Global hover and tooltip:
+
   attachGlobalTooltip(bars, d =>
     `Link Type: ${d.type}<br>Count: ${d.count}`
   );
@@ -2319,7 +2302,7 @@ function renderTopPrefixesBar(data) {
     .attr("width", x.bandwidth())
     .attr("height", d => Math.max(0, y(0) - y(d.value)));
 
-  // ✅ Attach hover and tooltip globally consistent:
+
   attachGlobalTooltip(bars, d =>
     `Prefix: ${d.key}<br>Count: ${d.value}`
   );
@@ -2360,7 +2343,7 @@ function renderTopDirectoriesBar(data) {
   const container = d3.select("#chart-top-directories .chart");
   container.html("");
 
-  // Aggregate counts by directory
+
   const dirCounts = d3.rollups(
     data,
     v => v.length,
@@ -2403,7 +2386,7 @@ function renderTopDirectoriesBar(data) {
     .attr("width", d => x(d.count) - margin.left)
     .attr("fill", d => color(d.directory));
 
-  // ✅ Attach consistent global tooltip
+ 
   attachGlobalTooltip(bars, d =>
     `Directory: ${d.directory}<br>File Count: ${d.count}`
   );
@@ -2492,7 +2475,7 @@ function renderCommonWordsBar(data) {
     .attr("width", d => Math.max(0, x(d.value) - x(0)))
     .attr("height", y.bandwidth());
 
-  // ✅ Attach global hover/tooltip behavior:
+  
   attachGlobalTooltip(bars, d =>
     `Word: ${d.key}<br>Count: ${d.value}`
   );
@@ -2554,7 +2537,7 @@ function renderFileClustersBarSummary(data) {
     .domain([0, d3.max(data, d => d.count) * 1.1]).nice()
     .range([height - margin.bottom, margin.top]);
 
-  // draw bars and capture selection
+  
   const bars = svg.append("g")
     .attr("fill", "#3f8efc")
     .selectAll("rect")
@@ -2565,7 +2548,7 @@ function renderFileClustersBarSummary(data) {
       .attr("width", x.bandwidth())
       .attr("height", d => y(0) - y(d.count));
 
-  // ✨ attach the global tooltip helper here
+
   attachGlobalTooltip(bars, d =>
     `Cluster: ${d.cluster}<br>Files: ${d.count}`
   );
@@ -2687,7 +2670,7 @@ function renderDirectoryDepthPie(data) {
     .domain(depthCounts.map(d => d.key))
     .range(d3.schemeSet2);
 
-  // 🔔 Exaggerate small slices (< 5%) by 3x
+
   const pie = d3.pie()
     .value(d => {
       const percent = d.value / totalFiles * 100;
@@ -2712,7 +2695,7 @@ function renderDirectoryDepthPie(data) {
     .attr("stroke", "#fff")
     .attr("stroke-width", 1);
 
-  // Percentage labels (based on true values, not exaggerated ones)
+
   arcs.append("text")
     .attr("transform", d => `translate(${labelArc.centroid(d)})`)
     .attr("text-anchor", "middle")
@@ -2762,11 +2745,10 @@ function renderNamingConventionPie(data) {
     .append("g")
     .attr("transform", `translate(${width / 2}, ${height / 2})`);
 
-  // Custom color assignment for consistent styling
+
   const color = d3.scaleOrdinal()
     .domain(["Underscore (_)", "Hyphen (-)"])
-    .range(["#00BFFF", "#FFD700"]);  // Light blue, Yellow
-
+    .range(["#00BFFF", "#FFD700"]); 
   const pie = d3.pie()
     .value(d => d.count);
 
@@ -2782,12 +2764,11 @@ function renderNamingConventionPie(data) {
     .data(pie(pieData))
     .join("g");
 
-  // Pie slices
+
   arcs.append("path")
     .attr("d", arc)
     .attr("fill", d => color(d.data.style));
 
-  // Percentage inside slices
   arcs.append("text")
     .attr("transform", d => `translate(${arc.centroid(d)})`)
     .attr("text-anchor", "middle")
@@ -2798,7 +2779,6 @@ function renderNamingConventionPie(data) {
       return `${percent.toFixed(1)}%`;
     });
 
-  // External labels for styles
   arcs.append("text")
     .attr("transform", d => `translate(${outerArc.centroid(d)})`)
     .attr("text-anchor", "middle")
@@ -2845,16 +2825,16 @@ function renderWordCountBoxPlot(data) {
   const min = d3.min(sorted.filter(d => d >= lowerFence));
   const max = d3.max(sorted.filter(d => d <= upperFence));
 
-  // Box
+
   svg.append("rect")
     .attr("x", x(q1))
     .attr("y", center - boxWidth / 2)
     .attr("width", x(q3) - x(q1))
     .attr("height", boxWidth)
     .attr("stroke", "black")
-    .attr("fill", "none");  // No gray fill for closer match (optional)
+    .attr("fill", "none");  
 
-  // Median line (orange/yellow)
+
   svg.append("line")
     .attr("x1", x(median))
     .attr("x2", x(median))
@@ -2863,7 +2843,7 @@ function renderWordCountBoxPlot(data) {
     .attr("stroke", "orange")
     .attr("stroke-width", 2);
 
-  // Whisker caps (just endpoints, no horizontal line through box)
+
   svg.append("line")
     .attr("x1", x(min))
     .attr("x2", x(min))
@@ -2878,7 +2858,6 @@ function renderWordCountBoxPlot(data) {
     .attr("y2", center + boxWidth / 4)
     .attr("stroke", "black");
 
-  // Vertical whisker line (optional: add if you want the whisker)
   svg.append("line")
     .attr("x1", x(min))
     .attr("x2", x(q1))
@@ -2893,7 +2872,6 @@ function renderWordCountBoxPlot(data) {
     .attr("y2", center)
     .attr("stroke", "black");
 
-  // Outlier points
   const outliers = filtered.filter(d => d < min || d > max);
   svg.append("g")
     .selectAll("circle")
@@ -2904,7 +2882,6 @@ function renderWordCountBoxPlot(data) {
       .attr("r", 3)
       .attr("fill", "black");
 
-  // Axis
   svg.append("g")
     .attr("transform", `translate(0,${height - margin.bottom})`)
     .call(d3.axisBottom(x).ticks(5));
