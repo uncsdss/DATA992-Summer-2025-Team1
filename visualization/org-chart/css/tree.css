@@ -52,7 +52,6 @@ header .home-btn {
 
 
 
-/* --- link strokes & node styling --- */
 .link {
   fill: none;
   stroke: #ccc;
@@ -70,9 +69,9 @@ header .home-btn {
 
 
 .chart-container {
-  margin-top: 60px;                     /* push it below the header */
+  margin-top: 60px;                   
   width: 70%;
-  height: calc(100% − 60px);            /* shrink its height by the header’s height */
+  height: calc(100% − 60px);           
   overflow: hidden;
   background: #f6f6f6;
 }

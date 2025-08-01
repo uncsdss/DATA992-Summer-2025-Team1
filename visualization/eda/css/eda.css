@@ -15,7 +15,7 @@
   max-width: 400px;
   flex: 1 1 310px;
   margin-bottom: 0;
-  cursor: pointer; /* Make all charts clearly clickable */
+  cursor: pointer; 
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -76,21 +76,9 @@
 }
 
 #tooltip {
-  z-index: 2000; /* Ensure tooltip is on top of modal */
+  z-index: 2000; 
 }
 
-
-/* .graph-modal-content {
-  background-color: #fff;
-  margin: 7% auto;
-  padding: 1rem;
-  border-radius: 8px;
-  width: 80vw;
-  height: 80vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-} */
 
 .graph-modal-content {
   background-color: #fff;
@@ -104,10 +92,6 @@
   align-items: center;
 }
 
-/* .graph-modal-content svg {
-  width: 98%;
-  height: 98%;
-} */
 
 
 
@@ -138,7 +122,7 @@
 }
 
 #graph-modal-body svg {
-  max-height: 55vh; /* Add this line */
+  max-height: 55vh; 
   height: auto;
   width: 100%;
   object-fit: contain;
