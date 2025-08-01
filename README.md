@@ -153,6 +153,7 @@ Utilizing NLP techniques, generate enriched metadata tags to augment existing se
 ## Repository Structure
 
 ```
+```
 root-Summer-2025-Team1/
 ├── .github/
 │   ├── CODEOWNERS
@@ -177,14 +178,33 @@ root-Summer-2025-Team1/
 │   ├── 01_data_retrieval.ipynb
 │   ├── 02_eda.ipynb
 │   ├── 03_preprocessing.ipynb
-│   └── ...
+│   ├── 04_model_evaluation.ipynb
+│   └── 05_visualization.ipynb
 ├── proof-of-concepts/
-│   └── nearest_neighbor.ipynb
+│   ├── nearest_neighbor.ipynb
+│   └── bert_topic_modeling.ipynb
 ├── README.md
 ├── requirements.txt
 ├── setup.py
 ├── src/
+│   ├── data_processing.py
+│   ├── metadata_generator.py
+│   ├── model_training.py
+│   └── utils.py
 ├── visualization/
+│   ├── assets/
+│   │   ├── logo.png
+│   │   └── styles.css
+│   ├── react-app/
+│   |   ├── src/
+│   |   │   ├── App.js
+│   |   │   ├── index.js
+│   |   │   └── components/
+│   |   │       ├── Chart.js
+│   |   │       └── Table.js
+│   |   ├── public/
+│   |       ├── index.html
+│   |       └── favicon.ico
 │   ├── css/
 │   │   └── main.css
 │   ├── eda/
@@ -198,6 +218,7 @@ root-Summer-2025-Team1/
 │       ├── org-chart.html
 │       └── js/
 │           └── tree.js
+```
 ```
 
 ---
