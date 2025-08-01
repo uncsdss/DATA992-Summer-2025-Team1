@@ -151,72 +151,82 @@ Utilizing NLP techniques, generate enriched metadata tags to augment existing se
 ## Repository Structure
 
 ```
-```
-root-Summer-2025-Team1/
+Summer-2025-Team1/
 ├── .github/
 │   ├── CODEOWNERS
-│   └── .gitignore
-├── data/
-│   ├── bluexp-dataset/
+│   └── workflows/                # (optional CI/CD setup)
+│       └── main.yml
+├── .gitignore
+├── README.md
+├── requirements.txt
+├── setup.py
+
+├── data/                         # Raw and processed data
+│   ├── bluexp/                   # More concise than "bluexp-dataset"
 │   │   ├── uuid_file_map.csv
-│   │   └── tenancyv4/
-│   │       └── tenancyv4.yaml
-├── docs/
+│   │   └── tenancy/              # More generic than "tenancyv4"
+│   │       └── tenancy.yaml
+
+├── docs/                         # Project documentation
 │   └── literature_review.md
-├── final-proposal.ipynb
-├── images/
-├── metadata-concepts/
-│   ├── cell_2_extracted_adoc_docs
-│   ├── cell_3_extracted_metadata.json
-│   ├── metadata_catalog.json
-│   ├── Named_Entity_Rec.ipynb
-│   ├── preprocessing-metadata-proposed.ipynb
-│   └── summarizer_classifier_metadata.ipynb
-├── notebooks/
+
+├── notebooks/                    # Primary workflow notebooks
 │   ├── 01_data_retrieval.ipynb
 │   ├── 02_eda.ipynb
 │   ├── 03_preprocessing.ipynb
 │   ├── 04_model_evaluation.ipynb
-│   └── 05_visualization.ipynb
-├── proof-of-concepts/
+│   ├── 05_visualization.ipynb
+│   └── final_proposal.ipynb      # Renamed for consistency
+
+├── experiments/                  # Renamed from proof-of-concepts
 │   ├── nearest_neighbor.ipynb
 │   └── bert_topic_modeling.ipynb
-├── README.md
-├── requirements.txt
-├── setup.py
-├── src/
+
+├── metadata/                     # Renamed from metadata-concepts
+│   ├── extracted_adoc_docs/      # Renamed from cell_2_...
+│   ├── extracted_metadata.json   # Renamed from cell_3_...
+│   ├── metadata_catalog.json
+│   ├── named_entity_rec.ipynb    # snake_case for consistency
+│   ├── preprocessing.ipynb       # simplified
+│   └── summarizer_classifier.ipynb
+
+├── src/                          # Source Python code
+│   ├── __init__.py               # Make it a package
 │   ├── data_processing.py
 │   ├── metadata_generator.py
 │   ├── model_training.py
 │   └── utils.py
-├── visualization/
-│   ├── assets/
+
+├── visualizations/               # Renamed from visualization
+│   ├── static/                   # Renamed from assets/
 │   │   ├── logo.png
 │   │   └── styles.css
-│   ├── react-app/
-│   |   ├── src/
-│   |   │   ├── App.js
-│   |   │   ├── index.js
-│   |   │   └── components/
-│   |   │       ├── Chart.js
-│   |   │       └── Table.js
-│   |   ├── public/
-│   |       ├── index.html
-│   |       └── favicon.ico
-│   ├── css/
-│   │   └── main.css
+│
+│   ├── react_app/                # snake_case & underscores
+│   │   ├── src/
+│   │   │   ├── App.js
+│   │   │   ├── index.js
+│   │   │   └── components/
+│   │   │       ├── Chart.js
+│   │   │       └── Table.js
+│   │   └── public/
+│   │       ├── index.html
+│   │       └── favicon.ico
+│
 │   ├── eda/
 │   │   └── eda.html
+│
 │   ├── explorer/
 │   │   ├── explorer.html
 │   │   └── js/
 │   │       └── tree.js
-│   ├── index.html
-│   └── org-chart/
-│       ├── org-chart.html
-│       └── js/
-│           └── tree.js
-```
+│
+│   ├── org_chart/
+│   │   ├── org_chart.html        # snake_case naming
+│   │   └── js/
+│   │       └── tree.js
+│
+│   └── index.html
 ```
 
 ---
