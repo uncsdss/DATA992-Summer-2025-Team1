@@ -355,7 +355,7 @@ To terminate the python HTTP server, you can use the keyboard shortcut:
 
 Our project explores NLP-based metadata generation to improve document retrieval from the NetApp BlueXP documentation set. The literature covers techniques in hybrid retrieval, taxonomy-driven metadata design, query reformulation, topic modeling, and automated tag evaluation. Together, these sources inform our approach of using BERT-based models (e.g., BERTopic, KeyBERT), LLM-driven summaries, and rule-based extraction to generate and validate metadata tags.
 
-See the [full literature review here](literature_review.md).
+See the [full literature review here](./docs/literature_review.md).
 
 ## Final Presentation
 
